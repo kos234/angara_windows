@@ -1,46 +1,77 @@
 #pragma once
 #include <string>
 #include <vector>
+#include <functional>
 
-void setDBConnect(const char *);
+namespace angarawindows {
 
-class WaterPumpWindow {
+	void setDBConnect(const char*);
+
+	template <typename OBS>class ObserverValue {
+		OBS value;
+
+		std::vector<std::function<void(OBS)>> eventHandlers;
+
 	public:
+		bool isUpdate;
+		ObserverValue() {};
+		ObserverValue(OBS value) {
+			this->value = value;
+		};
+		void setValue(OBS value);
+		void addEventListener(std::function<void(OBS)>);
+		void removeEventListener(std::function<void(OBS)>);
+		void throwEvent();
+		OBS getValue();
+	};
+
+
+	template <typename OBS>class ObserverArray {
+		std::vector<OBS> value;
+		bool isUpdate;
+
+		std::vector<std::function<void(std::vector<OBS>*)>> eventHandlers;
+
+	public:
+		ObserverArray() {};
+		void addEventListener(std::function<void(std::vector<OBS>*)>);
+		void removeEventListener(std::function<void(std::vector<OBS>*)>);
+		void throwEvent();
+		std::vector<OBS>* getValue();
+	};
+
+	class WaterPumpWindow {
+	public:
+		ObserverValue<int> elemMove{ -1 };
 		int idLink;
-		/*ObserverValue<String> name;
-		ObserverValue<String> mark;
-		ObserverValue<int> diameter_nominal;
-		ObserverValue<int> turnovers_nominal;
-		ObserverValue<bool> enable;
-		ObserverValue<double> H0;
-		ObserverValue<double> S;
-		ObserverValue<double> N0;
-		ObserverValue<double> C;
+		int getas = 2;
+		ObserverValue<int> enable{ 0 };
+		ObserverValue<std::string> name;
+		ObserverValue<std::string> mark;
+		ObserverValue<double> diameter_nominal{ 0 };
+		ObserverValue<int> turnovers_nominal{ 0 };
+		ObserverValue<double> H0{ 0 };
+		ObserverValue<float> S{ 0 };
+		ObserverValue<double> N0{ 0 };
+		ObserverValue<double> C{ 0 };
 		struct ChartPoint{
 			double Q;
 			double H;
 			double N;
 		};
-		std::vector<ChartPoint> chartPoint;
-		ObserverValue<int> diameter_current;
-		ObserverValue<int> turnovers_current;*/
-
-
+		ObserverArray<ChartPoint> chartPoints;
+		ObserverValue<double> diameter_current{ 0 };
+		ObserverValue<int> turnovers_current{ 0 };
+		ObserverValue<double> resistance_current{ 0 };
+		ObserverValue<double> efficiency_min{ 0 };
+		ObserverValue<double> efficiency_max{ 0 };
+		ObserverValue<double> pressure_min{ 0 };
+		ObserverValue<double> pressure_max{ 0 };
+		ObserverValue<int> turnovers_min{ 0 };
+		ObserverValue<int> turnovers_max{ 0 };
+		ObserverValue<int> diameter_min{ 0 };
+		ObserverValue<int> diameter_max{ 0 };
 
 		void show(int idLink);
-};
-
-
-template <class OBS>class ObserverValue {
-	OBS value;
-	bool isUpdate;
-	typedef void (*func)(OBS value);
-
-	std::vector<func> eventHandlers;
-
-public:
-	void setValue(OBS value);
-	void addEventListener(void(*func)(OBS value));
-	void removeEventListener(void(*func)(OBS value));
-	OBS getValue();
-};
+	};
+}

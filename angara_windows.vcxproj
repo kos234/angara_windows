@@ -122,6 +122,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="angara_windows.cpp" />
+    <ClCompile Include="database_safe.cpp" />
+    <ClCompile Include="utils.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="angara_windows.h" />
