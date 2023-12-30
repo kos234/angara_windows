@@ -1,46 +1,10 @@
 #pragma once
-
-//#ifndef STRING
-//#define STRING
 #include <string>
-//#endif // !STRING
-
-//#ifndef VECTOR
-//#define VECTOR
 #include <vector>
-//#endif // !VECTOR
-
-//#ifndef FUCTIONAL
-//#define FUCTIONAL
 #include <functional>
-//#endif // !FUCTIONAL
+#include "main.h"
 
 namespace angarawindows {
-
-	void setDBConnect(const char*);
-
-	template <typename OBS>class ObserverValue {
-		OBS value;
-		bool userNotEdit = true;
-
-		std::vector<std::function<void(OBS &)>> eventHandlers;
-
-	public:
-		bool isUpdate = false;
-		ObserverValue() {};
-		ObserverValue(const OBS &value) {
-			this->value = value;
-		};
-		void setValue(const OBS &value);
-		void addEventListener(std::function<void(OBS &)>);
-		void removeEventListener(std::function<void(OBS &)>);
-		void throwEvent();
-		OBS & getValue();
-
-		bool isUserNotEdit();
-		void userEdit();
-	};
-
 	class WaterPumpWindow {
 	public:
 		struct ChartPoint {

@@ -9,7 +9,6 @@
 
 namespace angarawindows {
 
-
 	double getCPD(double H, double Q, double N) {
 		return 0.272407 * H * Q / N;
 	}
@@ -230,7 +229,7 @@ namespace angarawindows {
 			}
 		}
 
-		if (isNot)
+		if (isNot && box->Text->Length != 0)
 			throw std::invalid_argument("");
 
 		return (isMinus ? -1 : 1) * ans;

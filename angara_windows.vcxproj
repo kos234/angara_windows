@@ -125,10 +125,12 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="angara_windows.cpp" />
+    <ClCompile Include="main.cpp" />
     <ClCompile Include="utils.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="angara_windows.h" />
+    <ClInclude Include="main.h" />
     <ClInclude Include="Pipe.h">
       <FileType>CppForm</FileType>
     </ClInclude>

@@ -12,30 +12,6 @@ namespace angarawindows {
 	using namespace System::Windows::Forms;
 	using namespace System::Data::OleDb;
 
-	const char* urlConnect;
-
-
-	void setDBConnect(const char* connect) {
-		urlConnect = connect;
-		Application::SetCompatibleTextRenderingDefault(false);
-		Application::EnableVisualStyles();
-	}
-
-	[STAThreadAttribute]
-		void abstactShow(System::Windows::Forms::Form^ form) {
-		Application::Run(form);
-	}
-
-	void abstactQuery(String^ sql, std::function<void(msclr::gcroot<OleDbDataReader^>)> func) {
-		OleDbConnection^ connection = gcnew OleDbConnection(gcnew String(urlConnect));
-		connection->Open();
-		OleDbCommand^ command = gcnew OleDbCommand(sql, connection);
-		OleDbDataReader^ reader = command->ExecuteReader();
-		func(reader);
-		reader->Close();
-		connection->Close();
-	};
-
 	[STAThreadAttribute]
 	void WaterPumpWindow::show(int idLink) {
 		angarawindows::WaterPump form(this);
@@ -81,6 +57,7 @@ namespace angarawindows {
 		this->resistance_min.addEventListener([&stackLink, this](const double & value) {
 
 			stackLink->pump_slide_s->Maximum = 100;
+			stackLink->pump_slide_s->Minimum = 0;
 			stackLink->pump_slide_s->TickFrequency = 10;
 		});
 		this->resistance_current.addEventListener([&stackLink, this](const double& value) {
@@ -378,7 +355,10 @@ namespace angarawindows {
 
 			
 			if (Double::IsInfinity(resMin) || Double::IsNaN(resMin))
-				resMin = data.S;
+				if(data.S == 0)
+					resMin = 1;
+				else
+					resMin = resMin = data.H0 / (0.1) - data.S;
 
 			this->resistance_min.setValue(resMin);
 
@@ -444,12 +424,4 @@ namespace angarawindows {
 		this->userNotEdit = false;
 	}
 
-}
-
-int maind() {
-	angarawindows::setDBConnect("provider=Microsoft.ACE.OLEDB.12.0;Data Source=C:\\Users\\User\\Documents\\TP_EqNS_ML.MDB");
-
-	angarawindows::WaterPumpWindow windPump;
-	windPump.show();
-	return 0;
 }

@@ -205,41 +205,41 @@ private: System::Windows::Forms::ToolTip^ toolTip1;
 		void InitializeComponent(void)
 		{
 			this->components = (gcnew System::ComponentModel::Container());
-			System::Windows::Forms::DataVisualization::Charting::ChartArea^ chartArea1 = (gcnew System::Windows::Forms::DataVisualization::Charting::ChartArea());
-			System::Windows::Forms::DataVisualization::Charting::Legend^ legend1 = (gcnew System::Windows::Forms::DataVisualization::Charting::Legend());
-			System::Windows::Forms::DataVisualization::Charting::Series^ series1 = (gcnew System::Windows::Forms::DataVisualization::Charting::Series());
-			System::Windows::Forms::DataVisualization::Charting::DataPoint^ dataPoint1 = (gcnew System::Windows::Forms::DataVisualization::Charting::DataPoint(9,
+			System::Windows::Forms::DataVisualization::Charting::ChartArea^ chartArea4 = (gcnew System::Windows::Forms::DataVisualization::Charting::ChartArea());
+			System::Windows::Forms::DataVisualization::Charting::Legend^ legend4 = (gcnew System::Windows::Forms::DataVisualization::Charting::Legend());
+			System::Windows::Forms::DataVisualization::Charting::Series^ series16 = (gcnew System::Windows::Forms::DataVisualization::Charting::Series());
+			System::Windows::Forms::DataVisualization::Charting::DataPoint^ dataPoint8 = (gcnew System::Windows::Forms::DataVisualization::Charting::DataPoint(9,
 				9));
-			System::Windows::Forms::DataVisualization::Charting::Series^ series2 = (gcnew System::Windows::Forms::DataVisualization::Charting::Series());
-			System::Windows::Forms::DataVisualization::Charting::Series^ series3 = (gcnew System::Windows::Forms::DataVisualization::Charting::Series());
-			System::Windows::Forms::DataVisualization::Charting::Series^ series4 = (gcnew System::Windows::Forms::DataVisualization::Charting::Series());
-			System::Windows::Forms::DataVisualization::Charting::Series^ series5 = (gcnew System::Windows::Forms::DataVisualization::Charting::Series());
-			System::Windows::Forms::DataVisualization::Charting::ChartArea^ chartArea2 = (gcnew System::Windows::Forms::DataVisualization::Charting::ChartArea());
-			System::Windows::Forms::DataVisualization::Charting::Legend^ legend2 = (gcnew System::Windows::Forms::DataVisualization::Charting::Legend());
-			System::Windows::Forms::DataVisualization::Charting::Series^ series6 = (gcnew System::Windows::Forms::DataVisualization::Charting::Series());
-			System::Windows::Forms::DataVisualization::Charting::DataPoint^ dataPoint2 = (gcnew System::Windows::Forms::DataVisualization::Charting::DataPoint(0,
+			System::Windows::Forms::DataVisualization::Charting::Series^ series17 = (gcnew System::Windows::Forms::DataVisualization::Charting::Series());
+			System::Windows::Forms::DataVisualization::Charting::Series^ series18 = (gcnew System::Windows::Forms::DataVisualization::Charting::Series());
+			System::Windows::Forms::DataVisualization::Charting::Series^ series19 = (gcnew System::Windows::Forms::DataVisualization::Charting::Series());
+			System::Windows::Forms::DataVisualization::Charting::Series^ series20 = (gcnew System::Windows::Forms::DataVisualization::Charting::Series());
+			System::Windows::Forms::DataVisualization::Charting::ChartArea^ chartArea5 = (gcnew System::Windows::Forms::DataVisualization::Charting::ChartArea());
+			System::Windows::Forms::DataVisualization::Charting::Legend^ legend5 = (gcnew System::Windows::Forms::DataVisualization::Charting::Legend());
+			System::Windows::Forms::DataVisualization::Charting::Series^ series21 = (gcnew System::Windows::Forms::DataVisualization::Charting::Series());
+			System::Windows::Forms::DataVisualization::Charting::DataPoint^ dataPoint9 = (gcnew System::Windows::Forms::DataVisualization::Charting::DataPoint(0,
 				130));
-			System::Windows::Forms::DataVisualization::Charting::DataPoint^ dataPoint3 = (gcnew System::Windows::Forms::DataVisualization::Charting::DataPoint(5,
+			System::Windows::Forms::DataVisualization::Charting::DataPoint^ dataPoint10 = (gcnew System::Windows::Forms::DataVisualization::Charting::DataPoint(5,
 				10));
-			System::Windows::Forms::DataVisualization::Charting::DataPoint^ dataPoint4 = (gcnew System::Windows::Forms::DataVisualization::Charting::DataPoint(10,
+			System::Windows::Forms::DataVisualization::Charting::DataPoint^ dataPoint11 = (gcnew System::Windows::Forms::DataVisualization::Charting::DataPoint(10,
 				3));
-			System::Windows::Forms::DataVisualization::Charting::Series^ series7 = (gcnew System::Windows::Forms::DataVisualization::Charting::Series());
-			System::Windows::Forms::DataVisualization::Charting::Series^ series8 = (gcnew System::Windows::Forms::DataVisualization::Charting::Series());
-			System::Windows::Forms::DataVisualization::Charting::Series^ series9 = (gcnew System::Windows::Forms::DataVisualization::Charting::Series());
-			System::Windows::Forms::DataVisualization::Charting::Series^ series10 = (gcnew System::Windows::Forms::DataVisualization::Charting::Series());
-			System::Windows::Forms::DataVisualization::Charting::ChartArea^ chartArea3 = (gcnew System::Windows::Forms::DataVisualization::Charting::ChartArea());
-			System::Windows::Forms::DataVisualization::Charting::Legend^ legend3 = (gcnew System::Windows::Forms::DataVisualization::Charting::Legend());
-			System::Windows::Forms::DataVisualization::Charting::Series^ series11 = (gcnew System::Windows::Forms::DataVisualization::Charting::Series());
-			System::Windows::Forms::DataVisualization::Charting::DataPoint^ dataPoint5 = (gcnew System::Windows::Forms::DataVisualization::Charting::DataPoint(0,
+			System::Windows::Forms::DataVisualization::Charting::Series^ series22 = (gcnew System::Windows::Forms::DataVisualization::Charting::Series());
+			System::Windows::Forms::DataVisualization::Charting::Series^ series23 = (gcnew System::Windows::Forms::DataVisualization::Charting::Series());
+			System::Windows::Forms::DataVisualization::Charting::Series^ series24 = (gcnew System::Windows::Forms::DataVisualization::Charting::Series());
+			System::Windows::Forms::DataVisualization::Charting::Series^ series25 = (gcnew System::Windows::Forms::DataVisualization::Charting::Series());
+			System::Windows::Forms::DataVisualization::Charting::ChartArea^ chartArea6 = (gcnew System::Windows::Forms::DataVisualization::Charting::ChartArea());
+			System::Windows::Forms::DataVisualization::Charting::Legend^ legend6 = (gcnew System::Windows::Forms::DataVisualization::Charting::Legend());
+			System::Windows::Forms::DataVisualization::Charting::Series^ series26 = (gcnew System::Windows::Forms::DataVisualization::Charting::Series());
+			System::Windows::Forms::DataVisualization::Charting::DataPoint^ dataPoint12 = (gcnew System::Windows::Forms::DataVisualization::Charting::DataPoint(0,
 				130));
-			System::Windows::Forms::DataVisualization::Charting::DataPoint^ dataPoint6 = (gcnew System::Windows::Forms::DataVisualization::Charting::DataPoint(5,
+			System::Windows::Forms::DataVisualization::Charting::DataPoint^ dataPoint13 = (gcnew System::Windows::Forms::DataVisualization::Charting::DataPoint(5,
 				10));
-			System::Windows::Forms::DataVisualization::Charting::DataPoint^ dataPoint7 = (gcnew System::Windows::Forms::DataVisualization::Charting::DataPoint(10,
+			System::Windows::Forms::DataVisualization::Charting::DataPoint^ dataPoint14 = (gcnew System::Windows::Forms::DataVisualization::Charting::DataPoint(10,
 				3));
-			System::Windows::Forms::DataVisualization::Charting::Series^ series12 = (gcnew System::Windows::Forms::DataVisualization::Charting::Series());
-			System::Windows::Forms::DataVisualization::Charting::Series^ series13 = (gcnew System::Windows::Forms::DataVisualization::Charting::Series());
-			System::Windows::Forms::DataVisualization::Charting::Series^ series14 = (gcnew System::Windows::Forms::DataVisualization::Charting::Series());
-			System::Windows::Forms::DataVisualization::Charting::Series^ series15 = (gcnew System::Windows::Forms::DataVisualization::Charting::Series());
+			System::Windows::Forms::DataVisualization::Charting::Series^ series27 = (gcnew System::Windows::Forms::DataVisualization::Charting::Series());
+			System::Windows::Forms::DataVisualization::Charting::Series^ series28 = (gcnew System::Windows::Forms::DataVisualization::Charting::Series());
+			System::Windows::Forms::DataVisualization::Charting::Series^ series29 = (gcnew System::Windows::Forms::DataVisualization::Charting::Series());
+			System::Windows::Forms::DataVisualization::Charting::Series^ series30 = (gcnew System::Windows::Forms::DataVisualization::Charting::Series());
 			this->flowLayoutPanel16 = (gcnew System::Windows::Forms::FlowLayoutPanel());
 			this->panel4 = (gcnew System::Windows::Forms::Panel());
 			this->flowLayoutPanel2 = (gcnew System::Windows::Forms::FlowLayoutPanel());
@@ -509,83 +509,83 @@ private: System::Windows::Forms::ToolTip^ toolTip1;
 			// 
 			this->chart1->BackColor = System::Drawing::Color::Transparent;
 			this->chart1->BackImageWrapMode = System::Windows::Forms::DataVisualization::Charting::ChartImageWrapMode::Scaled;
-			chartArea1->AxisX->Interval = 2;
-			chartArea1->AxisX->IntervalAutoMode = System::Windows::Forms::DataVisualization::Charting::IntervalAutoMode::VariableCount;
-			chartArea1->AxisX->LineColor = System::Drawing::Color::Gray;
-			chartArea1->AxisX->LogarithmBase = 100;
-			chartArea1->AxisX->MajorGrid->LineColor = System::Drawing::Color::Gray;
-			chartArea1->AxisX->Maximum = 10;
-			chartArea1->AxisX->Minimum = 0;
-			chartArea1->AxisX->TitleFont = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 6));
-			chartArea1->AxisX2->LineColor = System::Drawing::Color::Gray;
-			chartArea1->AxisY->Interval = 2;
-			chartArea1->AxisY->IntervalAutoMode = System::Windows::Forms::DataVisualization::Charting::IntervalAutoMode::VariableCount;
-			chartArea1->AxisY->LineColor = System::Drawing::Color::Gray;
-			chartArea1->AxisY->MajorGrid->LineColor = System::Drawing::Color::Gray;
-			chartArea1->AxisY->Maximum = 10;
-			chartArea1->AxisY->Minimum = 0;
-			chartArea1->AxisY->TitleAlignment = System::Drawing::StringAlignment::Far;
-			chartArea1->AxisY2->LineColor = System::Drawing::Color::Gray;
-			chartArea1->BackColor = System::Drawing::Color::Transparent;
-			chartArea1->BackImageAlignment = System::Windows::Forms::DataVisualization::Charting::ChartImageAlignmentStyle::Center;
-			chartArea1->BorderColor = System::Drawing::Color::Gray;
-			chartArea1->Name = L"ChartArea1";
-			chartArea1->Position->Auto = false;
-			chartArea1->Position->Height = 100;
-			chartArea1->Position->Width = 100;
-			chartArea1->ShadowColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(128)), static_cast<System::Int32>(static_cast<System::Byte>(255)),
+			chartArea4->AxisX->Interval = 2;
+			chartArea4->AxisX->IntervalAutoMode = System::Windows::Forms::DataVisualization::Charting::IntervalAutoMode::VariableCount;
+			chartArea4->AxisX->LineColor = System::Drawing::Color::Gray;
+			chartArea4->AxisX->LogarithmBase = 100;
+			chartArea4->AxisX->MajorGrid->LineColor = System::Drawing::Color::Gray;
+			chartArea4->AxisX->Maximum = 10;
+			chartArea4->AxisX->Minimum = 0;
+			chartArea4->AxisX->TitleFont = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 6));
+			chartArea4->AxisX2->LineColor = System::Drawing::Color::Gray;
+			chartArea4->AxisY->Interval = 2;
+			chartArea4->AxisY->IntervalAutoMode = System::Windows::Forms::DataVisualization::Charting::IntervalAutoMode::VariableCount;
+			chartArea4->AxisY->LineColor = System::Drawing::Color::Gray;
+			chartArea4->AxisY->MajorGrid->LineColor = System::Drawing::Color::Gray;
+			chartArea4->AxisY->Maximum = 10;
+			chartArea4->AxisY->Minimum = 0;
+			chartArea4->AxisY->TitleAlignment = System::Drawing::StringAlignment::Far;
+			chartArea4->AxisY2->LineColor = System::Drawing::Color::Gray;
+			chartArea4->BackColor = System::Drawing::Color::Transparent;
+			chartArea4->BackImageAlignment = System::Windows::Forms::DataVisualization::Charting::ChartImageAlignmentStyle::Center;
+			chartArea4->BorderColor = System::Drawing::Color::Gray;
+			chartArea4->Name = L"ChartArea1";
+			chartArea4->Position->Auto = false;
+			chartArea4->Position->Height = 100;
+			chartArea4->Position->Width = 100;
+			chartArea4->ShadowColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(128)), static_cast<System::Int32>(static_cast<System::Byte>(255)),
 				static_cast<System::Int32>(static_cast<System::Byte>(128)));
-			this->chart1->ChartAreas->Add(chartArea1);
+			this->chart1->ChartAreas->Add(chartArea4);
 			this->chart1->Dock = System::Windows::Forms::DockStyle::Fill;
-			legend1->Enabled = false;
-			legend1->Name = L"Legend1";
-			legend1->TableStyle = System::Windows::Forms::DataVisualization::Charting::LegendTableStyle::Wide;
-			this->chart1->Legends->Add(legend1);
+			legend4->Enabled = false;
+			legend4->Name = L"Legend1";
+			legend4->TableStyle = System::Windows::Forms::DataVisualization::Charting::LegendTableStyle::Wide;
+			this->chart1->Legends->Add(legend4);
 			this->chart1->Location = System::Drawing::Point(0, 0);
 			this->chart1->Margin = System::Windows::Forms::Padding(0);
 			this->chart1->Name = L"chart1";
-			series1->BorderWidth = 2;
-			series1->ChartArea = L"ChartArea1";
-			series1->ChartType = System::Windows::Forms::DataVisualization::Charting::SeriesChartType::Spline;
-			series1->Color = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(0)), static_cast<System::Int32>(static_cast<System::Byte>(19)),
+			series16->BorderWidth = 2;
+			series16->ChartArea = L"ChartArea1";
+			series16->ChartType = System::Windows::Forms::DataVisualization::Charting::SeriesChartType::Spline;
+			series16->Color = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(0)), static_cast<System::Int32>(static_cast<System::Byte>(19)),
 				static_cast<System::Int32>(static_cast<System::Byte>(127)));
-			series1->Legend = L"Legend1";
-			series1->Name = L"Series1";
-			series1->Points->Add(dataPoint1);
-			series2->BorderWidth = 3;
-			series2->ChartArea = L"ChartArea1";
-			series2->ChartType = System::Windows::Forms::DataVisualization::Charting::SeriesChartType::Spline;
-			series2->Color = System::Drawing::Color::Blue;
-			series2->Legend = L"Legend1";
-			series2->Name = L"Series5";
-			series3->ChartArea = L"ChartArea1";
-			series3->ChartType = System::Windows::Forms::DataVisualization::Charting::SeriesChartType::Point;
-			series3->Color = System::Drawing::Color::Black;
-			series3->Legend = L"Legend1";
-			series3->MarkerSize = 18;
-			series3->MarkerStyle = System::Windows::Forms::DataVisualization::Charting::MarkerStyle::Circle;
-			series3->Name = L"Series2";
-			series4->ChartArea = L"ChartArea1";
-			series4->ChartType = System::Windows::Forms::DataVisualization::Charting::SeriesChartType::Point;
-			series4->Color = System::Drawing::Color::RoyalBlue;
-			series4->LabelForeColor = System::Drawing::Color::IndianRed;
-			series4->Legend = L"Legend1";
-			series4->MarkerSize = 13;
-			series4->MarkerStyle = System::Windows::Forms::DataVisualization::Charting::MarkerStyle::Circle;
-			series4->Name = L"Series3";
-			series4->ShadowColor = System::Drawing::Color::Empty;
-			series5->BorderDashStyle = System::Windows::Forms::DataVisualization::Charting::ChartDashStyle::Dash;
-			series5->BorderWidth = 2;
-			series5->ChartArea = L"ChartArea1";
-			series5->ChartType = System::Windows::Forms::DataVisualization::Charting::SeriesChartType::Line;
-			series5->Color = System::Drawing::Color::Red;
-			series5->Legend = L"Legend1";
-			series5->Name = L"Series4";
-			this->chart1->Series->Add(series1);
-			this->chart1->Series->Add(series2);
-			this->chart1->Series->Add(series3);
-			this->chart1->Series->Add(series4);
-			this->chart1->Series->Add(series5);
+			series16->Legend = L"Legend1";
+			series16->Name = L"Series1";
+			series16->Points->Add(dataPoint8);
+			series17->BorderWidth = 3;
+			series17->ChartArea = L"ChartArea1";
+			series17->ChartType = System::Windows::Forms::DataVisualization::Charting::SeriesChartType::Spline;
+			series17->Color = System::Drawing::Color::Blue;
+			series17->Legend = L"Legend1";
+			series17->Name = L"Series5";
+			series18->ChartArea = L"ChartArea1";
+			series18->ChartType = System::Windows::Forms::DataVisualization::Charting::SeriesChartType::Point;
+			series18->Color = System::Drawing::Color::Black;
+			series18->Legend = L"Legend1";
+			series18->MarkerSize = 18;
+			series18->MarkerStyle = System::Windows::Forms::DataVisualization::Charting::MarkerStyle::Circle;
+			series18->Name = L"Series2";
+			series19->ChartArea = L"ChartArea1";
+			series19->ChartType = System::Windows::Forms::DataVisualization::Charting::SeriesChartType::Point;
+			series19->Color = System::Drawing::Color::RoyalBlue;
+			series19->LabelForeColor = System::Drawing::Color::IndianRed;
+			series19->Legend = L"Legend1";
+			series19->MarkerSize = 13;
+			series19->MarkerStyle = System::Windows::Forms::DataVisualization::Charting::MarkerStyle::Circle;
+			series19->Name = L"Series3";
+			series19->ShadowColor = System::Drawing::Color::Empty;
+			series20->BorderDashStyle = System::Windows::Forms::DataVisualization::Charting::ChartDashStyle::Dash;
+			series20->BorderWidth = 2;
+			series20->ChartArea = L"ChartArea1";
+			series20->ChartType = System::Windows::Forms::DataVisualization::Charting::SeriesChartType::Line;
+			series20->Color = System::Drawing::Color::Red;
+			series20->Legend = L"Legend1";
+			series20->Name = L"Series4";
+			this->chart1->Series->Add(series16);
+			this->chart1->Series->Add(series17);
+			this->chart1->Series->Add(series18);
+			this->chart1->Series->Add(series19);
+			this->chart1->Series->Add(series20);
 			this->chart1->Size = System::Drawing::Size(343, 162);
 			this->chart1->TabIndex = 0;
 			this->chart1->Text = L"chart1";
@@ -608,72 +608,72 @@ private: System::Windows::Forms::ToolTip^ toolTip1;
 			// 
 			// chart2
 			// 
-			chartArea2->AxisX->IntervalAutoMode = System::Windows::Forms::DataVisualization::Charting::IntervalAutoMode::VariableCount;
-			chartArea2->AxisX->IsMarginVisible = false;
-			chartArea2->AxisX->LineColor = System::Drawing::Color::Gray;
-			chartArea2->AxisX->MajorGrid->LineColor = System::Drawing::Color::Gray;
-			chartArea2->AxisX->Minimum = 0;
-			chartArea2->AxisY->IntervalAutoMode = System::Windows::Forms::DataVisualization::Charting::IntervalAutoMode::VariableCount;
-			chartArea2->AxisY->IsMarginVisible = false;
-			chartArea2->AxisY->LineColor = System::Drawing::Color::Gray;
-			chartArea2->AxisY->MajorGrid->LineColor = System::Drawing::Color::Gray;
-			chartArea2->AxisY->Minimum = 0;
-			chartArea2->Name = L"ChartArea1";
-			chartArea2->Position->Auto = false;
-			chartArea2->Position->Height = 100;
-			chartArea2->Position->Width = 99.5F;
-			chartArea2->Position->X = 0.5F;
-			this->chart2->ChartAreas->Add(chartArea2);
-			legend2->Enabled = false;
-			legend2->Name = L"Legend1";
-			legend2->TableStyle = System::Windows::Forms::DataVisualization::Charting::LegendTableStyle::Wide;
-			this->chart2->Legends->Add(legend2);
+			chartArea5->AxisX->IntervalAutoMode = System::Windows::Forms::DataVisualization::Charting::IntervalAutoMode::VariableCount;
+			chartArea5->AxisX->IsMarginVisible = false;
+			chartArea5->AxisX->LineColor = System::Drawing::Color::Gray;
+			chartArea5->AxisX->MajorGrid->LineColor = System::Drawing::Color::Gray;
+			chartArea5->AxisX->Minimum = 0;
+			chartArea5->AxisY->IntervalAutoMode = System::Windows::Forms::DataVisualization::Charting::IntervalAutoMode::VariableCount;
+			chartArea5->AxisY->IsMarginVisible = false;
+			chartArea5->AxisY->LineColor = System::Drawing::Color::Gray;
+			chartArea5->AxisY->MajorGrid->LineColor = System::Drawing::Color::Gray;
+			chartArea5->AxisY->Minimum = 0;
+			chartArea5->Name = L"ChartArea1";
+			chartArea5->Position->Auto = false;
+			chartArea5->Position->Height = 100;
+			chartArea5->Position->Width = 99.5F;
+			chartArea5->Position->X = 0.5F;
+			this->chart2->ChartAreas->Add(chartArea5);
+			legend5->Enabled = false;
+			legend5->Name = L"Legend1";
+			legend5->TableStyle = System::Windows::Forms::DataVisualization::Charting::LegendTableStyle::Wide;
+			this->chart2->Legends->Add(legend5);
 			this->chart2->Location = System::Drawing::Point(0, 0);
 			this->chart2->Margin = System::Windows::Forms::Padding(0);
 			this->chart2->Name = L"chart2";
-			series6->BorderWidth = 2;
-			series6->ChartArea = L"ChartArea1";
-			series6->ChartType = System::Windows::Forms::DataVisualization::Charting::SeriesChartType::Spline;
-			series6->Color = System::Drawing::Color::DarkKhaki;
-			series6->Legend = L"Legend1";
-			series6->Name = L"Series1";
-			series6->Points->Add(dataPoint2);
-			series6->Points->Add(dataPoint3);
-			series6->Points->Add(dataPoint4);
-			series7->BorderWidth = 3;
-			series7->ChartArea = L"ChartArea1";
-			series7->ChartType = System::Windows::Forms::DataVisualization::Charting::SeriesChartType::Spline;
-			series7->Color = System::Drawing::Color::Gold;
-			series7->Legend = L"Legend1";
-			series7->Name = L"Series5";
-			series8->ChartArea = L"ChartArea1";
-			series8->ChartType = System::Windows::Forms::DataVisualization::Charting::SeriesChartType::Point;
-			series8->Color = System::Drawing::Color::Black;
-			series8->LabelForeColor = System::Drawing::Color::IndianRed;
-			series8->Legend = L"Legend1";
-			series8->MarkerSize = 18;
-			series8->MarkerStyle = System::Windows::Forms::DataVisualization::Charting::MarkerStyle::Circle;
-			series8->Name = L"Series3";
-			series8->ShadowColor = System::Drawing::Color::Empty;
-			series9->ChartArea = L"ChartArea1";
-			series9->ChartType = System::Windows::Forms::DataVisualization::Charting::SeriesChartType::Point;
-			series9->Color = System::Drawing::Color::Goldenrod;
-			series9->Legend = L"Legend1";
-			series9->MarkerSize = 13;
-			series9->MarkerStyle = System::Windows::Forms::DataVisualization::Charting::MarkerStyle::Circle;
-			series9->Name = L"Series2";
-			series10->BorderDashStyle = System::Windows::Forms::DataVisualization::Charting::ChartDashStyle::Dash;
-			series10->BorderWidth = 2;
-			series10->ChartArea = L"ChartArea1";
-			series10->ChartType = System::Windows::Forms::DataVisualization::Charting::SeriesChartType::Line;
-			series10->Color = System::Drawing::Color::Red;
-			series10->Legend = L"Legend1";
-			series10->Name = L"Series4";
-			this->chart2->Series->Add(series6);
-			this->chart2->Series->Add(series7);
-			this->chart2->Series->Add(series8);
-			this->chart2->Series->Add(series9);
-			this->chart2->Series->Add(series10);
+			series21->BorderWidth = 2;
+			series21->ChartArea = L"ChartArea1";
+			series21->ChartType = System::Windows::Forms::DataVisualization::Charting::SeriesChartType::Spline;
+			series21->Color = System::Drawing::Color::DarkKhaki;
+			series21->Legend = L"Legend1";
+			series21->Name = L"Series1";
+			series21->Points->Add(dataPoint9);
+			series21->Points->Add(dataPoint10);
+			series21->Points->Add(dataPoint11);
+			series22->BorderWidth = 3;
+			series22->ChartArea = L"ChartArea1";
+			series22->ChartType = System::Windows::Forms::DataVisualization::Charting::SeriesChartType::Spline;
+			series22->Color = System::Drawing::Color::Gold;
+			series22->Legend = L"Legend1";
+			series22->Name = L"Series5";
+			series23->ChartArea = L"ChartArea1";
+			series23->ChartType = System::Windows::Forms::DataVisualization::Charting::SeriesChartType::Point;
+			series23->Color = System::Drawing::Color::Black;
+			series23->LabelForeColor = System::Drawing::Color::IndianRed;
+			series23->Legend = L"Legend1";
+			series23->MarkerSize = 18;
+			series23->MarkerStyle = System::Windows::Forms::DataVisualization::Charting::MarkerStyle::Circle;
+			series23->Name = L"Series3";
+			series23->ShadowColor = System::Drawing::Color::Empty;
+			series24->ChartArea = L"ChartArea1";
+			series24->ChartType = System::Windows::Forms::DataVisualization::Charting::SeriesChartType::Point;
+			series24->Color = System::Drawing::Color::Goldenrod;
+			series24->Legend = L"Legend1";
+			series24->MarkerSize = 13;
+			series24->MarkerStyle = System::Windows::Forms::DataVisualization::Charting::MarkerStyle::Circle;
+			series24->Name = L"Series2";
+			series25->BorderDashStyle = System::Windows::Forms::DataVisualization::Charting::ChartDashStyle::Dash;
+			series25->BorderWidth = 2;
+			series25->ChartArea = L"ChartArea1";
+			series25->ChartType = System::Windows::Forms::DataVisualization::Charting::SeriesChartType::Line;
+			series25->Color = System::Drawing::Color::Red;
+			series25->Legend = L"Legend1";
+			series25->Name = L"Series4";
+			this->chart2->Series->Add(series21);
+			this->chart2->Series->Add(series22);
+			this->chart2->Series->Add(series23);
+			this->chart2->Series->Add(series24);
+			this->chart2->Series->Add(series25);
 			this->chart2->Size = System::Drawing::Size(343, 162);
 			this->chart2->TabIndex = 0;
 			this->chart2->Text = L"chart2";
@@ -695,69 +695,69 @@ private: System::Windows::Forms::ToolTip^ toolTip1;
 			// 
 			// chart3
 			// 
-			chartArea3->AxisX->IntervalAutoMode = System::Windows::Forms::DataVisualization::Charting::IntervalAutoMode::VariableCount;
-			chartArea3->AxisX->LineColor = System::Drawing::Color::Gray;
-			chartArea3->AxisX->MajorGrid->LineColor = System::Drawing::Color::Gray;
-			chartArea3->AxisX->Minimum = 0;
-			chartArea3->AxisY->IntervalAutoMode = System::Windows::Forms::DataVisualization::Charting::IntervalAutoMode::VariableCount;
-			chartArea3->AxisY->LineColor = System::Drawing::Color::Gray;
-			chartArea3->AxisY->MajorGrid->LineColor = System::Drawing::Color::Gray;
-			chartArea3->AxisY->Minimum = 0;
-			chartArea3->Name = L"ChartArea1";
-			chartArea3->Position->Auto = false;
-			chartArea3->Position->Height = 100;
-			chartArea3->Position->Width = 100;
-			this->chart3->ChartAreas->Add(chartArea3);
-			legend3->Enabled = false;
-			legend3->Name = L"Legend1";
-			legend3->TableStyle = System::Windows::Forms::DataVisualization::Charting::LegendTableStyle::Wide;
-			this->chart3->Legends->Add(legend3);
+			chartArea6->AxisX->IntervalAutoMode = System::Windows::Forms::DataVisualization::Charting::IntervalAutoMode::VariableCount;
+			chartArea6->AxisX->LineColor = System::Drawing::Color::Gray;
+			chartArea6->AxisX->MajorGrid->LineColor = System::Drawing::Color::Gray;
+			chartArea6->AxisX->Minimum = 0;
+			chartArea6->AxisY->IntervalAutoMode = System::Windows::Forms::DataVisualization::Charting::IntervalAutoMode::VariableCount;
+			chartArea6->AxisY->LineColor = System::Drawing::Color::Gray;
+			chartArea6->AxisY->MajorGrid->LineColor = System::Drawing::Color::Gray;
+			chartArea6->AxisY->Minimum = 0;
+			chartArea6->Name = L"ChartArea1";
+			chartArea6->Position->Auto = false;
+			chartArea6->Position->Height = 100;
+			chartArea6->Position->Width = 100;
+			this->chart3->ChartAreas->Add(chartArea6);
+			legend6->Enabled = false;
+			legend6->Name = L"Legend1";
+			legend6->TableStyle = System::Windows::Forms::DataVisualization::Charting::LegendTableStyle::Wide;
+			this->chart3->Legends->Add(legend6);
 			this->chart3->Location = System::Drawing::Point(0, 0);
 			this->chart3->Margin = System::Windows::Forms::Padding(0);
 			this->chart3->Name = L"chart3";
-			series11->BorderWidth = 2;
-			series11->ChartArea = L"ChartArea1";
-			series11->ChartType = System::Windows::Forms::DataVisualization::Charting::SeriesChartType::Spline;
-			series11->Color = System::Drawing::Color::Green;
-			series11->Legend = L"Legend1";
-			series11->Name = L"Series1";
-			series11->Points->Add(dataPoint5);
-			series11->Points->Add(dataPoint6);
-			series11->Points->Add(dataPoint7);
-			series12->BorderWidth = 3;
-			series12->ChartArea = L"ChartArea1";
-			series12->ChartType = System::Windows::Forms::DataVisualization::Charting::SeriesChartType::Spline;
-			series12->Color = System::Drawing::Color::Lime;
-			series12->Legend = L"Legend1";
-			series12->Name = L"Series5";
-			series13->ChartArea = L"ChartArea1";
-			series13->ChartType = System::Windows::Forms::DataVisualization::Charting::SeriesChartType::Point;
-			series13->Color = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(0)), static_cast<System::Int32>(static_cast<System::Byte>(64)),
+			series26->BorderWidth = 2;
+			series26->ChartArea = L"ChartArea1";
+			series26->ChartType = System::Windows::Forms::DataVisualization::Charting::SeriesChartType::Spline;
+			series26->Color = System::Drawing::Color::Green;
+			series26->Legend = L"Legend1";
+			series26->Name = L"Series1";
+			series26->Points->Add(dataPoint12);
+			series26->Points->Add(dataPoint13);
+			series26->Points->Add(dataPoint14);
+			series27->BorderWidth = 3;
+			series27->ChartArea = L"ChartArea1";
+			series27->ChartType = System::Windows::Forms::DataVisualization::Charting::SeriesChartType::Spline;
+			series27->Color = System::Drawing::Color::Lime;
+			series27->Legend = L"Legend1";
+			series27->Name = L"Series5";
+			series28->ChartArea = L"ChartArea1";
+			series28->ChartType = System::Windows::Forms::DataVisualization::Charting::SeriesChartType::Point;
+			series28->Color = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(0)), static_cast<System::Int32>(static_cast<System::Byte>(64)),
 				static_cast<System::Int32>(static_cast<System::Byte>(0)));
-			series13->Legend = L"Legend1";
-			series13->MarkerSize = 18;
-			series13->MarkerStyle = System::Windows::Forms::DataVisualization::Charting::MarkerStyle::Circle;
-			series13->Name = L"Series3";
-			series14->ChartArea = L"ChartArea1";
-			series14->ChartType = System::Windows::Forms::DataVisualization::Charting::SeriesChartType::Point;
-			series14->Color = System::Drawing::Color::MediumSeaGreen;
-			series14->Legend = L"Legend1";
-			series14->MarkerSize = 13;
-			series14->MarkerStyle = System::Windows::Forms::DataVisualization::Charting::MarkerStyle::Circle;
-			series14->Name = L"Series2";
-			series15->BorderDashStyle = System::Windows::Forms::DataVisualization::Charting::ChartDashStyle::Dash;
-			series15->BorderWidth = 2;
-			series15->ChartArea = L"ChartArea1";
-			series15->ChartType = System::Windows::Forms::DataVisualization::Charting::SeriesChartType::Line;
-			series15->Color = System::Drawing::Color::Red;
-			series15->Legend = L"Legend1";
-			series15->Name = L"Series4";
-			series15->ShadowColor = System::Drawing::Color::Red;
-			this->chart3->Series->Add(series11);
-			this->chart3->Series->Add(series12);
-			this->chart3->Series->Add(series13);
-			this->chart3->Series->Add(series14);
-			this->chart3->Series->Add(series15);
+			series28->Legend = L"Legend1";
+			series28->MarkerSize = 18;
+			series28->MarkerStyle = System::Windows::Forms::DataVisualization::Charting::MarkerStyle::Circle;
+			series28->Name = L"Series3";
+			series29->ChartArea = L"ChartArea1";
+			series29->ChartType = System::Windows::Forms::DataVisualization::Charting::SeriesChartType::Point;
+			series29->Color = System::Drawing::Color::MediumSeaGreen;
+			series29->Legend = L"Legend1";
+			series29->MarkerSize = 13;
+			series29->MarkerStyle = System::Windows::Forms::DataVisualization::Charting::MarkerStyle::Circle;
+			series29->Name = L"Series2";
+			series30->BorderDashStyle = System::Windows::Forms::DataVisualization::Charting::ChartDashStyle::Dash;
+			series30->BorderWidth = 2;
+			series30->ChartArea = L"ChartArea1";
+			series30->ChartType = System::Windows::Forms::DataVisualization::Charting::SeriesChartType::Line;
+			series30->Color = System::Drawing::Color::Red;
+			series30->Legend = L"Legend1";
+			series30->Name = L"Series4";
+			series30->ShadowColor = System::Drawing::Color::Red;
+			this->chart3->Series->Add(series26);
+			this->chart3->Series->Add(series27);
+			this->chart3->Series->Add(series28);
+			this->chart3->Series->Add(series29);
+			this->chart3->Series->Add(series30);
 			this->chart3->Size = System::Drawing::Size(343, 162);
 			this->chart3->TabIndex = 0;
 			this->chart3->Text = L"chart3";
@@ -1248,6 +1248,7 @@ private: System::Windows::Forms::ToolTip^ toolTip1;
 			this->flowLayoutPanel1->Name = L"flowLayoutPanel1";
 			this->flowLayoutPanel1->Size = System::Drawing::Size(354, 29);
 			this->flowLayoutPanel1->TabIndex = 2;
+			this->flowLayoutPanel1->Paint += gcnew System::Windows::Forms::PaintEventHandler(this, &WaterPump::flowLayoutPanel1_Paint);
 			// 
 			// button1
 			// 
@@ -2340,6 +2341,7 @@ private: System::Windows::Forms::ToolTip^ toolTip1;
 			this->tableLayoutPanel1->RowStyles->Add((gcnew System::Windows::Forms::RowStyle()));
 			this->tableLayoutPanel1->Size = System::Drawing::Size(720, 413);
 			this->tableLayoutPanel1->TabIndex = 0;
+			this->tableLayoutPanel1->Paint += gcnew System::Windows::Forms::PaintEventHandler(this, &WaterPump::tableLayoutPanel1_Paint);
 			// 
 			// toolTip1
 			// 
@@ -2629,8 +2631,6 @@ private: System::Void IntegerInputHandler(System::Object^ sender, System::EventA
 		}
 		else if (name == this->pump_turn->Name) {
 			this->model->turnovers_nominal.setValue(value);
-
-
 		}
 		else if (name == this->pump_eff_min->Name) {
 			if (value < 0) {
@@ -2638,7 +2638,9 @@ private: System::Void IntegerInputHandler(System::Object^ sender, System::EventA
 				return;
 			}
 
-			if (value > _IntInputHandler(this->pump_eff_max)) {
+			int other_value = _IntInputHandler(this->pump_eff_max);
+
+			if (other_value != 0 && value > other_value) {
 				addToErrors(this->pump_eff_min, "Минимальная производительность не может быть больше максимальной");
 				addToErrors(this->pump_eff_max, "Максимальная производительность не может быть меньше минимальной");
 				return;
@@ -2656,7 +2658,9 @@ private: System::Void IntegerInputHandler(System::Object^ sender, System::EventA
 				addToErrors(textbox, "Производительность не может быть отрицательной");
 				return;
 			}
-			if (value < _IntInputHandler(this->pump_eff_min)) {
+
+			int other_value = _IntInputHandler(this->pump_eff_min);
+			if (other_value != 0 && value < other_value) {
 				addToErrors(this->pump_eff_min, "Минимальная производительность не может быть больше максимальной");
 				addToErrors(this->pump_eff_max, "Максимальная производительность не может быть меньше минимальной");
 				return;
@@ -2863,6 +2867,9 @@ private: System::Void slide_changed(System::Object^ sender, System::EventArgs^ e
 
 	   private: System::Void PostPaint(System::Object^ sender, System::Windows::Forms::DataVisualization::Charting::ChartPaintEventArgs^ e)
 	   {
+		   double localK = this->model->k.getValue();
+		   if (localK == 0)
+			   localK = 1;
 		   //Если отрисовывают области, нас это не интересует, а если отрисоывается весь график, то ещё как
 		   if (!e->ChartElement->GetType()->Equals(this->chart1->ChartAreas[0]->GetType()))
 			   return;
@@ -2876,36 +2883,27 @@ private: System::Void slide_changed(System::Object^ sender, System::EventArgs^ e
 		   System::Drawing::RectangleF s1 = System::Drawing::RectangleF::FromLTRB(
 			   e->Chart->ChartAreas[0]->AxisX->ValueToPixelPosition(0),
 			   e->Chart->ChartAreas[0]->AxisY->ValueToPixelPosition(e->Chart->ChartAreas[0]->AxisY->Maximum),
-			  e->Chart->ChartAreas[0]->AxisX->ValueToPixelPosition(this->model->efficiency_min.getValue() * this->model->k.getValue()),
+			  e->Chart->ChartAreas[0]->AxisX->ValueToPixelPosition(this->model->efficiency_min.getValue() * localK),
 			   e->Chart->ChartAreas[0]->AxisY->ValueToPixelPosition(0)
 		   );
 
 		   //Отрисовка области Qmax
 		   System::Drawing::RectangleF s2 = System::Drawing::RectangleF::FromLTRB(
-			   e->Chart->ChartAreas[0]->AxisX->ValueToPixelPosition(this->model->efficiency_max.getValue() * this->model->k.getValue()),
+			   e->Chart->ChartAreas[0]->AxisX->ValueToPixelPosition(this->model->efficiency_max.getValue() * localK),
 			   e->Chart->ChartAreas[0]->AxisY->ValueToPixelPosition(e->Chart->ChartAreas[0]->AxisY->Maximum),
 			   e->Chart->ChartAreas[0]->AxisX->ValueToPixelPosition(e->Chart->ChartAreas[0]->AxisX->Maximum),
 			   e->Chart->ChartAreas[0]->AxisY->ValueToPixelPosition(0)
 		   );
+		   
 
-		   if (isPres) {
-			   System::Drawing::RectangleF s3 = System::Drawing::RectangleF::FromLTRB(
-				   e->Chart->ChartAreas[0]->AxisX->ValueToPixelPosition(this->model->efficiency_min.getValue() * this->model->k.getValue()),
-				   e->Chart->ChartAreas[0]->AxisY->ValueToPixelPosition(e->Chart->ChartAreas[0]->AxisY->Maximum),
-				   e->Chart->ChartAreas[0]->AxisX->ValueToPixelPosition(this->model->efficiency_max.getValue() * this->model->k.getValue()),
-				   e->Chart->ChartAreas[0]->AxisY->ValueToPixelPosition(this->model->pressure_out_max.getValue())
-			   );
-			   e->ChartGraphics->Graphics->FillRectangle(b, s3);
-		   }
-
-		   if (this->model->efficiency_max.getValue() * this->model->k.getValue() != 0) {
+		   if (this->model->efficiency_min.getValue() * localK != 0)
 			   e->ChartGraphics->Graphics->FillRectangle(b, s1);
+		   if (this->model->efficiency_max.getValue() * localK != 0)
 			   e->ChartGraphics->Graphics->FillRectangle(b, s2);
-		   }
 
 		   //Изменение Qmin, Qmax в полях под графиком 
-		   this->box_q_min->Text = round3(this->model->efficiency_min.getValue() * this->model->k.getValue()) + "";
-		   this->box_q_max->Text = round3(this->model->efficiency_max.getValue() * this->model->k.getValue()) + "";
+		   this->box_q_min->Text = round3(this->model->efficiency_min.getValue() * localK) + "";
+		   this->box_q_max->Text = round3(this->model->efficiency_max.getValue() * localK) + "";
 
 		   //----------------------------------------------------------------------------------------------------------
 
@@ -3256,6 +3254,10 @@ private: System::Void chart1_DoubleClick(System::Object^ sender, System::EventAr
 	model->chartPoints.getValue().push_back(c);
 	sortPoint(model->chartPoints.getValue());
 	model->chartPoints.throwEvent(); 
+}
+private: System::Void tableLayoutPanel1_Paint(System::Object^ sender, System::Windows::Forms::PaintEventArgs^ e) {
+}
+private: System::Void flowLayoutPanel1_Paint(System::Object^ sender, System::Windows::Forms::PaintEventArgs^ e) {
 }
 };
 }
