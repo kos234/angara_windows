@@ -2,6 +2,8 @@
 #include <functional>
 #include "WaterPump.h"
 #include <msclr/gcroot.h>
+#include "utils.h"
+
 
 namespace angarawindows {
 	const char* urlConnect;
@@ -33,7 +35,7 @@ namespace angarawindows {
 }
 
 int maind() {
-	angarawindows::setDBConnect("provider=Microsoft.ACE.OLEDB.12.0;Data Source=C:\\Users\\User\\Documents\\TP_EqNS_ML.MDB");
+	angarawindows::setDBConnect("provider=Microsoft.ACE.OLEDB.12.0;Data Source=C:\\Users\\kosty\\Documents\\TP_EqNS_ML.MDB");
 
 	angarawindows::WaterPumpWindow windPump;
 	windPump.show();

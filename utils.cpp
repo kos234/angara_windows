@@ -5,7 +5,9 @@
 #include <msclr\marshal_cppstd.h>
 #include <algorithm>
 #include <stdexcept>
+#include <cmath>
 #include <msclr/gcroot.h>
+#include <iostream>
 
 namespace angarawindows {
 
@@ -138,9 +140,9 @@ namespace angarawindows {
 			double H = k * k * q.H;
 			double N = k * k * k * q.N;
 
-			if (pointItCallback != nullptr) {
+			//if (pointItCallback != nullptr) {
 				pointItCallback(Q, H, N, i);
-			}
+			//}
 
 			if (Q > 0 || H > 0) {
 				PointsQH++;
@@ -192,6 +194,48 @@ namespace angarawindows {
 		return data;
 	}
 
+	std::string toSaintific(double value) {
+		int m = 0;
+		int m_size = 1;
+		int e = 0;
+		int first = 0;
+		bool isAllZero = true;
+		for (; ;) {
+			value *= 10;
+
+			if (!value)
+				break;
+
+			if (!first)
+				e++;
+
+			int num = value;
+			value -= num;
+
+			if (!first && num == 0)
+				continue;
+
+			if (!first)
+				first = num;
+			else {
+				isAllZero &= num == 0;
+				m = num * m_size + m;
+				m_size *= 10;
+			}
+
+			if (m_size == 1000)
+				break;
+		}
+
+		if (!first)
+			return std::to_string(0);
+
+		std::string mantis = std::to_string(m);
+		mantis.reserve();
+
+		return std::to_string(first) + (isAllZero ? "" : ("." + mantis)) + "e-" + std::to_string(e);
+	}
+
 	void sortPoint(std::vector<angarawindows::WaterPumpWindow::ChartPoint> &q) {
 		std::sort(q.begin(), q.end(), [](const angarawindows::WaterPumpWindow::ChartPoint p1, angarawindows::WaterPumpWindow::ChartPoint p2) {
 			return p1.Q < p2.Q;
@@ -212,31 +256,41 @@ namespace angarawindows {
 		return gcnew System::String(original.c_str());
 	}
 
-	int _IntInputHandler(System::Windows::Forms::TextBox^ box) {
-		int ans = 0;
+	DBWrapper<int> _IntInputHandler(System::Windows::Forms::TextBox^ box) {
+		DBWrapper<int> wrapper;
+		wrapper.value = 0;
 		bool isMinus = false;
-		bool isNot = true;
+		wrapper.empty = true;
 
 		for (int i = 0; i < box->Text->Length; i++) {
 			auto ch = box->Text[i];
 
-			if (ans == 0 && ch == '-') {
+			if (wrapper.value == 0 && ch == '-') {
 				isMinus = true;
 			}
 			else if ('0' <= ch && ch <= '9') {
-				isNot = false;
-				ans = ans * 10 + (ch - '0');
+				wrapper.empty = false;
+				wrapper.value = wrapper.value * 10 + (ch - '0');
+			}
+			else {
+				goto if_there_is_an_extraneous_character;
 			}
 		}
 
-		if (isNot && box->Text->Length != 0)
-			throw std::invalid_argument("");
+		if (isMinus && wrapper.empty) {
+			throw std::invalid_argument("await");
+		}
 
-		return (isMinus ? -1 : 1) * ans;
+		if_there_is_an_extraneous_character: {};
+		if (isMinus)
+			wrapper.value *= -1;
+
+		return wrapper;
 	}
 
-	double _DoubleInputHandler(System::Windows::Forms::TextBox^ box) {
-		double ans = 0;
+	DBWrapper<double> _DoubleInputHandler(System::Windows::Forms::TextBox^ box) {
+		DBWrapper<double> wrapper;
+		wrapper.value = 0;
 		double drob = 0;
 		double drobSize = 1;
 		bool isMinus = false;
@@ -245,7 +299,7 @@ namespace angarawindows {
 		for (int i = 0; i < box->Text->Length; i++) {
 			auto ch = box->Text[i];
 
-			if (ans == 0 && ch == '-') {
+			if (wrapper.value == 0 && ch == '-') {
 				isMinus = true;
 			}
 			else if ('0' <= ch && ch <= '9') {
@@ -254,17 +308,34 @@ namespace angarawindows {
 					drob = drob * 10 + (ch - '0');
 				}
 				else {
-					ans = ans * 10 + (ch - '0');
+					wrapper.value = wrapper.value * 10 + (ch - '0');
 				}
-			}else if ((ch == '.' || ch == ',') && !isDrob) {
+				wrapper.empty = false;
+			}
+			else if ((ch == '.' || ch == ',') && !isDrob) {
 				isDrob = true;
 			}
+			else {
+				goto if_there_is_an_extraneous_character;
+			}
 		}
-		return (isMinus ? -1 : 1) * (ans + (isDrob ? (drob/drobSize) : 0));
+
+		if ((isMinus && wrapper.empty) || (isDrob && drobSize == 1)) {
+			throw std::invalid_argument("await");
+		}
+
+
+	if_there_is_an_extraneous_character: {};
+		if (isMinus)
+			wrapper.value *= -1;
+		if(isDrob)
+		wrapper.value += drob / drobSize;
+
+		return wrapper;
 	}
 
 	void SuperTextSetter(System::Windows::Forms::TextBox^ box, System::String^ text) {
-		int last = box->SelectionStart - box->Text->Length;
+		int last = System::Math::Max(box->SelectionStart - box->Text->Length, 0);
 		box->Text = text;
 		box->SelectionStart = last + text->Length;
 		box->SelectionLength = 0;
@@ -283,86 +354,232 @@ namespace angarawindows {
 		return isMinus + i;
 	}
 
-	int getInt(msclr::gcroot <System::Data::OleDb::OleDbDataReader^> reader, System::String^ name, int def) {
+	DBWrapper<int> getInt(msclr::gcroot <System::Data::OleDb::OleDbDataReader^> reader, System::String^ name, int def) {
+		DBWrapper<int> wrapper;
+		wrapper.value = def;
 		int id = reader->GetOrdinal(name);
 
 		if (reader->IsDBNull(id))
-			return def;
+			return wrapper;
 
-		return reader->GetInt32(id);
+		wrapper.value = reader->GetInt32(id);
+		wrapper.empty = wrapper.value == 0;
+
+		return wrapper;
 	}
-
-	int getInt(msclr::gcroot <System::Data::OleDb::OleDbDataReader^> reader, System::String^ name) {
+	DBWrapper<int> getInt(msclr::gcroot <System::Data::OleDb::OleDbDataReader^> reader, System::String^ name) {
 		return getInt(reader, name, 0);
 	}
 
 
-	short getShort(msclr::gcroot <System::Data::OleDb::OleDbDataReader^> reader, System::String^ name, short def) {
+	DBWrapper<short> getShort(msclr::gcroot <System::Data::OleDb::OleDbDataReader^> reader, System::String^ name, short def) {
+		DBWrapper<short> wrapper;
+		wrapper.value = def; 
 		int id = reader->GetOrdinal(name);
 
 		if (reader->IsDBNull(id))
-			return def;
+			return wrapper;
 
-		return reader->GetInt16(id);
+		wrapper.value = reader->GetInt16(id);
+		wrapper.empty = wrapper.value == 0;
+
+		return wrapper;
 	}
 
-	short getShort(msclr::gcroot <System::Data::OleDb::OleDbDataReader^> reader, System::String^ name) {
+	DBWrapper<short> getShort(msclr::gcroot <System::Data::OleDb::OleDbDataReader^> reader, System::String^ name) {
 		return getShort(reader, name, 0);
 	}
 
 
-	long long getLongLong(msclr::gcroot <System::Data::OleDb::OleDbDataReader^> reader, System::String^ name, long long def) {
+	DBWrapper<long long> getLongLong(msclr::gcroot <System::Data::OleDb::OleDbDataReader^> reader, System::String^ name, long long def) {
+		DBWrapper<long long> wrapper;
+		wrapper.value = def;
 		int id = reader->GetOrdinal(name);
 
 		if (reader->IsDBNull(id))
-			return def;
+			return wrapper;
 
-		return reader->GetInt64(id);
+		wrapper.value = reader->GetInt64(id);
+		wrapper.empty = wrapper.value == 0;
+
+		return wrapper;
 	}
 
-	long long getLongLong(msclr::gcroot <System::Data::OleDb::OleDbDataReader^> reader, System::String^ name) {
+	DBWrapper<long long> getLongLong(msclr::gcroot <System::Data::OleDb::OleDbDataReader^> reader, System::String^ name) {
 		return getLongLong(reader, name, 0);
 	}
 
 
-	double getDouble(msclr::gcroot <System::Data::OleDb::OleDbDataReader^> reader, System::String^ name, double def) {
+	DBWrapper<double> getDouble(msclr::gcroot <System::Data::OleDb::OleDbDataReader^> reader, System::String^ name, double def) {
+		DBWrapper<double> wrapper;
+		wrapper.value = def;
 		int id = reader->GetOrdinal(name);
 
 		if (reader->IsDBNull(id))
-			return def;
+			return wrapper;
 
-		return reader->GetDouble(id);
+		wrapper.value = reader->GetDouble(id); 
+		wrapper.empty = wrapper.value == 0;
+
+		return wrapper;
 	}
 
-	double getDouble(msclr::gcroot <System::Data::OleDb::OleDbDataReader^> reader, System::String^ name) {
+	DBWrapper<double> getDouble(msclr::gcroot <System::Data::OleDb::OleDbDataReader^> reader, System::String^ name) {
 		return getDouble(reader, name, 0);
 	}
 
 
-	float getFloat(msclr::gcroot <System::Data::OleDb::OleDbDataReader^> reader, System::String^ name, float def) {
+	DBWrapper<float> getFloat(msclr::gcroot <System::Data::OleDb::OleDbDataReader^> reader, System::String^ name, float def) {
+		DBWrapper<float> wrapper;
+		wrapper.value = def;
 		int id = reader->GetOrdinal(name);
 
 		if (reader->IsDBNull(id))
-			return def;
+			return wrapper;
 
-		return reader->GetFloat(id);
+		wrapper.value = reader->GetFloat(id);
+			wrapper.empty = wrapper.value == 0;
+
+		return wrapper;
 	}
 
-	float getFloat(msclr::gcroot <System::Data::OleDb::OleDbDataReader^> reader, System::String^ name) {
+	DBWrapper<float> getFloat(msclr::gcroot <System::Data::OleDb::OleDbDataReader^> reader, System::String^ name) {
 		return getFloat(reader, name, 0);
 	}
 
-	std::string getString(msclr::gcroot <System::Data::OleDb::OleDbDataReader^> reader, System::String^ name, const char* def) {
+	DBWrapper<std::string> getString(msclr::gcroot <System::Data::OleDb::OleDbDataReader^> reader, System::String^ name, std::string def) {
+		DBWrapper<std::string> wrapper;
+		wrapper.value = def;
 		int id = reader->GetOrdinal(name);
 
-
 		if (reader->IsDBNull(id))
-			return std::string(def);
+			return wrapper;
 
-		return SysToStd(reader->GetString(id));
+		wrapper.value = SysToStd(reader->GetString(id));
+		wrapper.empty = wrapper.value.empty();
+
+		return wrapper;
 	}
 
-	std::string getString(msclr::gcroot <System::Data::OleDb::OleDbDataReader^> reader, System::String^ name) {
-		return getString(reader, name, 0);
+	DBWrapper<std::string> getString(msclr::gcroot <System::Data::OleDb::OleDbDataReader^> reader, System::String^ name) {
+		return getString(reader, name, "");
+	}
+
+
+	//-------------------------------------------------------------------------------------------------------------------------
+
+	int getNumberLenght(int number) {
+		int ans = 0;
+		for (; number != 0; ans++) {
+			number /= 10;
+		}
+		return ans;
+	}
+
+
+	void setupChart(System::Windows::Forms::DataVisualization::Charting::Chart^ chart, System::String^ titleY, System::Drawing::Color mainGraf, System::Drawing::Color nominalGraf, System::Drawing::Color points) {
+		//Ось Х
+		chart->ChartAreas[0]->AxisX->Interval = 2;
+		chart->ChartAreas[0]->AxisX->IntervalAutoMode = System::Windows::Forms::DataVisualization::Charting::IntervalAutoMode::VariableCount;
+		chart->ChartAreas[0]->AxisX->LineColor = System::Drawing::Color::Gray;
+		chart->ChartAreas[0]->AxisX->MajorGrid->LineColor = System::Drawing::Color::Gray;
+		chart->ChartAreas[0]->AxisX->Maximum = 10;
+		chart->ChartAreas[0]->AxisX->Minimum = 0;
+		chart->ChartAreas[0]->AxisX2->LineColor = System::Drawing::Color::Gray;
+
+		//Ось Y
+		chart->ChartAreas[0]->AxisY->Interval = 2;
+		chart->ChartAreas[0]->AxisY->IntervalAutoMode = System::Windows::Forms::DataVisualization::Charting::IntervalAutoMode::VariableCount;
+		chart->ChartAreas[0]->AxisY->LineColor = System::Drawing::Color::Gray;
+		chart->ChartAreas[0]->AxisY->MajorGrid->LineColor = System::Drawing::Color::Gray;
+		chart->ChartAreas[0]->AxisY->Maximum = 10;
+		chart->ChartAreas[0]->AxisY->Minimum = 0;
+		chart->ChartAreas[0]->AxisY2->LineColor = System::Drawing::Color::Gray;
+
+		//Область графика
+		chart->ChartAreas[0]->BorderColor = System::Drawing::Color::Gray;
+		chart->ChartAreas[0]->Position->Auto = false;
+		chart->ChartAreas[0]->Position->Height = 100;
+		chart->ChartAreas[0]->Position->Width = 100;
+		chart->ChartAreas[0]->Position->X = 0;
+		chart->ChartAreas[0]->ShadowColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(128)), static_cast<System::Int32>(static_cast<System::Byte>(255)),
+			static_cast<System::Int32>(static_cast<System::Byte>(128)));
+
+		//Основной график
+		System::Windows::Forms::DataVisualization::Charting::Series^ series1 = (gcnew System::Windows::Forms::DataVisualization::Charting::Series());
+		System::Windows::Forms::DataVisualization::Charting::DataPoint^ dataPoint8 = (gcnew System::Windows::Forms::DataVisualization::Charting::DataPoint(9, 9));
+		series1->BorderWidth = 2;
+		series1->ChartArea = chart->ChartAreas[0]->Name;
+		series1->ChartType = System::Windows::Forms::DataVisualization::Charting::SeriesChartType::Spline;
+		series1->Color = mainGraf;
+		series1->Name = L"Series1";
+		series1->Points->Add(dataPoint8);
+		chart->Series->Add(series1);
+
+		//Номинальный график
+		System::Windows::Forms::DataVisualization::Charting::Series^ series2 = (gcnew System::Windows::Forms::DataVisualization::Charting::Series());
+		series2->BorderWidth = 3;
+		series2->ChartArea = L"ChartArea1";
+		series2->ChartType = System::Windows::Forms::DataVisualization::Charting::SeriesChartType::Spline;
+		series2->Color = nominalGraf;
+		series2->Name = L"Series2";
+		chart->Series->Add(series2);
+
+		//Обводка вокруг точки
+		System::Windows::Forms::DataVisualization::Charting::Series^ series3 = (gcnew System::Windows::Forms::DataVisualization::Charting::Series());
+		series3->ChartArea = chart->ChartAreas[0]->Name;
+		series3->ChartType = System::Windows::Forms::DataVisualization::Charting::SeriesChartType::Point;
+		series3->Color = System::Drawing::Color::Black;
+		series3->MarkerSize = 18;
+		series3->MarkerStyle = System::Windows::Forms::DataVisualization::Charting::MarkerStyle::Circle;
+		series3->Name = L"Series3";
+		chart->Series->Add(series3);
+
+		//Номинальная точка
+		System::Windows::Forms::DataVisualization::Charting::Series^ series4 = (gcnew System::Windows::Forms::DataVisualization::Charting::Series());
+		series4->ChartArea = chart->ChartAreas[0]->Name;
+		series4->ChartType = System::Windows::Forms::DataVisualization::Charting::SeriesChartType::Point;
+		series4->Color = points;
+		series4->MarkerSize = 13;
+		series4->MarkerStyle = System::Windows::Forms::DataVisualization::Charting::MarkerStyle::Circle;
+		series4->Name = L"Series4";
+		series4->ShadowColor = System::Drawing::Color::Empty;
+		chart->Series->Add(series4);
+
+		//Линияя выделения
+		System::Windows::Forms::DataVisualization::Charting::Series^ series5 = (gcnew System::Windows::Forms::DataVisualization::Charting::Series());
+		series5->BorderDashStyle = System::Windows::Forms::DataVisualization::Charting::ChartDashStyle::Dash;
+		series5->BorderWidth = 2;
+		series5->ChartArea = chart->ChartAreas[0]->Name;
+		series5->ChartType = System::Windows::Forms::DataVisualization::Charting::SeriesChartType::Line;
+		series5->Color = System::Drawing::Color::Red;
+		series5->Name = L"Series5";
+		chart->Series->Add(series5);
+
+		chart->Text = titleY;
+
+		normalyzeTitleChart(chart);
+	}
+
+	void normalyzeTitleChart(System::Windows::Forms::DataVisualization::Charting::Chart^ chart) {
+		double max = chart->ChartAreas[0]->AxisY->Maximum;
+		if (System::Double::IsNaN(max) || max == 0)
+			return;
+
+		//std::cout << SysToStd(chart->Name) << " ";
+		////std::cout << "pow = " << (std::pow(10, chart->Text->Length)) << "; max = " << max << " ";
+
+		int lenMax = getNumberLenght(max);
+
+		if (chart->Text->Length <= lenMax) {
+			chart->ChartAreas[0]->Position->X = 0;
+			chart->ChartAreas[0]->Position->Width = 100;
+			//std::cout << "return " << max << "\n";
+			return;
+		}
+
+		//std::cout << "set " << (2 * (chart->Text->Length - lenMax - 1)) << "\n";
+		chart->ChartAreas[0]->Position->X = 2 * (chart->Text->Length - lenMax - 1);
+		chart->ChartAreas[0]->Position->Width = 100 - chart->ChartAreas[0]->Position->X;
 	}
 }
