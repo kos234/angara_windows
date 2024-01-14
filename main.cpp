@@ -8,17 +8,21 @@
 namespace angarawindows {
 	const char* urlConnect;
 
-	using namespace System;
-	using namespace System::Windows::Forms;
-	using namespace System::Data::OleDb;
-
 	void setDBConnect(const char* connect) {
 		urlConnect = connect;
 		Application::SetCompatibleTextRenderingDefault(false);
 		Application::EnableVisualStyles();
 	}
 
-	void abstactQuery(String^ sql, std::function<void(msclr::gcroot<OleDbDataReader^>)> func) {
+	const char* getUrlConnect() {
+		return urlConnect;
+	}
+
+	template<typename VT> bool _isDefaultValue(VT value) {
+		return isDefaultValue(value);
+	}
+
+	/*void abstactQuery(String^ sql, std::function<void(msclr::gcroot<OleDbDataReader^>)> func) {
 		OleDbConnection^ connection = gcnew OleDbConnection(gcnew String(urlConnect));
 		connection->Open();
 		OleDbCommand^ command = gcnew OleDbCommand(sql, connection);
@@ -26,18 +30,20 @@ namespace angarawindows {
 		func(reader);
 		reader->Close();
 		connection->Close();
-	};
+	};*/
 
-	[STAThreadAttribute]
-	void abstactShow(System::Windows::Forms::Form^ form) {
-		Application::Run(form);
-	}
+	/*void abstactInsert() {
+		OleDbConnection^ connection = gcnew OleDbConnection(gcnew String(urlConnect));
+		connection->Open();
+		OleDbCommand^ command = gcnew OleDbCommand(sql, connection);
+		command->Parameters->Insert
+	}*/
 }
 
 int maind() {
 	angarawindows::setDBConnect("provider=Microsoft.ACE.OLEDB.12.0;Data Source=C:\\Users\\kosty\\Documents\\TP_EqNS_ML.MDB");
 
-	angarawindows::WaterPumpWindow windPump;
+	angarawindows::WaterPump windPump;
 	windPump.show();
 	return 0;
 }

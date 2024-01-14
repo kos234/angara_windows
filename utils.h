@@ -4,10 +4,15 @@
 #include <string>
 #include <functional>
 #include <iomanip>
-#include "angara_windows.h"
+#include "WaterPump.h"
 #include <msclr/gcroot.h>
+#include <iostream>
 
 namespace angarawindows {
+	using namespace System;
+	using namespace System::Windows::Forms;
+	using namespace System::Data::OleDb;
+
 	double getCPD(double H, double Q, double N);
 
 	double* getInterval(double x);
@@ -37,13 +42,19 @@ namespace angarawindows {
 	ChartIntevals drawPumpCharts(ChartData& data,
 		std::function<void(double, double, double, double)> drawFunc,
 		bool isInterval,
+		double maxX,
+		std::vector<WaterPump::ChartPoint>& points);
+
+	ChartIntevals drawPumpCharts(ChartData& data,
+		std::function<void(double, double, double, double)> drawFunc,
+		bool isInterval,
 		double maxX);
 
 	ChartData calculateChartData(double k,
-		std::vector<angarawindows::WaterPumpWindow::ChartPoint>& points,
+		std::vector<angarawindows::WaterPump::ChartPoint>& points,
 		std::function<void(double, double, double, int)> pointItCallback);
 
-	void sortPoint(std::vector<angarawindows::WaterPumpWindow::ChartPoint>& q);
+	void sortPoint(std::vector<angarawindows::WaterPump::ChartPoint>& q);
 
 	void checkPoint(System::Windows::Forms::DataVisualization::Charting::Chart^ chart,
 		System::Windows::Forms::DataVisualization::Charting::DataPoint^ point,
@@ -87,7 +98,6 @@ namespace angarawindows {
 	DBWrapper<int> getInt(msclr::gcroot <System::Data::OleDb::OleDbDataReader^> reader, System::String^ name, int def);
 
 	DBWrapper<int> getInt(msclr::gcroot <System::Data::OleDb::OleDbDataReader^> reader, System::String^ name);
-
 
 	DBWrapper<short> getShort(msclr::gcroot <System::Data::OleDb::OleDbDataReader^> reader, System::String^ name, short def);
 
@@ -181,4 +191,106 @@ namespace angarawindows {
 	bool isDefaultValue(T value, typename std::enable_if<!has_string<T>::value && !has_number<T>::value && !has_container<T>::value, T>::type* = 0) {
 		return false;
 	}
+
+	template<typename T>
+	void log(T value) {
+		std::cout << value << "\n";
+	}
+
+	int getNextIdLink();
+
+
+
+	public ref class QueryBuilder {
+	protected:
+		OleDbCommand^ command;
+	public:
+		QueryBuilder() {
+
+		}
+		QueryBuilder(String^ sql) {
+			setSql(sql);
+		}
+		QueryBuilder^ setSql(String^ sql) {
+			command = gcnew OleDbCommand(sql);
+			return this;
+		}
+		template<typename T>
+		QueryBuilder^ add(T value) {
+			throw std::runtime_error("a function not defined for" + typeid(T).name());
+			return this;
+		}
+
+		template<>
+		QueryBuilder^ add<long long>(long long value) {
+			OleDbParameter^ prms = gcnew OleDbParameter("?", OleDbType::BigInt);
+			prms->Value = value;
+			command->Parameters->Add(prms);
+			return this;
+		}
+		template<>
+		QueryBuilder^ add<int>(int value) {
+			OleDbParameter^ prms = gcnew OleDbParameter("?", OleDbType::Integer);
+			prms->Value = value;
+			command->Parameters->Add(prms);
+			return this;
+		}
+		template<>
+		QueryBuilder^ add<float>(float value) {
+			OleDbParameter^ prms = gcnew OleDbParameter("?", OleDbType::Single);
+			prms->Value = value;
+			command->Parameters->Add(prms);
+			return this;
+		}
+		template<>
+		QueryBuilder^ add<double>(double value) {
+			OleDbParameter^ prms = gcnew OleDbParameter("?", OleDbType::Double);
+			prms->Value = value;
+			command->Parameters->Add(prms);
+			return this;
+		}
+		template<>
+		QueryBuilder^ add<std::string>(std::string value) {
+			OleDbParameter^ prms = gcnew OleDbParameter("?", OleDbType::VarChar);
+			prms->Value = gcnew String(value.c_str());
+			command->Parameters->Add(prms);
+			return this;
+		}
+
+		QueryBuilder^ addEmpty() {
+
+			//OleDbParameter^ prms = gcnew OleDbParameter("?", OleDbType::IUnknown);
+			//prms->Value = "null";
+			command->Parameters->AddWithValue("?", DBNull::Value);
+			return this;
+		}
+
+		template<typename T>
+		QueryBuilder^ add(ObserverValue<T> value) {
+			if (value.isEmpty())
+				return addEmpty();
+			return add(value.getValue());
+		}
+
+		int executeUpdate() {
+			OleDbConnection^ connection = gcnew OleDbConnection(gcnew String(getUrlConnect()));
+			connection->Open();
+			command->Connection = connection;
+
+			int ans = command->ExecuteNonQuery();
+			connection->Close();
+			return ans;
+		}
+
+		void executeQuery(std::function<void(msclr::gcroot<OleDbDataReader^>)> func) {
+			OleDbConnection^ connection = gcnew OleDbConnection(gcnew String(getUrlConnect()));
+			connection->Open();
+			command->Connection = connection;
+
+			OleDbDataReader^ reader = command->ExecuteReader();
+			func(reader);
+			reader->Close();
+			connection->Close();
+		}
+	};
 }

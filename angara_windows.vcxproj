@@ -43,7 +43,7 @@
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v143</PlatformToolset>
     <CLRSupport>true</CLRSupport>
@@ -125,18 +125,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="angara_windows.cpp" />
+    <ClCompile Include="WaterPump.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="utils.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="angara_windows.h" />
+    <ClInclude Include="AdvancedObserverValue.h" />
+    <ClInclude Include="WaterPump.h" />
     <ClInclude Include="main.h" />
     <ClInclude Include="Pipe.h">
       <FileType>CppForm</FileType>
     </ClInclude>
     <ClInclude Include="utils.h" />
-    <ClInclude Include="WaterPump.h">
+    <ClInclude Include="WaterPumpForm.h">
       <FileType>CppForm</FileType>
     </ClInclude>
   </ItemGroup>
@@ -144,8 +145,8 @@
     <EmbeddedResource Include="Pipe.resx">
       <DependentUpon>Pipe.h</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="WaterPump.resx">
-      <DependentUpon>WaterPump.h</DependentUpon>
+    <EmbeddedResource Include="WaterPumpForm.resx">
+      <DependentUpon>WaterPumpForm.h</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

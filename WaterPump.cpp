@@ -3,7 +3,7 @@
 #include <msclr/gcroot.h>
 #include <iostream>
 #include "utils.h"
-#include "angara_windows.h"
+#include "WaterPumpForm.h"
 #include "WaterPump.h"
 
 namespace angarawindows {
@@ -12,16 +12,20 @@ namespace angarawindows {
 	using namespace System::Windows::Forms;
 	using namespace System::Data::OleDb;
 
-
-
 	[STAThreadAttribute]
-		void WaterPumpWindow::show(int idLink) {
+		void WaterPump::show(int idLink) {
+		this->idLink = idLink;
 		//Инициализация ------------------------------------------------------------
-		angarawindows::WaterPump form(this);
-		msclr::gcroot <WaterPump^> stackLink = % form;
+		angarawindows::WaterPumpForm form(this);
+		msclr::gcroot <WaterPumpForm^> stackLink = % form;
 		
 		//Ивенты -------------------------------------------------------------------
 		this->name.addEventListener([&stackLink](ObserverValue<std::string>& name) {
+			//if (link.getValue().size() > 50) {
+				//addToErrors(textbox, "Длина имени не может быть больше 50 символовов");
+			//}
+			
+
 			SuperTextSetter(stackLink->pump_name, StdToSys(name.getValue()));
 			});
 
@@ -75,9 +79,9 @@ namespace angarawindows {
 			});
 
 		this->resistance_current.addEventListener([&stackLink, this](ObserverValue<double>& value) {
-			//SuperTextSetter(stackLink->pump_cur_s, this->resistance_current);
-			stackLink->pump_cur_s->Text = (value.getValue() + "");
-			stackLink->pump_slide_s->Value = Math::Round(value.getValue() / this->resistance_min * 100);
+			SuperTextSetter(stackLink->pump_cur_s, this->resistance_current);
+			//..stackLink->pump_cur_s->Text = (value.getValue() + "");
+			stackLink->pump_slide_s->Value = Math::Round(value.getValue() / this->resistance_min * stackLink->pump_slide_s->Maximum);
 			this->k.throwEvent();
 			});
 
@@ -259,6 +263,8 @@ namespace angarawindows {
 
 		this->HInPoint.addEventListener([&stackLink, this](ObserverValue<float>& value) {
 			SuperTextSetter(stackLink->input_data_h_in, value);
+			if (value.isEmpty())
+				return;
 			if ((!this->pressure_in_min.isEmpty() && this->pressure_in_min.getValue() > value.getValue()) 
 				|| 
 				(!this->pressure_in_max.isEmpty() && this->pressure_in_max.getValue() < value.getValue())) {
@@ -271,6 +277,8 @@ namespace angarawindows {
 
 		this->HOutPoint.addEventListener([&stackLink, this](ObserverValue<float>& value) {
 			SuperTextSetter(stackLink->input_data_h_out, value);
+			if (value.isEmpty())
+				return;
 			if ((!this->pressure_out_min.isEmpty() && this->pressure_out_min.getValue() > value.getValue())
 				|| 
 				(!this->pressure_out_max.isEmpty() && this->pressure_out_max.getValue() < value.getValue())) {
@@ -302,7 +310,7 @@ namespace angarawindows {
 				stackLink->chart1->Series[0]->Points->Add(gcnew System::Windows::Forms::DataVisualization::Charting::DataPoint(q, h));
 				stackLink->chart2->Series[0]->Points->Add(gcnew System::Windows::Forms::DataVisualization::Charting::DataPoint(q, n));
 				stackLink->chart3->Series[0]->Points->Add(gcnew System::Windows::Forms::DataVisualization::Charting::DataPoint(q, m));
-				}, isInterval, -1);
+				}, isInterval, -1, value.getValue());
 
 			if (isInterval) {
 				if (intervals.QInterval != 0) {
@@ -344,16 +352,17 @@ namespace angarawindows {
 			});
 
 		//Получение данных из бд------------------------------------------------------------------------
-		abstactQuery("SELECT * FROM Состояния_элементов WHERE IdElement = 17 ORDER BY idState",
+		QueryBuilder("SELECT * FROM Состояния_элементов WHERE IdElement = 17 ORDER BY idState").executeQuery(
 			[&stackLink, this](msclr::gcroot <OleDbDataReader^> reader) {
 				while (reader->Read()) {
 					stackLink->pump_enable->Items->Add(StdToSys(getString(reader, "StateName").value));
 				}
+					stackLink->pump_enable->SelectedIndex = 0;
 			}
 		);
 
 		if (idLink != -1)
-			abstactQuery("SELECT *, (SELECT IdState FROM Связи WHERE idLink = " + idLink + ") as IdState FROM Насосный_агрегат WHERE idLink = " + idLink,
+			QueryBuilder("SELECT *, (SELECT IdState FROM Связи WHERE idLink = " + idLink + ") as IdState FROM Насосный_агрегат WHERE idLink = " + idLink).executeQuery(
 				[&idLink, this](msclr::gcroot <OleDbDataReader^> reader) {
 					if (!reader->HasRows) {
 						MessageBox::Show("Элемента с idLink = " + idLink + " не существует", "Ошибка");
@@ -365,15 +374,18 @@ namespace angarawindows {
 					this->name.setValue(getString(reader, "name"));
 					this->mark.setValue(getString(reader, "mark"));
 
+
+					this->diameter_nominal.setValue(getFloat(reader, "Drk0"));
+					this->turnovers_nominal.setValue(getInt(reader, "Turn0"));
+
+					this->diameter_current.setValue(getFloat(reader, "Drk"));
+					this->turnovers_current.setValue(getFloat(reader, "Turn"));
+
 					this->diameter_max.setValue(getFloat(reader, "DrkMax"));
 					this->diameter_min.setValue(getFloat(reader, "DrkMin"));
 
 					this->turnovers_max.setValue(getFloat(reader, "TurnMax"));
 					this->turnovers_min.setValue(getFloat(reader, "TurnMin"));
-
-					this->diameter_nominal.setValue(getFloat(reader, "Drk0"));
-					this->turnovers_nominal.setValue(getInt(reader, "Turn0"));
-
 
 					this->H0.setValue(getDouble(reader, "H0"));
 					this->N0.setValue(getDouble(reader, "N0"));
@@ -390,9 +402,6 @@ namespace angarawindows {
 					}
 
 					this->chartPoints.throwEvent();
-
-					this->diameter_current.setValue(getFloat(reader, "Drk"));
-					this->turnovers_current.setValue(getFloat(reader, "Turn"));
 
 					this->efficiency_min.setValue(getDouble(reader, "Qmin"));
 					this->efficiency_max.setValue(getDouble(reader, "Qmax"));
@@ -433,6 +442,8 @@ namespace angarawindows {
 			}
 
 			this->resistance_min = resMin;
+			log(resMin);
+			log(data.S);
 
 
 			if (this->resistance_current.getValue() == -1) {
@@ -456,10 +467,74 @@ namespace angarawindows {
 			});
 
 		this->k.throwEvent();
-		abstactShow(% form);
+		Application::Run(% form);
 	}
-	void WaterPumpWindow::show(void) {
-		WaterPumpWindow::show(-1);
+	void WaterPump::show(void) {
+		WaterPump::show(-1);
+	}
+	void WaterPump::save() {
+		
+		QueryBuilder queryLinks;
+		QueryBuilder queryPumps;
+		bool isUpdate = true;
+		if (this->idLink == -1) {
+			isUpdate = false;
+			this->idLink = getNextIdLink();
+
+			queryLinks.setSql("INSERT INTO Связи (idLink, IdElement, IdState) VALUES (?, 17, ?)")
+				->add(this->idLink);
+
+			queryPumps.setSql("INSERT INTO Насосный_агрегат (idLink, name, mark, DrkMax, DrkMin, Drk0, Drk, TurnMax, TurnMin, Turn0, Turn, H0, N0, S, C, H1, N1, Q1, H2, N2, Q2, H3, N3, Q3, H4, N4, Q4, H5, N5, Q5, Qmin, Qmax, HNmin, HNmax, HKmin, HKmax) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)")
+				->add(this->idLink);
+		}
+		else{
+			queryLinks.setSql("UPDATE Связи SET IdState = ? WHERE idLink = ?");
+			queryPumps.setSql("UPDATE Насосный_агрегат SET name = ?, mark = ?, DrkMax = ?, DrkMin = ?, Drk0 = ?, Drk = ?, TurnMax = ?, TurnMin = ?, Turn0 = ?, Turn = ?, H0 = ?, N0 = ?, S = ?, C = ?, H1 = ?, N1 = ?, Q1 = ?, H2 = ?, N2 = ?, Q2 = ?, H3 = ?, N3 = ?, Q3 = ?, H4 = ?, N4 = ?, Q4 = ?, H5 = ?, N5 = ?, Q5 = ?, Qmin = ?, Qmax = ?, HNmin = ?, HNmax = ?, HKmin = ?, HKmax = ? WHERE IdLink = ?");
+		}
+
+		queryLinks.add(this->enable);
+		
+
+		queryPumps.add(this->name)
+			->add(this->mark)
+
+			->add(this->diameter_max)
+			->add(this->diameter_min)
+			->add(this->diameter_nominal)
+			->add(this->diameter_current)
+
+			->add(this->turnovers_max)
+			->add(this->turnovers_min)
+			->add(this->turnovers_nominal)
+			->add(this->turnovers_current)
+
+			->add(this->H0)
+			->add(this->N0)
+			->add(this->S)
+			->add(this->C);
+
+		std::vector<ChartPoint>& points = this->chartPoints.getValue();
+		for (int i = 0; i < 5; i++) {
+			if (points.size() > i)
+				queryPumps.add(points[i].H)->add(points[i].N)->add(points[i].Q);
+			else
+				queryPumps.addEmpty()->addEmpty()->addEmpty();
+		}
+
+		queryPumps.add(this->efficiency_min)
+			->add(this->efficiency_max)
+			->add(this->pressure_in_max)
+			->add(this->pressure_in_min)
+			->add(this->pressure_out_max)
+			->add(this->pressure_out_min);
+
+		if (isUpdate) {
+			queryLinks.add(this->idLink);
+			queryPumps.add(this->idLink);
+		}
+
+		queryLinks.executeUpdate();
+		queryPumps.executeUpdate();
 	}
 
 }

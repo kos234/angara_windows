@@ -1,7 +1,7 @@
 #pragma once
 
 #include "utils.h"
-#include "angara_windows.h"
+#include "WaterPump.h"
 #include <msclr\marshal_cppstd.h>
 #include <algorithm>
 #include <stdexcept>
@@ -12,6 +12,8 @@
 namespace angarawindows {
 
 	double getCPD(double H, double Q, double N) {
+		if (N == 0)
+			return 0;
 		return 0.272407 * H * Q / N;
 	}
 
@@ -60,7 +62,11 @@ namespace angarawindows {
 		return System::Math::Round(x * 1000) / 1000.0;
 	}
 
-	ChartIntevals drawPumpCharts(ChartData &data, std::function<void(double, double, double, double)> drawFunc, bool isInterval, double maxX) {
+	ChartIntevals drawPumpCharts(ChartData& data, std::function<void(double, double, double, double)> drawFunc, bool isInterval, double maxX) {
+		std::vector<WaterPump::ChartPoint> q;
+		return drawPumpCharts(data, drawFunc, isInterval, maxX, q);
+	}
+	ChartIntevals drawPumpCharts(ChartData &data, std::function<void(double, double, double, double)> drawFunc, bool isInterval, double maxX, std::vector<WaterPump::ChartPoint> & points) {
 		ChartIntevals intervals;
 
 		//System::Windows::Forms::MessageBox::Show(data.S + " = s");
@@ -75,6 +81,7 @@ namespace angarawindows {
 
 		double maxM = 0;
 		double maxN = 0;
+		double maxH = data.H0;
 		while (true) {
 			bool isEnd = false;
 			if (lastX > endX) {
@@ -97,12 +104,25 @@ namespace angarawindows {
 				break;
 		}
 
+		for (auto chartPoint : points) {
+			double yM = getCPD(chartPoint.H, chartPoint.Q, chartPoint.N);
+
+			if (maxM < yM)
+				maxM = yM;
+
+			if (maxN < chartPoint.N)
+				maxN = chartPoint.N;
+
+			if (maxH < chartPoint.H)
+				maxH = chartPoint.H;
+		}
+
 		if (isInterval) {
 			auto q1 = getInterval(endX);
 			intervals.QMax = q1[1];
 			intervals.QInterval = q1[0];
 			
-			q1 = getInterval(data.H0);
+			q1 = getInterval(maxH);
 			intervals.HMax = q1[1];
 			intervals.HInterval = q1[0];
 
@@ -118,7 +138,7 @@ namespace angarawindows {
 		return intervals;
 	}
 
-	ChartData calculateChartData(double k, std::vector<angarawindows::WaterPumpWindow::ChartPoint> & points, std::function<void(double,double,double,int)> pointItCallback) {
+	ChartData calculateChartData(double k, std::vector<angarawindows::WaterPump::ChartPoint> & points, std::function<void(double,double,double,int)> pointItCallback) {
 		ChartData data;
 
 		int PointsQH = 0;
@@ -233,11 +253,11 @@ namespace angarawindows {
 		std::string mantis = std::to_string(m);
 		mantis.reserve();
 
-		return std::to_string(first) + (isAllZero ? "" : ("." + mantis)) + "e-" + std::to_string(e);
+		return std::to_string(first) + (isAllZero ? "" : ("," + mantis)) + "e-" + std::to_string(e);
 	}
 
-	void sortPoint(std::vector<angarawindows::WaterPumpWindow::ChartPoint> &q) {
-		std::sort(q.begin(), q.end(), [](const angarawindows::WaterPumpWindow::ChartPoint p1, angarawindows::WaterPumpWindow::ChartPoint p2) {
+	void sortPoint(std::vector<angarawindows::WaterPump::ChartPoint> &q) {
+		std::sort(q.begin(), q.end(), [](const angarawindows::WaterPump::ChartPoint p1, angarawindows::WaterPump::ChartPoint p2) {
 			return p1.Q < p2.Q;
 			});
 	}
@@ -296,24 +316,41 @@ namespace angarawindows {
 		bool isMinus = false;
 		bool isDrob = false;
 
+		bool isSaintific = false;
+		bool isMinusSaintific = false;
+		double saintificPow = 0;
+
 		for (int i = 0; i < box->Text->Length; i++) {
 			auto ch = box->Text[i];
 
 			if (wrapper.value == 0 && ch == '-') {
 				isMinus = true;
 			}
+			else if (isSaintific && ch == '-') {
+				isMinusSaintific = true;
+			}
 			else if ('0' <= ch && ch <= '9') {
-				if (isDrob) {
+				int val = (ch - '0');
+
+				if (isSaintific) {
+					saintificPow = saintificPow * 10 + val;
+				}else if (isDrob) {
 					drobSize *= 10;
-					drob = drob * 10 + (ch - '0');
+					drob = drob * 10 + val;
 				}
 				else {
-					wrapper.value = wrapper.value * 10 + (ch - '0');
+					wrapper.value = wrapper.value * 10 + val;
 				}
 				wrapper.empty = false;
 			}
 			else if ((ch == '.' || ch == ',') && !isDrob) {
 				isDrob = true;
+			}
+			else if (ch == 'e' || ch == L'е') {
+				isSaintific = true;
+			}
+			else if (ch == '+' && isSaintific) {
+				isMinusSaintific = false;
 			}
 			else {
 				goto if_there_is_an_extraneous_character;
@@ -329,7 +366,11 @@ namespace angarawindows {
 		if (isMinus)
 			wrapper.value *= -1;
 		if(isDrob)
-		wrapper.value += drob / drobSize;
+			wrapper.value += drob / drobSize;
+
+		if (isSaintific) {
+			wrapper.value *= Math::Pow(10, (isMinusSaintific ? -1 : 1) * saintificPow);;
+		}
 
 		return wrapper;
 	}
@@ -370,7 +411,6 @@ namespace angarawindows {
 	DBWrapper<int> getInt(msclr::gcroot <System::Data::OleDb::OleDbDataReader^> reader, System::String^ name) {
 		return getInt(reader, name, 0);
 	}
-
 
 	DBWrapper<short> getShort(msclr::gcroot <System::Data::OleDb::OleDbDataReader^> reader, System::String^ name, short def) {
 		DBWrapper<short> wrapper;
@@ -581,5 +621,16 @@ namespace angarawindows {
 		//std::cout << "set " << (2 * (chart->Text->Length - lenMax - 1)) << "\n";
 		chart->ChartAreas[0]->Position->X = 2 * (chart->Text->Length - lenMax - 1);
 		chart->ChartAreas[0]->Position->Width = 100 - chart->ChartAreas[0]->Position->X;
+	}
+
+
+	int getNextIdLink() {
+		int idLink = -1;
+		QueryBuilder("SELECT MAX(idLink) as idLink FROM Связи").executeQuery([&idLink](msclr::gcroot <OleDbDataReader^> reader) {
+			reader->Read();
+			idLink = getInt(reader, "idLink").value + 1;
+		});
+
+		return idLink;
 	}
 }

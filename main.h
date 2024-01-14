@@ -2,23 +2,22 @@
 #include <string>
 #include <vector>
 #include <functional>
-#include <msclr/gcroot.h>
-#include "utils.h"
 
 namespace angarawindows {
 	void setDBConnect(const char*);
-	void abstactQuery(System::String^, std::function<void(msclr::gcroot<System::Data::OleDb::OleDbDataReader^>)>);
-	void abstactShow(System::Windows::Forms::Form^);
+	const char* getUrlConnect();
+	template<typename VT> bool _isDefaultValue(VT value);
 
-	template<typename VT> struct DBWrapper {
+	template<typename VT> public  struct DBWrapper {
 		VT value;
 		bool empty = true;
 	};
 
-	template <typename OBS>  class ObserverValue {
+	template <typename OBS> public  class ObserverValue {
 		OBS value;
 		bool userNotEdit = true;
 		bool empty = false;
+		bool cancel = false;
 		std::vector<std::function<void(ObserverValue<OBS>&)>> eventHandlers;
 
 	public:
@@ -47,16 +46,30 @@ namespace angarawindows {
 			if (this->isUpdate)
 				return;
 			this->isUpdate = true;
+
+			//last-----------
+			OBS last_value = this->value;
+			bool last_empty = this->empty;
+			bool last_user_not_edit = this->userNotEdit;
+			//---------------
+
 			this->value = value;
 			if (!isUser) {
-				isEmpty = isDefaultValue(value);
+				isEmpty = _isDefaultValue(value);
 			}
 			this->empty = isEmpty;
-
 			this->userNotEdit |= isUser;
+			this->cancel = false;
 
 			for (auto fuctionLink : this->eventHandlers) {
 				fuctionLink(*this);
+
+				if (cancel) {
+					this->value = last_value;
+					this->empty = last_empty;
+					this->userNotEdit = last_user_not_edit;
+					break;
+				}
 			}
 
 			this->isUpdate = false;
@@ -65,7 +78,7 @@ namespace angarawindows {
 		void addEventListener(std::function<void(ObserverValue<OBS>&)> func) {
 			this->eventHandlers.push_back(func);
 		}
-		void removeEventListener(std::function<void(ObserverValue<OBS>&)>) {
+		void removeEventListener(std::function<void(ObserverValue<OBS>&)> func) {
 			this->eventHandlers.erase(std::remove(this->eventHandlers.begin(), this->eventHandlers.end(), func), this->eventHandlers.end());
 		}
 		void throwEvent() {
@@ -80,6 +93,10 @@ namespace angarawindows {
 		}
 		bool isEmpty() {
 			return this->empty;
+		}
+
+		void cancelEvent() {
+			this->cancel = true;
 		}
 	};
 

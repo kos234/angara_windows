@@ -13,33 +13,42 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Исходные файлы\WaterPump">
+      <UniqueIdentifier>{7a0ef30e-d8f5-49c0-b34c-67481e92eaed}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Исходные файлы\main">
+      <UniqueIdentifier>{feb4d29a-72ba-45d0-aa09-133c7af405db}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="angara_windows.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="utils.cpp">
-      <Filter>Исходные файлы</Filter>
+    <ClCompile Include="WaterPump.cpp">
+      <Filter>Исходные файлы\WaterPump</Filter>
     </ClCompile>
     <ClCompile Include="main.cpp">
-      <Filter>Исходные файлы</Filter>
+      <Filter>Исходные файлы\main</Filter>
+    </ClCompile>
+    <ClCompile Include="utils.cpp">
+      <Filter>Исходные файлы\main</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="WaterPump.h">
+    <ClInclude Include="WaterPumpForm.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
     <ClInclude Include="Pipe.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="angara_windows.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="utils.h">
-      <Filter>Файлы заголовков</Filter>
+    <ClInclude Include="WaterPump.h">
+      <Filter>Исходные файлы\WaterPump</Filter>
     </ClInclude>
     <ClInclude Include="main.h">
-      <Filter>Файлы заголовков</Filter>
+      <Filter>Исходные файлы\main</Filter>
+    </ClInclude>
+    <ClInclude Include="utils.h">
+      <Filter>Исходные файлы\main</Filter>
+    </ClInclude>
+    <ClInclude Include="AdvancedObserverValue.h">
+      <Filter>Исходные файлы\main</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
