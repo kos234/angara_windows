@@ -1,7 +1,7 @@
 ﻿#pragma once
 
 #include "utils.h"
-#include "WaterPump.h"
+#include "RealChartPoint.h"
 #include <cliext/set>
 #include <cliext/set>
 
@@ -20,11 +20,6 @@ namespace angarawindows {
 	/// </summary>
 	public ref class WaterPumpForm : public System::Windows::Forms::Form
 	{
-
-	public: angarawindows::WaterPump* model;
-
-
-
 	private: System::Windows::Forms::GroupBox^ groupBox3;
 	private: System::Windows::Forms::GroupBox^ groupBox9;
 	private: System::Windows::Forms::GroupBox^ groupBox4;
@@ -39,17 +34,12 @@ namespace angarawindows {
 		Hashtable^ errors = gcnew Hashtable();
 
 	public:
-		WaterPumpForm(angarawindows::WaterPump* m) {
+		WaterPumpForm() {
 			InitializeComponent();
-			this->model = m;
 
 			setupChart(this->chart1, L"H(м)", Color::FromArgb(2, 8, 88), Color::FromArgb(4, 10, 144), Color::FromArgb(7, 15, 203));
 			setupChart(this->chart2, L"N(КВт)", Color::FromArgb(193, 143, 0), Color::FromArgb(218, 165, 32), Color::FromArgb(243, 187, 58));
 			setupChart(this->chart3, L"η(%)", Color::FromArgb(30, 166, 61), Color::FromArgb(62, 188, 81), Color::FromArgb(88, 210, 101));
-
-			addEventsToChar(this->chart1);
-			addEventsToChar(this->chart2);
-			addEventsToChar(this->chart3);
 		}
 
 	protected:
@@ -113,8 +103,8 @@ namespace angarawindows {
 	private: System::Windows::Forms::TableLayoutPanel^ tableLayoutPanel4;
 	private: System::Windows::Forms::Label^ label_q_min;
 	private: System::Windows::Forms::Label^ label_q_max;
-	private: System::Windows::Forms::TextBox^ box_q_min;
-	private: System::Windows::Forms::TextBox^ box_q_max;
+	public: System::Windows::Forms::TextBox^ box_q_min;
+	public: System::Windows::Forms::TextBox^ box_q_max;
 	private: System::Windows::Forms::FlowLayoutPanel^ flowLayoutPanel1;
 	private: System::Windows::Forms::Button^ button1;
 	private: System::Windows::Forms::Button^ button2;
@@ -213,7 +203,7 @@ namespace angarawindows {
 	private: System::Windows::Forms::Label^ label41;
 	public: System::Windows::Forms::TextBox^ input_data_h_out;
 	private: System::Windows::Forms::TableLayoutPanel^ tableLayoutPanel1;
-	private: System::Windows::Forms::ToolTip^ toolTip1;
+	public: System::Windows::Forms::ToolTip^ toolTip1;
 	private: System::ComponentModel::IContainer^ components;
 
 #pragma region Windows Form Designer generated code
@@ -725,7 +715,6 @@ namespace angarawindows {
 			   this->box_point_q->Size = System::Drawing::Size(64, 21);
 			   this->box_point_q->TabIndex = 6;
 			   this->box_point_q->TextAlign = System::Windows::Forms::HorizontalAlignment::Right;
-			   this->box_point_q->TextChanged += gcnew System::EventHandler(this, &WaterPumpForm::DoubleInputHandler);
 			   // 
 			   // label16
 			   // 
@@ -1184,7 +1173,6 @@ namespace angarawindows {
 			   this->pump_name->Name = L"pump_name";
 			   this->pump_name->Size = System::Drawing::Size(293, 21);
 			   this->pump_name->TabIndex = 1;
-			   this->pump_name->TextChanged += gcnew System::EventHandler(this, &WaterPumpForm::StringInputHandler);
 			   // 
 			   // flowLayoutPanel5
 			   // 
@@ -1220,7 +1208,6 @@ namespace angarawindows {
 			   this->pump_enable->Name = L"pump_enable";
 			   this->pump_enable->Size = System::Drawing::Size(255, 23);
 			   this->pump_enable->TabIndex = 1;
-			   this->pump_enable->SelectedIndexChanged += gcnew System::EventHandler(this, &WaterPumpForm::pump_enable_SelectedIndexChanged);
 			   // 
 			   // groupBox1
 			   // 
@@ -1277,7 +1264,6 @@ namespace angarawindows {
 			   this->pump_mark->Name = L"pump_mark";
 			   this->pump_mark->Size = System::Drawing::Size(268, 21);
 			   this->pump_mark->TabIndex = 1;
-			   this->pump_mark->TextChanged += gcnew System::EventHandler(this, &WaterPumpForm::StringInputHandler);
 			   // 
 			   // flowLayoutPanel8
 			   // 
@@ -1309,7 +1295,6 @@ namespace angarawindows {
 			   this->pump_dim->Name = L"pump_dim";
 			   this->pump_dim->Size = System::Drawing::Size(130, 21);
 			   this->pump_dim->TabIndex = 1;
-			   this->pump_dim->TextChanged += gcnew System::EventHandler(this, &WaterPumpForm::IntegerInputHandler);
 			   // 
 			   // flowLayoutPanel9
 			   // 
@@ -1341,7 +1326,6 @@ namespace angarawindows {
 			   this->pump_turn->Name = L"pump_turn";
 			   this->pump_turn->Size = System::Drawing::Size(166, 21);
 			   this->pump_turn->TabIndex = 1;
-			   this->pump_turn->TextChanged += gcnew System::EventHandler(this, &WaterPumpForm::IntegerInputHandler);
 			   // 
 			   // label32
 			   // 
@@ -1443,7 +1427,6 @@ namespace angarawindows {
 			   this->numeric_input_point->Name = L"numeric_input_point";
 			   this->numeric_input_point->Size = System::Drawing::Size(34, 21);
 			   this->numeric_input_point->TabIndex = 7;
-			   this->numeric_input_point->ValueChanged += gcnew System::EventHandler(this, &WaterPumpForm::numeric_input_point_ValueChanged);
 			   // 
 			   // box_elem_q
 			   // 
@@ -1453,7 +1436,6 @@ namespace angarawindows {
 			   this->box_elem_q->ReadOnly = true;
 			   this->box_elem_q->Size = System::Drawing::Size(64, 21);
 			   this->box_elem_q->TabIndex = 8;
-			   this->box_elem_q->TextChanged += gcnew System::EventHandler(this, &WaterPumpForm::DoubleInputHandler);
 			   // 
 			   // box_elem_h
 			   // 
@@ -1463,7 +1445,6 @@ namespace angarawindows {
 			   this->box_elem_h->ReadOnly = true;
 			   this->box_elem_h->Size = System::Drawing::Size(64, 21);
 			   this->box_elem_h->TabIndex = 9;
-			   this->box_elem_h->TextChanged += gcnew System::EventHandler(this, &WaterPumpForm::DoubleInputHandler);
 			   // 
 			   // box_elem_n
 			   // 
@@ -1473,7 +1454,6 @@ namespace angarawindows {
 			   this->box_elem_n->ReadOnly = true;
 			   this->box_elem_n->Size = System::Drawing::Size(64, 21);
 			   this->box_elem_n->TabIndex = 10;
-			   this->box_elem_n->TextChanged += gcnew System::EventHandler(this, &WaterPumpForm::DoubleInputHandler);
 			   // 
 			   // box_elem_m
 			   // 
@@ -1513,8 +1493,8 @@ namespace angarawindows {
 			   this->flowLayoutPanel10->Controls->Add(this->groupBox3);
 			   this->flowLayoutPanel10->Controls->Add(this->groupBox9);
 			   this->flowLayoutPanel10->Controls->Add(this->label43);
-			   this->flowLayoutPanel10->Controls->Add(this->groupBox4);
 			   this->flowLayoutPanel10->Controls->Add(this->groupBox5);
+			   this->flowLayoutPanel10->Controls->Add(this->groupBox4);
 			   this->flowLayoutPanel10->Dock = System::Windows::Forms::DockStyle::Fill;
 			   this->flowLayoutPanel10->FlowDirection = System::Windows::Forms::FlowDirection::TopDown;
 			   this->flowLayoutPanel10->Location = System::Drawing::Point(0, 0);
@@ -1583,8 +1563,6 @@ namespace angarawindows {
 			   this->pump_eff_min->Name = L"pump_eff_min";
 			   this->pump_eff_min->Size = System::Drawing::Size(45, 21);
 			   this->pump_eff_min->TabIndex = 1;
-			   this->pump_eff_min->TextChanged += gcnew System::EventHandler(this, &WaterPumpForm::IntegerInputHandler);
-			   this->pump_eff_min->MouseEnter += gcnew System::EventHandler(this, &WaterPumpForm::ShowErrorsEvent);
 			   // 
 			   // label22
 			   // 
@@ -1603,8 +1581,6 @@ namespace angarawindows {
 			   this->pump_eff_max->Name = L"pump_eff_max";
 			   this->pump_eff_max->Size = System::Drawing::Size(45, 21);
 			   this->pump_eff_max->TabIndex = 3;
-			   this->pump_eff_max->TextChanged += gcnew System::EventHandler(this, &WaterPumpForm::IntegerInputHandler);
-			   this->pump_eff_max->MouseEnter += gcnew System::EventHandler(this, &WaterPumpForm::ShowErrorsEvent);
 			   // 
 			   // label40
 			   // 
@@ -1624,7 +1600,6 @@ namespace angarawindows {
 			   this->input_data_q->ReadOnly = true;
 			   this->input_data_q->Size = System::Drawing::Size(44, 21);
 			   this->input_data_q->TabIndex = 6;
-			   this->input_data_q->MouseEnter += gcnew System::EventHandler(this, &WaterPumpForm::ShowErrorsEvent);
 			   // 
 			   // groupBox3
 			   // 
@@ -1674,8 +1649,6 @@ namespace angarawindows {
 			   this->pump_pres_min->Name = L"pump_pres_min";
 			   this->pump_pres_min->Size = System::Drawing::Size(45, 21);
 			   this->pump_pres_min->TabIndex = 1;
-			   this->pump_pres_min->TextChanged += gcnew System::EventHandler(this, &WaterPumpForm::IntegerInputHandler);
-			   this->pump_pres_min->MouseEnter += gcnew System::EventHandler(this, &WaterPumpForm::ShowErrorsEvent);
 			   // 
 			   // label7
 			   // 
@@ -1695,8 +1668,6 @@ namespace angarawindows {
 			   this->pump_pres_max->Name = L"pump_pres_max";
 			   this->pump_pres_max->Size = System::Drawing::Size(45, 21);
 			   this->pump_pres_max->TabIndex = 3;
-			   this->pump_pres_max->TextChanged += gcnew System::EventHandler(this, &WaterPumpForm::IntegerInputHandler);
-			   this->pump_pres_max->MouseEnter += gcnew System::EventHandler(this, &WaterPumpForm::ShowErrorsEvent);
 			   // 
 			   // label39
 			   // 
@@ -1765,8 +1736,6 @@ namespace angarawindows {
 			   this->pump_pres_min_out->Name = L"pump_pres_min_out";
 			   this->pump_pres_min_out->Size = System::Drawing::Size(45, 21);
 			   this->pump_pres_min_out->TabIndex = 1;
-			   this->pump_pres_min_out->TextChanged += gcnew System::EventHandler(this, &WaterPumpForm::IntegerInputHandler);
-			   this->pump_pres_min_out->MouseEnter += gcnew System::EventHandler(this, &WaterPumpForm::ShowErrorsEvent);
 			   // 
 			   // label30
 			   // 
@@ -1785,8 +1754,6 @@ namespace angarawindows {
 			   this->pump_pres_max_out->Name = L"pump_pres_max_out";
 			   this->pump_pres_max_out->Size = System::Drawing::Size(45, 21);
 			   this->pump_pres_max_out->TabIndex = 3;
-			   this->pump_pres_max_out->TextChanged += gcnew System::EventHandler(this, &WaterPumpForm::IntegerInputHandler);
-			   this->pump_pres_max_out->MouseEnter += gcnew System::EventHandler(this, &WaterPumpForm::ShowErrorsEvent);
 			   // 
 			   // label41
 			   // 
@@ -1865,8 +1832,6 @@ namespace angarawindows {
 			   this->pump_turn_min->Name = L"pump_turn_min";
 			   this->pump_turn_min->Size = System::Drawing::Size(120, 21);
 			   this->pump_turn_min->TabIndex = 1;
-			   this->pump_turn_min->TextChanged += gcnew System::EventHandler(this, &WaterPumpForm::IntegerInputHandler);
-			   this->pump_turn_min->MouseEnter += gcnew System::EventHandler(this, &WaterPumpForm::ShowErrorsEvent);
 			   // 
 			   // label9
 			   // 
@@ -1886,8 +1851,6 @@ namespace angarawindows {
 			   this->pump_turn_max->Name = L"pump_turn_max";
 			   this->pump_turn_max->Size = System::Drawing::Size(120, 21);
 			   this->pump_turn_max->TabIndex = 3;
-			   this->pump_turn_max->TextChanged += gcnew System::EventHandler(this, &WaterPumpForm::IntegerInputHandler);
-			   this->pump_turn_max->MouseEnter += gcnew System::EventHandler(this, &WaterPumpForm::ShowErrorsEvent);
 			   // 
 			   // groupBox5
 			   // 
@@ -1935,8 +1898,6 @@ namespace angarawindows {
 			   this->pump_dim_min->Name = L"pump_dim_min";
 			   this->pump_dim_min->Size = System::Drawing::Size(120, 21);
 			   this->pump_dim_min->TabIndex = 1;
-			   this->pump_dim_min->TextChanged += gcnew System::EventHandler(this, &WaterPumpForm::IntegerInputHandler);
-			   this->pump_dim_min->MouseEnter += gcnew System::EventHandler(this, &WaterPumpForm::ShowErrorsEvent);
 			   // 
 			   // label11
 			   // 
@@ -1955,8 +1916,6 @@ namespace angarawindows {
 			   this->pump_dim_max->Name = L"pump_dim_max";
 			   this->pump_dim_max->Size = System::Drawing::Size(120, 21);
 			   this->pump_dim_max->TabIndex = 3;
-			   this->pump_dim_max->TextChanged += gcnew System::EventHandler(this, &WaterPumpForm::IntegerInputHandler);
-			   this->pump_dim_max->MouseEnter += gcnew System::EventHandler(this, &WaterPumpForm::ShowErrorsEvent);
 			   // 
 			   // tabPage6
 			   // 
@@ -2024,7 +1983,6 @@ namespace angarawindows {
 			   this->pump_slide_dim->Name = L"pump_slide_dim";
 			   this->pump_slide_dim->Size = System::Drawing::Size(213, 45);
 			   this->pump_slide_dim->TabIndex = 4;
-			   this->pump_slide_dim->ValueChanged += gcnew System::EventHandler(this, &WaterPumpForm::slide_changed);
 			   // 
 			   // pump_cur_dim
 			   // 
@@ -2033,7 +1991,6 @@ namespace angarawindows {
 			   this->pump_cur_dim->Name = L"pump_cur_dim";
 			   this->pump_cur_dim->Size = System::Drawing::Size(100, 21);
 			   this->pump_cur_dim->TabIndex = 5;
-			   this->pump_cur_dim->TextChanged += gcnew System::EventHandler(this, &WaterPumpForm::IntegerInputHandler);
 			   // 
 			   // flowLayoutPanel22
 			   // 
@@ -2078,7 +2035,6 @@ namespace angarawindows {
 			   this->pump_slide_turn->Name = L"pump_slide_turn";
 			   this->pump_slide_turn->Size = System::Drawing::Size(213, 45);
 			   this->pump_slide_turn->TabIndex = 4;
-			   this->pump_slide_turn->ValueChanged += gcnew System::EventHandler(this, &WaterPumpForm::slide_changed);
 			   // 
 			   // pump_cur_turn
 			   // 
@@ -2087,7 +2043,6 @@ namespace angarawindows {
 			   this->pump_cur_turn->Name = L"pump_cur_turn";
 			   this->pump_cur_turn->Size = System::Drawing::Size(100, 21);
 			   this->pump_cur_turn->TabIndex = 5;
-			   this->pump_cur_turn->TextChanged += gcnew System::EventHandler(this, &WaterPumpForm::IntegerInputHandler);
 			   // 
 			   // flowLayoutPanel14
 			   // 
@@ -2134,7 +2089,6 @@ namespace angarawindows {
 			   this->pump_slide_s->Size = System::Drawing::Size(213, 45);
 			   this->pump_slide_s->TabIndex = 4;
 			   this->pump_slide_s->TickFrequency = 100;
-			   this->pump_slide_s->ValueChanged += gcnew System::EventHandler(this, &WaterPumpForm::slide_changed);
 			   // 
 			   // pump_cur_s
 			   // 
@@ -2143,7 +2097,6 @@ namespace angarawindows {
 			   this->pump_cur_s->Name = L"pump_cur_s";
 			   this->pump_cur_s->Size = System::Drawing::Size(100, 21);
 			   this->pump_cur_s->TabIndex = 5;
-			   this->pump_cur_s->TextChanged += gcnew System::EventHandler(this, &WaterPumpForm::DoubleInputHandler);
 			   // 
 			   // tableLayoutPanel1
 			   // 
@@ -2182,8 +2135,6 @@ namespace angarawindows {
 			   this->Name = L"WaterPumpForm";
 			   this->StartPosition = System::Windows::Forms::FormStartPosition::CenterScreen;
 			   this->Text = L"WaterPump";
-			   this->KeyDown += gcnew System::Windows::Forms::KeyEventHandler(this, &WaterPumpForm::chart1_KeyDown);
-			   this->KeyUp += gcnew System::Windows::Forms::KeyEventHandler(this, &WaterPumpForm::chart1_KeyUp);
 			   this->Resize += gcnew System::EventHandler(this, &WaterPumpForm::WaterPump_Resize);
 			   this->flowLayoutPanel16->ResumeLayout(false);
 			   this->panel4->ResumeLayout(false);
@@ -2282,10 +2233,6 @@ namespace angarawindows {
 		   }
 #pragma endregion
 
-	private: System::Void button3_Click(System::Object^ sender, System::EventArgs^ e) {
-	}
-
-
 	private: System::Void tabControl1_SelectedIndexChanged(System::Object^ sender, System::EventArgs^ e) {
 		TabControl^ tabCont = safe_cast<TabControl^>(sender);
 
@@ -2341,737 +2288,7 @@ namespace angarawindows {
 		last_width = control->Size.Width;
 	}
 
-	private: System::Void StringInputHandler(System::Object^ sender, System::EventArgs^ e) {
-		TextBox^ textbox = safe_cast<TextBox^>(sender);
-		auto name = textbox->Name;
-
-		if (notCallEvents->ContainsKey(name) && notCallEvents[name]) {
-			notCallEvents[name] = false;
-			return;
-		}
-
-
-		if (name == this->pump_name->Name) {
-			this->model->name.setValue(SysToStd(textbox->Text), textbox->Text->Length == 0, true);
-		/*	if (textbox->Text->Length > 50)
-				addToErrors(textbox, "Длина имени не может быть больше 50 символовов");
-			else
-				removeFromsErrors(textbox);
-*/
-		}
-		else if (name == this->pump_mark->Name) {
-			this->model->mark.setValue(SysToStd(textbox->Text), textbox->Text->Length == 0, true);
-
-			/*if (textbox->Text->Length > 20)
-				addToErrors(textbox, "Длина имени не может быть больше 50 символовов");
-			else
-				removeFromsErrors(textbox);*/
-		}
-	}
-
-	private: System::Void DoubleInputHandler(System::Object^ sender, System::EventArgs^ e) {
-		TextBox^ textbox = safe_cast<TextBox^>(sender);
-		auto name = textbox->Name;
-
-		if (notCallEvents->ContainsKey(name) && notCallEvents[name]) {
-			notCallEvents[name] = false;
-			return;
-		}
-
-		DBWrapper<double> inputWrapper;
-		try {
-			inputWrapper = _DoubleInputHandler(textbox);
-		}
-		catch (...) {
-			return;
-		}
-
-		if (name == this->box_point_q->Name) {
-			if (inputWrapper.value < 0) {
-				addToErrors(textbox, "Производительность не может быть отрицательной");
-				return;
-			}
-			removeFromsErrors(this->box_point_q);
-
-			this->model->pointer.setValue(inputWrapper.value, inputWrapper.empty, true);		
-		}
-		else if (name == this->pump_cur_s->Name) {
-			if (inputWrapper.value < 0) {
-				addToErrors(textbox, "Сопротивление не может быть отрицательным");
-				return;
-			}
-
-			removeFromsErrors(this->pump_cur_s);
-
-
-			this->model->resistance_current.setValue(
-				Math::Min(model->resistance_min, inputWrapper.value), inputWrapper.empty, true);
-		}
-		else if (name == this->box_elem_h->Name && this->model->elemMove.getValue() != -1) {
-			if (this->model->elemMove.isUpdate)
-				return;
-
-			if (inputWrapper.value < 0) {
-				addToErrors(textbox, "Напор не может быть отрицательным");
-				return;
-			}
-			if (inputWrapper.empty) {
-				addToErrors(textbox, "Напор должен быть задан");
-				return;
-			}
-
-			removeFromsErrors(this->box_elem_h);
-
-			int i = this->model->elemMove.getValue();
-			this->model->chartPoints.getValue().at(i).H = inputWrapper.value;
-			this->model->chartPoints.throwEvent();
-			this->model->elemMove.throwEvent();
-		}
-		else if (name == this->box_elem_n->Name && this->model->elemMove.getValue() != -1) {
-			if (this->model->elemMove.isUpdate)
-				return;
-			if (inputWrapper.value < 0) {
-				addToErrors(textbox, "Мощность не может быть отрицательной");
-				return;
-			}
-
-			if (inputWrapper.empty) {
-				addToErrors(textbox, "Мощность должна быть задана");
-				return;
-			}
-
-			removeFromsErrors(this->box_elem_n);
-
-			int i = this->model->elemMove.getValue();
-			WaterPump::ChartPoint & point = this->model->chartPoints.getValue().at(i);
-			point.N = inputWrapper.value;
-
-			this->chart2->Series[2]->Points[0]->YValues[0] = inputWrapper.value;
-			this->chart3->Series[2]->Points[0]->YValues[0] = getCPD(point.H, point.Q, point.N);
-
-			this->model->chartPoints.throwEvent();
-		}
-		else if (name == this->box_elem_q->Name && this->model->elemMove.getValue() != -1) {
-			if (this->model->elemMove.isUpdate)
-				return;
-
-			if (inputWrapper.value < 0) {
-				addToErrors(textbox, "Расход не может быть отрицательным");
-				return;
-			}
-
-			if (inputWrapper.empty) {
-				addToErrors(textbox, "Расход должн быть задан");
-				return;
-			}
-
-			removeFromsErrors(this->box_elem_q);
-
-			int i = this->model->elemMove.getValue();
-			this->chart1->Series[2]->Points[0]->XValue = inputWrapper.value;
-			this->chart2->Series[2]->Points[0]->XValue = inputWrapper.value;
-			this->chart3->Series[2]->Points[0]->XValue = inputWrapper.value;
-			this->chart3->Series[2]->Points[0]->YValues[0] = getCPD(this->chart1->Series[2]->Points[0]->YValues[0], inputWrapper.value, this->chart2->Series[2]->Points[0]->YValues[0]);
-			
-			this->model->chartPoints.getValue().at(i).Q = inputWrapper.value;
-			auto point = this->model->chartPoints.getValue().at(i);
-			sortPoint(this->model->chartPoints.getValue());
-			for (int v = 0; v < this->model->chartPoints.getValue().size(); v++) {
-				if (point.Q == this->model->chartPoints.getValue().at(v).Q
-					&& point.N == this->model->chartPoints.getValue().at(v).N
-					&& point.H == this->model->chartPoints.getValue().at(v).H) {
-					i = v;
-					break;
-				}
-			}
-
-			this->model->chartPoints.throwEvent();
-			this->numeric_input_point->Value = i + 1;
-		}
-	}
-
-	private: System::Void pump_enable_SelectedIndexChanged(System::Object^ sender, System::EventArgs^ e) {
-		auto name = this->pump_enable->Name;
-
-		if (notCallEvents->ContainsKey(name) && notCallEvents[name]) {
-			notCallEvents[name] = false;
-			return;
-		}
-
-		this->model->enable.setValue(this->pump_enable->SelectedIndex + 1);
-	}
-
-	private: System::Void IntegerInputHandler(System::Object^ sender, System::EventArgs^ e) {
-		TextBox^ textbox = safe_cast<TextBox^>(sender);
-		auto name = textbox->Name;
-
-		if (notCallEvents->ContainsKey(name) && notCallEvents[name]) {
-			notCallEvents[name] = false;
-			return;
-		}
-		DBWrapper<int> inputWrapper;
-		try {
-			inputWrapper = _IntInputHandler(textbox);
-		}catch(...){
-			return;
-		}
-		int value = inputWrapper.value;
-		bool isEmpty = inputWrapper.empty;
-
-		if (name == this->pump_dim->Name) {
-			this->model->diameter_nominal.setValue(value, isEmpty, true);
-			removeFromsErrors(this->pump_dim);
-		}
-		else if (name == this->pump_turn->Name) {
-			this->model->turnovers_nominal.setValue(value, isEmpty, true);
-			removeFromsErrors(this->pump_turn);
-		}
-		else if (name == this->pump_eff_min->Name) {
-			if (value < 0) {
-				addToErrors(textbox, "Производительность не может быть отрицательной");
-				return;
-			}
-
-			auto wrapper = this->model->efficiency_max.getWrapper();
-
-			if (!isEmpty && !wrapper.empty && value > wrapper.value) {
-				addToErrors(this->pump_eff_min, "Минимальная производительность не может быть больше максимальной");
-				addToErrors(this->pump_eff_max, "Максимальная производительность не может быть меньше минимальной");
-				return;
-			}
-
-			removeFromsErrors(this->pump_eff_min);
-			removeFromsErrors(this->pump_eff_max);
-
-			this->model->efficiency_min.setValue(value, isEmpty, true);
-		}
-		else if (name == this->pump_eff_max->Name) {
-			if (value < 0) {
-				addToErrors(textbox, "Производительность не может быть отрицательной");
-				return;
-			}
-
-			auto wrapper = this->model->efficiency_min.getWrapper();
-
-			if (!isEmpty && !wrapper.empty && value < wrapper.value) {
-				addToErrors(this->pump_eff_min, "Минимальная производительность не может быть больше максимальной");
-				addToErrors(this->pump_eff_max, "Максимальная производительность не может быть меньше минимальной");
-				return;
-			}
-
-			removeFromsErrors(this->pump_eff_min);
-			removeFromsErrors(this->pump_eff_max);
-
-			this->model->efficiency_max.setValue(value, isEmpty, true);
-		}
-		else if (name == this->pump_pres_min->Name) {
-			if (value < 0) {
-				addToErrors(textbox, "Давление не может быть отрицательным");
-				return;
-			}
-
-			auto wrapper = this->model->pressure_in_max.getWrapper();
-
-			if (!isEmpty && !wrapper.empty && value > wrapper.value) {
-				addToErrors(this->pump_pres_min, "Минимальное давление не может быть больше максимального");
-				addToErrors(this->pump_pres_max, "Максимальное давление не может быть меньше минимального");
-				return;
-			}
-
-			removeFromsErrors(this->pump_pres_min);
-			removeFromsErrors(this->pump_pres_max);
-
-
-			this->model->pressure_in_min.setValue(value, isEmpty, true);
-
-
-		}
-		else if (name == this->pump_pres_min_out->Name) {
-			if (value < 0) {
-				addToErrors(textbox, "Давление не может быть отрицательным");
-				return;
-			}
-			auto wrapper = this->model->pressure_out_max.getWrapper();
-
-			if (!isEmpty && !wrapper.empty && value > wrapper.value) {
-				addToErrors(this->pump_pres_min_out, "Минимальное давление не может быть больше максимального");
-				addToErrors(this->pump_pres_max_out, "Максимальное давление не может быть меньше минимального");
-				return;
-			}
-
-			removeFromsErrors(this->pump_pres_min_out);
-			removeFromsErrors(this->pump_pres_max_out);
-
-			this->model->pressure_out_min.setValue(value, isEmpty, true);
-
-
-		}
-		else if (name == this->pump_pres_max->Name) {
-			if (value < 0) {
-				addToErrors(textbox, "Давление не может быть отрицательным");
-				return;
-			}
-
-			auto wrapper = this->model->pressure_in_min.getWrapper();
-
-			if (!isEmpty && !wrapper.empty && value < wrapper.value) {
-				addToErrors(this->pump_pres_min, "Минимальное давление не может быть больше максимального");
-				addToErrors(this->pump_pres_max, "Максимальное давление не может быть меньше минимального");
-				return;
-			}
-
-			removeFromsErrors(this->pump_pres_min);
-			removeFromsErrors(this->pump_pres_max);
-
-			this->model->pressure_in_max.setValue(value, isEmpty, true);
-
-
-		}
-		else if (name == this->pump_pres_max_out->Name) {
-			if (value < 0) {
-				addToErrors(textbox, "Давление не может быть отрицательным");
-				return;
-			}
-			auto wrapper = this->model->pressure_out_min.getWrapper();
-
-			if (!isEmpty && !wrapper.empty && value < wrapper.value) {
-				addToErrors(this->pump_pres_min_out, "Минимальное давление не может быть больше максимального");
-				addToErrors(this->pump_pres_max_out, "Максимальное давление не может быть меньше минимального");
-				return;
-			}
-
-			removeFromsErrors(this->pump_pres_min_out);
-			removeFromsErrors(this->pump_pres_max_out);
-
-			this->model->pressure_out_max.setValue(value, isEmpty, true);
-
-
-		}
-		else if (name == this->pump_turn_min->Name) {
-			if (value < 0) {
-				addToErrors(textbox, "Число оборотов не может быть отрицательным");
-				return;
-			}
-
-			auto wrapper = this->model->turnovers_max.getWrapper();
-
-			if (!isEmpty && !wrapper.empty && value > wrapper.value) {
-				addToErrors(this->pump_turn_min, "Минимальное число оборотов не может быть больше максимального");
-				addToErrors(this->pump_turn_max, "Максимальное число оборотов не может быть меньше минимального");
-				return;
-			}
-
-			removeFromsErrors(this->pump_turn_min);
-			removeFromsErrors(this->pump_turn_max);
-
-			this->model->turnovers_min.setValue(value, isEmpty, true);
-
-
-		}
-		else if (name == this->pump_turn_max->Name) {
-			if (value < 0) {
-				addToErrors(textbox, "Число оборотов не может быть отрицательным");
-				return;
-			}
-
-			auto wrapper = this->model->turnovers_min.getWrapper();
-
-			if (!isEmpty && !wrapper.empty && value < wrapper.value) {
-				addToErrors(this->pump_turn_min, "Минимальное число оборотов не может быть больше максимального");
-				addToErrors(this->pump_turn_max, "Максимальное число оборотов не может быть меньше минимального");
-				return;
-			}
-
-			removeFromsErrors(this->pump_turn_min);
-			removeFromsErrors(this->pump_turn_max);
-
-			this->model->turnovers_max.setValue(value, isEmpty, true);
-
-
-		}
-		else if (name == this->pump_dim_min->Name) {
-			if (value < 0) {
-				addToErrors(textbox, "Диаметр не может быть отрицательным");
-				return;
-			}
-
-			auto wrapper = this->model->diameter_max.getWrapper();
-
-			if (!isEmpty && !wrapper.empty && value > wrapper.value) {
-				addToErrors(this->pump_dim_min, "Минимальный диаметр не может быть больше максимального");
-				addToErrors(this->pump_dim_max, "Максимальный диаметр оборотов не может быть меньше минимального");
-				return;
-			}
-
-			removeFromsErrors(this->pump_dim_min);
-			removeFromsErrors(this->pump_dim_max);
-
-			this->model->diameter_min.setValue(value, isEmpty, true);
-		}
-		else if (name == this->pump_dim_max->Name) {
-			if (value < 0) {
-				addToErrors(textbox, "Диаметр не может быть отрицательным");
-				return;
-			}
-
-
-			auto wrapper = this->model->diameter_min.getWrapper();
-
-			if (!isEmpty && !wrapper.empty && value < wrapper.value) {
-				addToErrors(this->pump_dim_min, "Минимальный диаметр не может быть больше максимального");
-				addToErrors(this->pump_dim_max, "Максимальный диаметр оборотов не может быть меньше минимального");
-				return;
-			}
-
-			removeFromsErrors(this->pump_dim_min);
-			removeFromsErrors(this->pump_dim_max);
-
-			this->model->diameter_max.setValue(value, isEmpty, true);
-
-
-		}
-		else if (name == this->pump_cur_dim->Name) {
-
-			//if(value < this->model->)
-
-			this->model->diameter_current.setValue(value, isEmpty, true);
-
-
-		}
-		else if (name == this->pump_cur_turn->Name) {
-			this->model->turnovers_current.setValue(value, isEmpty, true);
-		}
-	}
-
-	private: System::Void numeric_input_point_ValueChanged(System::Object^ sender, System::EventArgs^ e) {
-		if (this->model->elemMove.isUpdate)
-			return;
-		this->model->elemMove.setValue((int)(this->numeric_input_point->Value) - 1);
-		auto name = this->numeric_input_point->Name;
-
-		if (notCallEvents->ContainsKey(name) && notCallEvents[name]) {
-			notCallEvents[name] = false;
-			return;
-		}
-
-	}
-
-	private: System::Void slide_changed(System::Object^ sender, System::EventArgs^ e) {
-		TrackBar^ trackBar = safe_cast<TrackBar^>(sender);
-		auto name = trackBar->Name;
-
-		if (name == this->pump_slide_s->Name) {
-			this->model->resistance_current.setValue(trackBar->Value / (this->pump_slide_s->Maximum * 1.0) * model->resistance_min, false, true);
-		}
-		else if (name == this->pump_slide_dim->Name)
-			this->model->diameter_current.setValue(trackBar->Value, false, true);
-		else if (name == this->pump_slide_turn->Name)
-			this->model->turnovers_current.setValue(trackBar->Value, false, true);
-	}
-
-	public: System::Void PostPaint(System::Object^ sender, System::Windows::Forms::DataVisualization::Charting::ChartPaintEventArgs^ e)
-	{
-		double localK = this->model->k.getValue();
-		if (localK == 0)
-			localK = 1;
-
-		//Если отрисовывают области, нас это не интересует, а если отрисовыается весь график, то ещё как
-		if (!e->ChartElement->GetType()->Equals(this->chart1->ChartAreas[0]->GetType()))
-			return;
-
-		//----------------------------------------------------------------------------------------------------------
-
-		//Кисточка для областей
-		System::Drawing::Brush^ b = gcnew System::Drawing::SolidBrush(System::Drawing::Color::FromArgb(100, 255, 0, 0));
-
-		//Отрисовка области Qmin
-		System::Drawing::RectangleF s1 = System::Drawing::RectangleF::FromLTRB(
-			e->Chart->ChartAreas[0]->AxisX->ValueToPixelPosition(0),
-			e->Chart->ChartAreas[0]->AxisY->ValueToPixelPosition(e->Chart->ChartAreas[0]->AxisY->Maximum),
-			e->Chart->ChartAreas[0]->AxisX->ValueToPixelPosition(this->model->efficiency_min.getValue() * localK),
-			e->Chart->ChartAreas[0]->AxisY->ValueToPixelPosition(0)
-		);
-
-		//Отрисовка области Qmax
-		System::Drawing::RectangleF s2 = System::Drawing::RectangleF::FromLTRB(
-			e->Chart->ChartAreas[0]->AxisX->ValueToPixelPosition(this->model->efficiency_max.getValue() * localK),
-			e->Chart->ChartAreas[0]->AxisY->ValueToPixelPosition(e->Chart->ChartAreas[0]->AxisY->Maximum),
-			e->Chart->ChartAreas[0]->AxisX->ValueToPixelPosition(e->Chart->ChartAreas[0]->AxisX->Maximum),
-			e->Chart->ChartAreas[0]->AxisY->ValueToPixelPosition(0)
-		);
-
-
-		if (this->model->efficiency_min.getValue() * localK != 0)
-			e->ChartGraphics->Graphics->FillRectangle(b, s1);
-		if (this->model->efficiency_max.getValue() * localK != 0)
-			e->ChartGraphics->Graphics->FillRectangle(b, s2);
-
-		//Изменение Qmin, Qmax в полях под графиком 
-		SuperTextSetter(this->box_q_min, this->model->efficiency_min.getValue() * localK, this->model->efficiency_min.isEmpty());
-		SuperTextSetter(this->box_q_max, this->model->efficiency_max.getValue() * localK, this->model->efficiency_max.isEmpty());
-
-		//----------------------------------------------------------------------------------------------------------
-
-
-		//Подпись полей графиков
-		System::Drawing::Font^ FMSS = gcnew System::Drawing::Font(gcnew System::Drawing::FontFamily("Microsoft Sans Serif"), 9);
-		System::Drawing::SolidBrush^ backBrush = gcnew System::Drawing::SolidBrush(System::Drawing::Color::FromArgb(255, 255, 255));
-
-		//Отрисовка подписи оси х
-		double endX = e->Chart->ChartAreas[0]->AxisX->ValueToPixelPosition(e->Chart->ChartAreas[0]->AxisX->Maximum);
-		double endXNext = e->Chart->ChartAreas[0]->AxisX->ValueToPixelPosition(e->Chart->ChartAreas[0]->AxisX->Maximum - e->Chart->ChartAreas[0]->AxisX->Interval);
-		double startY = e->Chart->ChartAreas[0]->AxisY->ValueToPixelPosition(0);
-
-		SizeF^ sizeIntervalX = e->ChartGraphics->Graphics->MeasureString(e->Chart->ChartAreas[0]->AxisX->Maximum + "", FMSS);
-		SizeF^ sizeIntervalXNext = e->ChartGraphics->Graphics->MeasureString((e->Chart->ChartAreas[0]->AxisX->Maximum - e->Chart->ChartAreas[0]->AxisX->Interval) + "", FMSS);
-		SizeF^ sizeTextX = e->ChartGraphics->Graphics->MeasureString("Q(м3/ч)", FMSS);
-
-		double maxRecWidthX = Math::Max(sizeIntervalX->Width, sizeTextX->Width);
-
-		double RBX = endX + maxRecWidthX / 2;
-		double LTX = endX - maxRecWidthX / 2;
-
-		if (RBX > e->Chart->Size.Width) {
-			LTX -= (RBX - e->Chart->Size.Width);
-			RBX = e->Chart->Size.Width;
-		}
-
-		System::Drawing::RectangleF recBackTextX = System::Drawing::RectangleF::FromLTRB(
-			LTX, startY + 2,
-			RBX, e->Chart->Size.Height
-		);
-
-		e->ChartGraphics->Graphics->FillRectangle(backBrush, recBackTextX);
-		e->ChartGraphics->Graphics->DrawString("Q(м3/ч)",
-			FMSS,
-			gcnew System::Drawing::SolidBrush(System::Drawing::Color::FromArgb(0, 0, 0)),
-			LTX, startY + sizeTextX->Height / 2);
-
-		//----------------------------------------------------------------------------------------------------------
-		//Отрисовка подписей разных графиков
-
-		double startX = e->Chart->ChartAreas[0]->AxisX->ValueToPixelPosition(0);
-		double endY = e->Chart->ChartAreas[0]->AxisY->ValueToPixelPosition(e->Chart->ChartAreas[0]->AxisY->Maximum);
-
-		SizeF^ sizeIntervalY = e->ChartGraphics->Graphics->MeasureString(e->Chart->ChartAreas[0]->AxisY->Maximum + "", FMSS);
-		SizeF^ sizeTextY = e->ChartGraphics->Graphics->MeasureString(e->Chart->Text, FMSS);
-
-		double maxRecHeightY = Math::Max(sizeIntervalY->Height, sizeTextY->Height);
-
-		double RBY = endY + maxRecHeightY / 2;
-		double LTY = endY - maxRecHeightY / 2;
-
-		if (LTY < 0) {
-			RBY -= LTY;
-			LTY = 0;
-		}
-
-		System::Drawing::RectangleF recBackTextY = System::Drawing::RectangleF::FromLTRB(
-			0, LTY,
-			startX - 2, RBY
-		);
-
-		e->ChartGraphics->Graphics->FillRectangle(backBrush, recBackTextY);
-		e->ChartGraphics->Graphics->DrawString(e->Chart->Text,
-			FMSS,
-			gcnew System::Drawing::SolidBrush(System::Drawing::Color::FromArgb(0, 0, 0)),
-			startX - sizeTextY->Width - 2, LTY);
-
-
-		//----------------------------------------------------------------------------------------------------------
-		//Если точек нет, рисуем заглушку
-		if (model->chartPoints.getValue().size() == 0) {
-			System::Drawing::RectangleF recBackTextYZ = System::Drawing::RectangleF::FromLTRB(
-				0, 0,
-				chart1->Width, chart1->Height
-				);
-
-			e->ChartGraphics->Graphics->FillRectangle(gcnew System::Drawing::SolidBrush(System::Drawing::Color::FromArgb(128, 255, 255, 255)), recBackTextYZ);
-
-			String^ emptyText = e->Chart->Name != this->chart3->Name ? L"Нажмите два раза, чтобы добавить точку" : L"Добавьте точку на другие графики";
-
-			SizeF^ sizeAdd = e->ChartGraphics->Graphics->MeasureString(emptyText, FMSS);
-			e->ChartGraphics->Graphics->DrawString(emptyText,
-				FMSS,
-				gcnew System::Drawing::SolidBrush(System::Drawing::Color::FromArgb(0, 0, 0)),
-				(startX + endX - sizeAdd->Width) / 2, (startY + endY - sizeAdd->Height)/2 );
-		}
-	}
-
-	private: bool chartMove = true;
-	public: bool isMove = false;
-	private: bool isShift = false;
-
-	public: System::Void chart1_MouseDown(System::Object^ sender, System::Windows::Forms::MouseEventArgs^ e) {
-		DataVisualization::Charting::Chart^ chart = safe_cast<DataVisualization::Charting::Chart^>(sender);
-		chartMove = chart->Name == this->chart1->Name;
-
-		if (model->chartPoints.getValue().size() == 0)
-			return;
-
-		double xChart = chart->ChartAreas[0]->AxisX->PixelPositionToValue(e->X);
-
-		isMove = false;
-		for (int i = 0; i < chart->Series[3]->Points->Count; i++) {
-
-			auto q = chart->Series[3]->Points[i];
-			double xG = chart->ChartAreas[0]->AxisX->ValueToPixelPosition(q->XValue);
-			double yG = chart->ChartAreas[0]->AxisY->ValueToPixelPosition(q->YValues[0]);
-
-			bool r = (e->X - xG) * (e->X - xG) + (e->Y - yG) * (e->Y - yG) <= 50;
-			if (r) {
-				isMove = chart->Name != this->chart3->Name;
-				this->model->elemMove.setValue(i);
-
-				xChart = q->XValue;
-				break;
-			}
-		}
-
-
-		model->pointer.setValue(xChart);
-	}
-	public: System::Void chart1_MouseMove(System::Object^ sender, System::Windows::Forms::MouseEventArgs^ e) {
-		if (this->model->elemMove.getValue() == -1 || !isMove)
-			return;
-
-		DataVisualization::Charting::Chart^ chart = safe_cast<DataVisualization::Charting::Chart^>(sender);
-		if ((chart->Name == this->chart1->Name) != chartMove)
-			return;
-
-		try {
-			double xChart = chart->ChartAreas[0]->AxisX->PixelPositionToValue(e->X);
-			double yChart = chart->ChartAreas[0]->AxisY->PixelPositionToValue(e->Y);
-
-			if (yChart < 0 || yChart > chart->ChartAreas[0]->AxisY->Maximum)
-				return;
-			if (xChart < 0 || xChart > chart->ChartAreas[0]->AxisX->Maximum)
-				return;
-
-			if (isShift) {
-				if (chartMove)
-					this->box_elem_q->Text = round3(xChart) + "";
-				else
-					this->box_elem_q->Text = round3(xChart) + "";
-			}
-			else {
-				if (chartMove)
-					this->box_elem_h->Text = round3(yChart) + "";
-				else
-					this->box_elem_n->Text = round3(yChart) + "";
-			}
-		}
-		catch (Exception^ ignore) {}
-
-	}
-	public: System::Void chart1_MouseLeave(System::Object^ sender, System::EventArgs^ e) {
-
-		chart1_MouseUp(sender, nullptr);
-	}
-	public: System::Void chart1_MouseUp(System::Object^ sender, System::Windows::Forms::MouseEventArgs^ e) {
-		if (!isMove)
-			return;
-
-		DataVisualization::Charting::Chart^ chart = safe_cast<DataVisualization::Charting::Chart^>(sender);
-		isMove = false;
-
-		this->model->chartPoints.throwEvent();
-	}
-
-	public: System::Void chart1_KeyDown(System::Object^ sender, System::Windows::Forms::KeyEventArgs^ e) {
-		if (e->KeyCode == Keys::ShiftKey || e->KeyCode == Keys::Shift) {
-			isShift = true;
-		}
-
-		int i = this->model->elemMove.getValue();
-		if (e->KeyCode == Keys::Delete && i != -1)
-			if (MessageBox::Show("Вы действительно хотите удалить точку " + (i + 1),
-				"Удаление точки", MessageBoxButtons::YesNo) == System::Windows::Forms::DialogResult::Yes) {
-				this->model->chartPoints.getValue().erase(this->model->chartPoints.getValue().begin() + i);
-				this->model->chartPoints.throwEvent();
-				this->model->elemMove.setValue(-1);
-			}
-	}
-	public: System::Void chart1_KeyUp(System::Object^ sender, System::Windows::Forms::KeyEventArgs^ e) {
-		if (e->KeyCode == Keys::ShiftKey || e->KeyCode == Keys::Shift) {
-			isShift = false;
-		}
-	}
-
-	public: System::Void addToErrors(Control^ box, String^ error) {
-		if(!errors->ContainsKey(box->Name))
-			errors[box->Name] = box->BackColor;
-
-		this->toolTip1->SetToolTip(box, error);
-		box->BackColor = Color::FromArgb(255, 128, 128);
-
-	}
-	public: System::Void removeFromsErrors(Control^ box) {
-		Object^ obj = errors[box->Name];
-		if (obj == nullptr)
-			return;
-
-		box->BackColor = safe_cast<Color>(obj);
-		errors->Remove(box->Name);
-		this->toolTip1->SetToolTip(box, nullptr);
-	}
-
-		  int angle = 0;
-
-	private: System::Void ShowErrorsEvent(System::Object^ sender, System::EventArgs^ e) {
-		TextBox^ t = safe_cast<TextBox^>(sender);
-
-		auto it = errors[t->Name];
-		if (it == nullptr)
-			return;
-		this->toolTip1->Active = false;
-		this->toolTip1->Active = true;
-	}
-
-	public: System::Void chart1_DoubleClick(System::Object^ sender, System::EventArgs^ e) {
-		if (isMove)
-			return;
-		if (model->chartPoints.getValue().size() >= 5) {
-			MessageBox::Show("Можно добавить максимум 5 точек", "Внимание");
-			return;
-		}
-
-		DataVisualization::Charting::Chart^ localChart = safe_cast<DataVisualization::Charting::Chart^>(sender);
-		bool isChart1 = localChart->Name == chart1->Name;
-		MouseEventArgs^ event = safe_cast<MouseEventArgs^>(e);
-		angarawindows::WaterPump::ChartPoint newPoint;
-
-		newPoint.Q = localChart->ChartAreas[0]->AxisX->PixelPositionToValue(event->X);
-
-	/*	double offset = 0;
-		bool isNotExit = true;
-		for (int i = 0; i < model->chartPoints.getValue().size(); i++) {
-			auto point = model->chartPoints.getValue()[i];
-			if (point.Q < newPoint.Q) {
-				offset = isChart1 ? point.N : point.H;
-			}
-			else {
-				offset = ((isChart1 ? point.N : point.H) + offset) / 2.0;
-				isNotExit = false;
-				break;
-			}
-		}
-
-
-		if (isNotExit)
-			offset *= (isChart1 ? 2 : 0.5);
-
-		if (offset == 0) {
-			offset = 2 * localChart->ChartAreas[0]->AxisX->Interval;
-		}
-		*/
-		(isChart1 ? newPoint.H : newPoint.N) = localChart->ChartAreas[0]->AxisY->PixelPositionToValue(event->Y);
-		(isChart1 ? newPoint.N : newPoint.H) = 0;
-
-		model->chartPoints.getValue().push_back(newPoint);
-		sortPoint(model->chartPoints.getValue());
-		model->chartPoints.throwEvent();
-	}
+	
 	private: System::Void groupBox2_Paint(System::Object^ sender, System::Windows::Forms::PaintEventArgs^ e) {
 		Graphics^ gfx = e->Graphics;
 		Pen^ p = gcnew Pen(Color::FromArgb(80, 0, 0, 0), 1);
@@ -3098,18 +2315,8 @@ namespace angarawindows {
 		gfx->DrawLine(pClear, (int)(8 + 2 + sizeTextX->Width), 7, r->Width - 1, 7);
 		gfx->DrawLine(p, (int)(8 + 2 + sizeTextX->Width), 7, r->Width - 1, 7);
 	}
-
-	public: void addEventsToChar(System::Windows::Forms::DataVisualization::Charting::Chart^ chart) {
-		chart->PostPaint += gcnew System::EventHandler<System::Windows::Forms::DataVisualization::Charting::ChartPaintEventArgs^ >(this, &angarawindows::WaterPumpForm::PostPaint);
-		if(chart->Name != this->chart3->Name)
-			chart->DoubleClick += gcnew System::EventHandler(this, &WaterPumpForm::chart1_DoubleClick);
-		chart->MouseDown += gcnew System::Windows::Forms::MouseEventHandler(this, &WaterPumpForm::chart1_MouseDown);
-		chart->MouseLeave += gcnew System::EventHandler(this, &WaterPumpForm::chart1_MouseLeave);
-		chart->MouseMove += gcnew System::Windows::Forms::MouseEventHandler(this, &WaterPumpForm::chart1_MouseMove);
-		chart->MouseUp += gcnew System::Windows::Forms::MouseEventHandler(this, &WaterPumpForm::chart1_MouseUp);
-	}
 private: System::Void exitButtonClick(System::Object^ sender, System::EventArgs^ e) {
-	Button^ button = dynamic_cast<Button^>(sender);
+	/*Button^ button = dynamic_cast<Button^>(sender);
 
 	if (button->Name == this->button2->Name) {
 		if (this->pump_name->Text->Length == 0)
@@ -3142,7 +2349,7 @@ private: System::Void exitButtonClick(System::Object^ sender, System::EventArgs^
 		}
 	}
 
-	this->Close();
+	this->Close();*/
 }
 };
 }

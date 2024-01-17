@@ -1,8 +1,9 @@
-#pragma once
+п»ї#pragma once
 #include "main.h"
+#include "AbstractDialog.h"
 
 namespace angarawindows {
-	class WaterPump {
+	class WaterPump : public AbstractDialog {
 	public:
 		struct ChartPoint {
 			double Q;
@@ -10,55 +11,47 @@ namespace angarawindows {
 			double N;
 		};
 
-		void save();
-	protected:
-		std::vector<ChartPoint> points;
+		void save() override;
+
 	public:
-		//Служебное --------------------------------------
 		int idLink;
-		double resistance_min = 0;
-		ObserverValue<float> QPoint{ 0 };
-		ObserverValue<float> HInPoint{ 0 };
-		ObserverValue<float> HOutPoint{ 0 };
-		ObserverValue<int> elemMove{ -1 };
-		ObserverValue<double> pointer{ -1 };
-		ObserverValue<double> k{ 0 };
-		//------------------------------------------------
 
-		ObserverValue<int> enable{ 0 };
-		ObserverValue<std::string> name;
-		ObserverValue<std::string> mark;
+		int enable = 0;
+		std::string name;
+		std::string mark;
 
-		ObserverValue<float> diameter_nominal{ 0 };
-		ObserverValue<int> turnovers_nominal{ 0 };
+		float diameter_nominal = 0;
+		int turnovers_nominal = 0;
 
-		ObserverValue<double> H0{ 0 };
-		ObserverValue<float> S{ 0 };
-		ObserverValue<double> N0{ 0 };
-		ObserverValue<double> C{ 0 };
-		
-		ObserverValue<std::vector<ChartPoint>> chartPoints{ points };
+		double H0 = 0;
+		float S = 0;
+		double N0 = 0;
+		double C = 0;
 
-		ObserverValue<float> diameter_current{ 0 };
-		ObserverValue<float> turnovers_current{ 0 };
-		ObserverValue<double> resistance_current{ -1 };
+		std::vector <ChartPoint> points;
 
-		ObserverValue<double> efficiency_min{ 0 };
-		ObserverValue<double> efficiency_max{ 0 };
+		float diameter_current = 0;
+		float turnovers_current = 0;
+		double resistance_current = -1;
 
-		ObserverValue<float> pressure_in_min{ 0 };
-		ObserverValue<float> pressure_in_max{ 0 };
+		double efficiency_min = 0;
+		double efficiency_max = 0;
 
-		ObserverValue<float> pressure_out_min{ 0 };
-		ObserverValue<float> pressure_out_max{ 0 };
+		float pressure_in_min = 0;
+		float pressure_in_max = 0;
 
-		ObserverValue<float> turnovers_min{ 0 };
-		ObserverValue<float> turnovers_max{ 0 };
+		float pressure_out_min = 0;
+		float pressure_out_max = 0;
 
-		ObserverValue<float> diameter_min{ 0 };
-		ObserverValue<float> diameter_max{ 0 };
+		float turnovers_min = 0;
+		float turnovers_max = 0;
 
-		void show(int idLink);
-		void show(void);
+		float diameter_min = 0;
+		float diameter_max = 0;
+
+		void show(int idLink) override;
+		void show() override {
+			show(-1);
+		};
 	};
 }

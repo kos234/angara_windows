@@ -1,8 +1,7 @@
 #pragma once
 
 #include "utils.h"
-#include "WaterPump.h"
-#include <msclr\marshal_cppstd.h>
+#include "RealChartPoint.h"
 #include <algorithm>
 #include <stdexcept>
 #include <cmath>
@@ -62,11 +61,10 @@ namespace angarawindows {
 		return System::Math::Round(x * 1000) / 1000.0;
 	}
 
-	ChartIntevals drawPumpCharts(ChartData& data, std::function<void(double, double, double, double)> drawFunc, bool isInterval, double maxX) {
-		std::vector<WaterPump::ChartPoint> q;
-		return drawPumpCharts(data, drawFunc, isInterval, maxX, q);
+	ChartIntevals drawPumpCharts(ChartData& data, DrawDelegat^ drawFunc, bool isInterval, double maxX) {
+		return drawPumpCharts(data, drawFunc, isInterval, maxX, nullptr);
 	}
-	ChartIntevals drawPumpCharts(ChartData &data, std::function<void(double, double, double, double)> drawFunc, bool isInterval, double maxX, std::vector<WaterPump::ChartPoint> & points) {
+	ChartIntevals drawPumpCharts(ChartData &data, DrawDelegat^ drawFunc, bool isInterval, double maxX, System::Collections::Generic::List<RealChartPoint^>^ points) {
 		ChartIntevals intervals;
 
 		//System::Windows::Forms::MessageBox::Show(data.S + " = s");
@@ -74,6 +72,7 @@ namespace angarawindows {
 
 		if (data.S <= 0 || data.C <= 0)
 			return intervals;
+
 
 		double lastX = 0;
 		double endX = maxX == -1 ? System::Math::Sqrt(data.H0 / data.S) : maxX;
@@ -104,18 +103,19 @@ namespace angarawindows {
 				break;
 		}
 
-		for (auto chartPoint : points) {
-			double yM = getCPD(chartPoint.H, chartPoint.Q, chartPoint.N);
+		if(points != nullptr)
+			for each (RealChartPoint^ chartPoint in points) {
+				double yM = getCPD(chartPoint->H, chartPoint->Q, chartPoint->N);
 
-			if (maxM < yM)
-				maxM = yM;
+				if (maxM < yM)
+					maxM = yM;
 
-			if (maxN < chartPoint.N)
-				maxN = chartPoint.N;
+				if (maxN < chartPoint->N)
+					maxN = chartPoint->N;
 
-			if (maxH < chartPoint.H)
-				maxH = chartPoint.H;
-		}
+				if (maxH < chartPoint->H)
+					maxH = chartPoint->H;
+			}
 
 		if (isInterval) {
 			auto q1 = getInterval(endX);
@@ -138,7 +138,7 @@ namespace angarawindows {
 		return intervals;
 	}
 
-	ChartData calculateChartData(double k, std::vector<angarawindows::WaterPump::ChartPoint> & points, std::function<void(double,double,double,int)> pointItCallback) {
+	ChartData calculateChartData(double k, System::Collections::Generic::List<RealChartPoint^>^ points, CalculateDelegat^ pointItCallback) {
 		ChartData data;
 
 		int PointsQH = 0;
@@ -150,19 +150,19 @@ namespace angarawindows {
 		double sumQ4 = 0;
 		double sumN = 0;
 		double sumNQ = 0;
-		for (int i = 0; i < points.size(); i++) {
-			auto q = points.at(i);
+		for (int i = 0; i < points->Count; i++) {
+			auto q = points[i];
 
 			//System::Windows::Forms::MessageBox::Show(q.Q + "x");
 			//System::Windows::Forms::MessageBox::Show(q.H + "y");
 
-			double Q = k * q.Q;
-			double H = k * k * q.H;
-			double N = k * k * k * q.N;
+			double Q = k * q->Q;
+			double H = k * k * q->H;
+			double N = k * k * k * q->N;
 
-			//if (pointItCallback != nullptr) {
+			if (pointItCallback != nullptr) {
 				pointItCallback(Q, H, N, i);
-			//}
+			}
 
 			if (Q > 0 || H > 0) {
 				PointsQH++;
@@ -256,10 +256,12 @@ namespace angarawindows {
 		return std::to_string(first) + (isAllZero ? "" : ("," + mantis)) + "e-" + std::to_string(e);
 	}
 
-	void sortPoint(std::vector<angarawindows::WaterPump::ChartPoint> &q) {
-		std::sort(q.begin(), q.end(), [](const angarawindows::WaterPump::ChartPoint p1, angarawindows::WaterPump::ChartPoint p2) {
-			return p1.Q < p2.Q;
-			});
+	int CompareChartPoints(RealChartPoint^ p1, RealChartPoint^ p2) {
+		return p1->Q > p2->Q;
+	}
+
+	void sortPoint(List<RealChartPoint^>^ q) {
+		q->Sort(gcnew Comparison<RealChartPoint^>(CompareChartPoints));
 	}
 
 	void checkPoint(System::Windows::Forms::DataVisualization::Charting::Chart^ chart, System::Windows::Forms::DataVisualization::Charting::DataPoint^ point, int i) {
@@ -267,119 +269,6 @@ namespace angarawindows {
 			chart->Series[3]->Points->Add(point);
 		else if ((chart->Series[3]->Points[i]->XValue != point->XValue || chart->Series[3]->Points[i]->YValues[0] != point->YValues[0]))
 			chart->Series[3]->Points[i] = point;
-	}
-
-	std::string SysToStd(System::String^ original) {
-		return msclr::interop::marshal_as<std::string>(original);
-	}
-	System::String^ StdToSys(std::string original) {
-		return gcnew System::String(original.c_str());
-	}
-
-	DBWrapper<int> _IntInputHandler(System::Windows::Forms::TextBox^ box) {
-		DBWrapper<int> wrapper;
-		wrapper.value = 0;
-		bool isMinus = false;
-		wrapper.empty = true;
-
-		for (int i = 0; i < box->Text->Length; i++) {
-			auto ch = box->Text[i];
-
-			if (wrapper.value == 0 && ch == '-') {
-				isMinus = true;
-			}
-			else if ('0' <= ch && ch <= '9') {
-				wrapper.empty = false;
-				wrapper.value = wrapper.value * 10 + (ch - '0');
-			}
-			else {
-				goto if_there_is_an_extraneous_character;
-			}
-		}
-
-		if (isMinus && wrapper.empty) {
-			throw std::invalid_argument("await");
-		}
-
-		if_there_is_an_extraneous_character: {};
-		if (isMinus)
-			wrapper.value *= -1;
-
-		return wrapper;
-	}
-
-	DBWrapper<double> _DoubleInputHandler(System::Windows::Forms::TextBox^ box) {
-		DBWrapper<double> wrapper;
-		wrapper.value = 0;
-		double drob = 0;
-		double drobSize = 1;
-		bool isMinus = false;
-		bool isDrob = false;
-
-		bool isSaintific = false;
-		bool isMinusSaintific = false;
-		double saintificPow = 0;
-
-		for (int i = 0; i < box->Text->Length; i++) {
-			auto ch = box->Text[i];
-
-			if (wrapper.value == 0 && ch == '-') {
-				isMinus = true;
-			}
-			else if (isSaintific && ch == '-') {
-				isMinusSaintific = true;
-			}
-			else if ('0' <= ch && ch <= '9') {
-				int val = (ch - '0');
-
-				if (isSaintific) {
-					saintificPow = saintificPow * 10 + val;
-				}else if (isDrob) {
-					drobSize *= 10;
-					drob = drob * 10 + val;
-				}
-				else {
-					wrapper.value = wrapper.value * 10 + val;
-				}
-				wrapper.empty = false;
-			}
-			else if ((ch == '.' || ch == ',') && !isDrob) {
-				isDrob = true;
-			}
-			else if (ch == 'e' || ch == L'е') {
-				isSaintific = true;
-			}
-			else if (ch == '+' && isSaintific) {
-				isMinusSaintific = false;
-			}
-			else {
-				goto if_there_is_an_extraneous_character;
-			}
-		}
-
-		if ((isMinus && wrapper.empty) || (isDrob && drobSize == 1)) {
-			throw std::invalid_argument("await");
-		}
-
-
-	if_there_is_an_extraneous_character: {};
-		if (isMinus)
-			wrapper.value *= -1;
-		if(isDrob)
-			wrapper.value += drob / drobSize;
-
-		if (isSaintific) {
-			wrapper.value *= Math::Pow(10, (isMinusSaintific ? -1 : 1) * saintificPow);;
-		}
-
-		return wrapper;
-	}
-
-	void SuperTextSetter(System::Windows::Forms::TextBox^ box, System::String^ text) {
-		int last = System::Math::Max(box->SelectionStart - box->Text->Length, 0);
-		box->Text = text;
-		box->SelectionStart = last + text->Length;
-		box->SelectionLength = 0;
 	}
 
 	int GetIntLength(int q) {
@@ -395,113 +284,113 @@ namespace angarawindows {
 		return isMinus + i;
 	}
 
-	DBWrapper<int> getInt(msclr::gcroot <System::Data::OleDb::OleDbDataReader^> reader, System::String^ name, int def) {
-		DBWrapper<int> wrapper;
-		wrapper.value = def;
+	DBWrapper<int>^ getInt(msclr::gcroot <System::Data::OleDb::OleDbDataReader^> reader, System::String^ name, int def) {
+		DBWrapper<int>^ wrapper;
+		wrapper->value = def;
 		int id = reader->GetOrdinal(name);
 
 		if (reader->IsDBNull(id))
 			return wrapper;
 
-		wrapper.value = reader->GetInt32(id);
-		wrapper.empty = wrapper.value == 0;
+		wrapper->value = reader->GetInt32(id);
+		wrapper->empty = wrapper->value == 0;
 
 		return wrapper;
 	}
-	DBWrapper<int> getInt(msclr::gcroot <System::Data::OleDb::OleDbDataReader^> reader, System::String^ name) {
+	DBWrapper<int>^ getInt(msclr::gcroot <System::Data::OleDb::OleDbDataReader^> reader, System::String^ name) {
 		return getInt(reader, name, 0);
 	}
 
-	DBWrapper<short> getShort(msclr::gcroot <System::Data::OleDb::OleDbDataReader^> reader, System::String^ name, short def) {
-		DBWrapper<short> wrapper;
-		wrapper.value = def; 
+	DBWrapper<short>^ getShort(msclr::gcroot <System::Data::OleDb::OleDbDataReader^> reader, System::String^ name, short def) {
+		DBWrapper<short>^ wrapper;
+		wrapper->value = def;
 		int id = reader->GetOrdinal(name);
 
 		if (reader->IsDBNull(id))
 			return wrapper;
 
-		wrapper.value = reader->GetInt16(id);
-		wrapper.empty = wrapper.value == 0;
+		wrapper->value = reader->GetInt16(id);
+		wrapper->empty = wrapper->value == 0;
 
 		return wrapper;
 	}
 
-	DBWrapper<short> getShort(msclr::gcroot <System::Data::OleDb::OleDbDataReader^> reader, System::String^ name) {
+	DBWrapper<short>^ getShort(msclr::gcroot <System::Data::OleDb::OleDbDataReader^> reader, System::String^ name) {
 		return getShort(reader, name, 0);
 	}
 
 
-	DBWrapper<long long> getLongLong(msclr::gcroot <System::Data::OleDb::OleDbDataReader^> reader, System::String^ name, long long def) {
-		DBWrapper<long long> wrapper;
-		wrapper.value = def;
+	DBWrapper<long long>^ getLongLong(msclr::gcroot <System::Data::OleDb::OleDbDataReader^> reader, System::String^ name, long long def) {
+		DBWrapper<long long>^ wrapper;
+		wrapper->value = def;
 		int id = reader->GetOrdinal(name);
 
 		if (reader->IsDBNull(id))
 			return wrapper;
 
-		wrapper.value = reader->GetInt64(id);
-		wrapper.empty = wrapper.value == 0;
+		wrapper->value = reader->GetInt64(id);
+		wrapper->empty = wrapper->value == 0;
 
 		return wrapper;
 	}
 
-	DBWrapper<long long> getLongLong(msclr::gcroot <System::Data::OleDb::OleDbDataReader^> reader, System::String^ name) {
+	DBWrapper<long long>^ getLongLong(msclr::gcroot <System::Data::OleDb::OleDbDataReader^> reader, System::String^ name) {
 		return getLongLong(reader, name, 0);
 	}
 
 
-	DBWrapper<double> getDouble(msclr::gcroot <System::Data::OleDb::OleDbDataReader^> reader, System::String^ name, double def) {
-		DBWrapper<double> wrapper;
-		wrapper.value = def;
+	DBWrapper<double>^ getDouble(msclr::gcroot <System::Data::OleDb::OleDbDataReader^> reader, System::String^ name, double def) {
+		DBWrapper<double>^ wrapper;
+		wrapper->value = def;
 		int id = reader->GetOrdinal(name);
 
 		if (reader->IsDBNull(id))
 			return wrapper;
 
-		wrapper.value = reader->GetDouble(id); 
-		wrapper.empty = wrapper.value == 0;
+		wrapper->value = reader->GetDouble(id);
+		wrapper->empty = wrapper->value == 0;
 
 		return wrapper;
 	}
 
-	DBWrapper<double> getDouble(msclr::gcroot <System::Data::OleDb::OleDbDataReader^> reader, System::String^ name) {
+	DBWrapper<double>^ getDouble(msclr::gcroot <System::Data::OleDb::OleDbDataReader^> reader, System::String^ name) {
 		return getDouble(reader, name, 0);
 	}
 
 
-	DBWrapper<float> getFloat(msclr::gcroot <System::Data::OleDb::OleDbDataReader^> reader, System::String^ name, float def) {
-		DBWrapper<float> wrapper;
-		wrapper.value = def;
+	DBWrapper<float>^ getFloat(msclr::gcroot <System::Data::OleDb::OleDbDataReader^> reader, System::String^ name, float def) {
+		DBWrapper<float>^ wrapper;
+		wrapper->value = def;
 		int id = reader->GetOrdinal(name);
 
 		if (reader->IsDBNull(id))
 			return wrapper;
 
-		wrapper.value = reader->GetFloat(id);
-			wrapper.empty = wrapper.value == 0;
+		wrapper->value = reader->GetFloat(id);
+		wrapper->empty = wrapper->value == 0;
 
 		return wrapper;
 	}
 
-	DBWrapper<float> getFloat(msclr::gcroot <System::Data::OleDb::OleDbDataReader^> reader, System::String^ name) {
+	DBWrapper<float>^ getFloat(msclr::gcroot <System::Data::OleDb::OleDbDataReader^> reader, System::String^ name) {
 		return getFloat(reader, name, 0);
 	}
 
-	DBWrapper<std::string> getString(msclr::gcroot <System::Data::OleDb::OleDbDataReader^> reader, System::String^ name, std::string def) {
-		DBWrapper<std::string> wrapper;
-		wrapper.value = def;
+	DBWrapper<String^>^ getString(msclr::gcroot <System::Data::OleDb::OleDbDataReader^> reader, System::String^ name, String^ def) {
+		DBWrapper<String^>^ wrapper;
+		wrapper->value = def;
 		int id = reader->GetOrdinal(name);
 
 		if (reader->IsDBNull(id))
 			return wrapper;
 
-		wrapper.value = SysToStd(reader->GetString(id));
-		wrapper.empty = wrapper.value.empty();
+		wrapper->value = (reader->GetString(id));
+		wrapper->empty = wrapper->value->Length == 0;
 
 		return wrapper;
 	}
 
-	DBWrapper<std::string> getString(msclr::gcroot <System::Data::OleDb::OleDbDataReader^> reader, System::String^ name) {
+	DBWrapper<String^>^ getString(msclr::gcroot <System::Data::OleDb::OleDbDataReader^> reader, System::String^ name) {
 		return getString(reader, name, "");
 	}
 
@@ -628,7 +517,7 @@ namespace angarawindows {
 		int idLink = -1;
 		QueryBuilder("SELECT MAX(idLink) as idLink FROM Связи").executeQuery([&idLink](msclr::gcroot <OleDbDataReader^> reader) {
 			reader->Read();
-			idLink = getInt(reader, "idLink").value + 1;
+			idLink = getInt(reader, "idLink")->value + 1;
 		});
 
 		return idLink;

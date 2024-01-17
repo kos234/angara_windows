@@ -30,6 +30,9 @@
     <ClCompile Include="utils.cpp">
       <Filter>Исходные файлы\main</Filter>
     </ClCompile>
+    <ClCompile Include="inputs.cpp">
+      <Filter>Исходные файлы\main</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="WaterPumpForm.h">
@@ -47,8 +50,23 @@
     <ClInclude Include="utils.h">
       <Filter>Исходные файлы\main</Filter>
     </ClInclude>
-    <ClInclude Include="AdvancedObserverValue.h">
+    <ClInclude Include="ObserverValue.h">
       <Filter>Исходные файлы\main</Filter>
+    </ClInclude>
+    <ClInclude Include="AbstractDialog.h">
+      <Filter>Исходные файлы\main</Filter>
+    </ClInclude>
+    <ClInclude Include="DBWrapper.h">
+      <Filter>Исходные файлы\main</Filter>
+    </ClInclude>
+    <ClInclude Include="inputs.h">
+      <Filter>Исходные файлы\main</Filter>
+    </ClInclude>
+    <ClInclude Include="RealChartPoint.h">
+      <Filter>Исходные файлы\WaterPump</Filter>
+    </ClInclude>
+    <ClInclude Include="RealWaterPump.h">
+      <Filter>Исходные файлы\WaterPump</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
