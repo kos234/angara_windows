@@ -64,7 +64,7 @@ namespace angarawindows {
 	ChartIntevals drawPumpCharts(ChartData& data, DrawDelegat^ drawFunc, bool isInterval, double maxX) {
 		return drawPumpCharts(data, drawFunc, isInterval, maxX, nullptr);
 	}
-	ChartIntevals drawPumpCharts(ChartData &data, DrawDelegat^ drawFunc, bool isInterval, double maxX, System::Collections::Generic::List<RealChartPoint^>^ points) {
+	ChartIntevals drawPumpCharts(ChartData& data, DrawDelegat^ drawFunc, bool isInterval, double maxX, System::Collections::Generic::List<RealChartPoint^>^ points) {
 		ChartIntevals intervals;
 
 		//System::Windows::Forms::MessageBox::Show(data.S + " = s");
@@ -99,12 +99,16 @@ namespace angarawindows {
 
 			lastX += offset;
 
+			//log("points ym = " + std::to_string(yM));
+			//log("points lastX = " + std::to_string(lastX));
+			//log("points endx = " + std::to_string(endX));
+
 			if (isEnd)
 				break;
 		}
 
-		if(points != nullptr)
-			for each (RealChartPoint^ chartPoint in points) {
+		if (points != nullptr)
+			for each (RealChartPoint ^ chartPoint in points) {
 				double yM = getCPD(chartPoint->H, chartPoint->Q, chartPoint->N);
 
 				if (maxM < yM)
@@ -121,7 +125,7 @@ namespace angarawindows {
 			auto q1 = getInterval(endX);
 			intervals.QMax = q1[1];
 			intervals.QInterval = q1[0];
-			
+
 			q1 = getInterval(maxH);
 			intervals.HMax = q1[1];
 			intervals.HInterval = q1[0];
@@ -209,7 +213,7 @@ namespace angarawindows {
 			break;
 		}
 
-	//	System::Windows::Forms::MessageBox::Show(data.S + " d");
+		//	System::Windows::Forms::MessageBox::Show(data.S + " d");
 
 		return data;
 	}
@@ -250,7 +254,7 @@ namespace angarawindows {
 		if (!first)
 			return std::to_string(0);
 
-		std::string mantis = std::to_string(m);
+		std::string mantis = std::to_string(Math::Abs(m));
 		mantis.reserve();
 
 		return std::to_string(first) + (isAllZero ? "" : ("," + mantis)) + "e-" + std::to_string(e);
@@ -285,7 +289,7 @@ namespace angarawindows {
 	}
 
 	DBWrapper<int>^ getInt(msclr::gcroot <System::Data::OleDb::OleDbDataReader^> reader, System::String^ name, int def) {
-		DBWrapper<int>^ wrapper;
+		DBWrapper<int>^ wrapper = gcnew DBWrapper<int>;
 		wrapper->value = def;
 		int id = reader->GetOrdinal(name);
 
@@ -302,7 +306,7 @@ namespace angarawindows {
 	}
 
 	DBWrapper<short>^ getShort(msclr::gcroot <System::Data::OleDb::OleDbDataReader^> reader, System::String^ name, short def) {
-		DBWrapper<short>^ wrapper;
+		DBWrapper<short>^ wrapper = gcnew DBWrapper<short>;
 		wrapper->value = def;
 		int id = reader->GetOrdinal(name);
 
@@ -321,7 +325,7 @@ namespace angarawindows {
 
 
 	DBWrapper<long long>^ getLongLong(msclr::gcroot <System::Data::OleDb::OleDbDataReader^> reader, System::String^ name, long long def) {
-		DBWrapper<long long>^ wrapper;
+		DBWrapper<long long>^ wrapper = gcnew DBWrapper<long long>;
 		wrapper->value = def;
 		int id = reader->GetOrdinal(name);
 
@@ -340,7 +344,7 @@ namespace angarawindows {
 
 
 	DBWrapper<double>^ getDouble(msclr::gcroot <System::Data::OleDb::OleDbDataReader^> reader, System::String^ name, double def) {
-		DBWrapper<double>^ wrapper;
+		DBWrapper<double>^ wrapper = gcnew DBWrapper<double>;
 		wrapper->value = def;
 		int id = reader->GetOrdinal(name);
 
@@ -359,7 +363,7 @@ namespace angarawindows {
 
 
 	DBWrapper<float>^ getFloat(msclr::gcroot <System::Data::OleDb::OleDbDataReader^> reader, System::String^ name, float def) {
-		DBWrapper<float>^ wrapper;
+		DBWrapper<float>^ wrapper = gcnew DBWrapper<float>;
 		wrapper->value = def;
 		int id = reader->GetOrdinal(name);
 
@@ -377,7 +381,7 @@ namespace angarawindows {
 	}
 
 	DBWrapper<String^>^ getString(msclr::gcroot <System::Data::OleDb::OleDbDataReader^> reader, System::String^ name, String^ def) {
-		DBWrapper<String^>^ wrapper;
+		DBWrapper<String^>^ wrapper = gcnew DBWrapper<String^>;
 		wrapper->value = def;
 		int id = reader->GetOrdinal(name);
 
@@ -512,14 +516,12 @@ namespace angarawindows {
 		chart->ChartAreas[0]->Position->Width = 100 - chart->ChartAreas[0]->Position->X;
 	}
 
-
-	int getNextIdLink() {
-		int idLink = -1;
-		QueryBuilder("SELECT MAX(idLink) as idLink FROM Связи").executeQuery([&idLink](msclr::gcroot <OleDbDataReader^> reader) {
-			reader->Read();
-			idLink = getInt(reader, "idLink")->value + 1;
-		});
-
-		return idLink;
+	void GetNextIdLink::readNextIdLink(OleDbDataReader^ reader) {
+		reader->Read();
+		this->idLink = getInt(reader, "idLink")->value + 1;
+	}
+	int GetNextIdLink::get() {
+		QueryBuilder("SELECT MAX(idLink) as idLink FROM Связи").executeQuery(gcnew QueryBuilder::Read(this, &GetNextIdLink::readNextIdLink));
+		return this->idLink;
 	}
 }

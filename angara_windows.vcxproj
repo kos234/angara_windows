@@ -126,17 +126,21 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="inputs.cpp" />
+    <ClCompile Include="LocalizationManager.cpp" />
     <ClCompile Include="WaterPump.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="utils.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AbstractDialog.h" />
+    <ClInclude Include="CurrentForm.h" />
     <ClInclude Include="DBWrapper.h" />
     <ClInclude Include="inputs.h" />
     <ClInclude Include="ObserverValue.h" />
+    <ClInclude Include="RealAbstractDialog.h" />
     <ClInclude Include="RealChartPoint.h" />
     <ClInclude Include="RealWaterPump.h" />
+    <ClInclude Include="LocalizationManager.h" />
     <ClInclude Include="WaterPump.h" />
     <ClInclude Include="main.h" />
     <ClInclude Include="Pipe.h">
@@ -150,6 +154,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Pipe.resx">
       <DependentUpon>Pipe.h</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="strings.resx">
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="WaterPumpForm.resx">
       <DependentUpon>WaterPumpForm.h</DependentUpon>

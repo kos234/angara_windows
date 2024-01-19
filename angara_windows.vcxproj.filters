@@ -19,6 +19,9 @@
     <Filter Include="Исходные файлы\main">
       <UniqueIdentifier>{feb4d29a-72ba-45d0-aa09-133c7af405db}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Исходные файлы\resources">
+      <UniqueIdentifier>{45b55096-54df-4dbb-91c4-5f0402928b11}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WaterPump.cpp">
@@ -31,6 +34,9 @@
       <Filter>Исходные файлы\main</Filter>
     </ClCompile>
     <ClCompile Include="inputs.cpp">
+      <Filter>Исходные файлы\main</Filter>
+    </ClCompile>
+    <ClCompile Include="LocalizationManager.cpp">
       <Filter>Исходные файлы\main</Filter>
     </ClCompile>
   </ItemGroup>
@@ -68,5 +74,19 @@
     <ClInclude Include="RealWaterPump.h">
       <Filter>Исходные файлы\WaterPump</Filter>
     </ClInclude>
+    <ClInclude Include="CurrentForm.h">
+      <Filter>Исходные файлы\main</Filter>
+    </ClInclude>
+    <ClInclude Include="RealAbstractDialog.h">
+      <Filter>Исходные файлы\main</Filter>
+    </ClInclude>
+    <ClInclude Include="LocalizationManager.h">
+      <Filter>Исходные файлы\main</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="strings.resx">
+      <Filter>Исходные файлы\resources</Filter>
+    </EmbeddedResource>
   </ItemGroup>
 </Project>

@@ -1,14 +1,18 @@
 #pragma once
 #include "WaterPump.h"
 #include "WaterPumpForm.h"
+#include "RealAbstractDialog.h"
 #include "RealChartPoint.h"
 #include "ObserverValue.h"
 
 namespace angarawindows {
-	ref class RealWaterPump {
+	ref class RealWaterPump : public RealAbstractDialog {
 	public:
 		RealWaterPump(WaterPump* model);
-		void init();
+		void init() override;
+		void close() override;
+		void save() override;
+		void migrate() override;
 		//—ÎÛÊÂ·ÌÓÂ --------------------------------------
 		WaterPump* model;
 		WaterPumpForm^ form;
@@ -57,11 +61,18 @@ namespace angarawindows {
 
 		ObserverValue<List<RealChartPoint^>^>^ points;
 
+		void readStatusesDB(OleDbDataReader^ reader);
+		void readDataDB(OleDbDataReader^ reader);
+		System::Void FormClosing(System::Object^ sender, System::Windows::Forms::FormClosingEventArgs^ e);
+		System::Void exitButtonClick(System::Object^ sender, System::EventArgs^ e);
 
 		//—Œ¡€“»ﬂ » ¬¿À»ƒ¿“Œ–€ -------------------------------------------
 		String^ name_valide(String^ value, bool empty);
 
 		String^ mark_valide(String^ value, bool empty);
+
+		String^ five_points_valid(double value, bool empty);
+		String^ five_points_valid(float value, bool empty);
 
 		String^ diameter_valide(float value, bool empty);
 
@@ -148,5 +159,6 @@ namespace angarawindows {
 		System::Void chart_DoubleClick(System::Object^ sender, System::EventArgs^ e);
 
 		void addEventsToChar(System::Windows::Forms::DataVisualization::Charting::Chart^ chart);
+		void removeEventsToChar(System::Windows::Forms::DataVisualization::Charting::Chart^ chart);
 	};
 }

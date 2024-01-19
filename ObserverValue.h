@@ -107,7 +107,7 @@ namespace angarawindows {
 		}
 
 		void setValue(DBWrapper<OBS>^ value) {
-			setValue(value, false);
+			setValue(value, true);
 		}
 
 		void setValue(DBWrapper<OBS>^ value, bool isUser) {
@@ -228,7 +228,7 @@ namespace angarawindows {
 					else if constexpr (std::is_same<OBS, int>::value) {
 						wrapper = _IntInputHandler<OBS>(box);
 					}
-					else{
+					else if constexpr (std::is_same<OBS, System::String^>::value) {
 						wrapper->value = box->Text;
 						wrapper->empty = box->Text->Length == 0;
 					}
@@ -305,6 +305,32 @@ namespace angarawindows {
 			return addInput(text_box, nullptr);
 		}
 
+		void clear() {
+			for each (Control ^ ctr in this->inputs->Keys) {
+				if (TextBox^ textBox = dynamic_cast<TextBox^>(ctr)) {
+					textBox->TextChanged -= gcnew System::EventHandler(this, &ObserverValue::eventHandler);
+					textBox->MouseEnter -= gcnew System::EventHandler(this, &ObserverValue::showErrorsEvent);
+				}
+				else if (TrackBar^ bar = dynamic_cast<TrackBar^>(ctr)) {
+					bar->ValueChanged -= gcnew System::EventHandler(this, &ObserverValue::eventHandler);
+					bar->MouseEnter -= gcnew System::EventHandler(this, &ObserverValue::showErrorsEvent);
+				}
+				else if (ComboBox^ comboBox = dynamic_cast<ComboBox^>(ctr)) {
+					comboBox->SelectedIndexChanged -= gcnew System::EventHandler(this, &ObserverValue::eventHandler);
+					comboBox->MouseEnter -= gcnew System::EventHandler(this, &ObserverValue::showErrorsEvent);
+				}
+				else if (NumericUpDown^ numeric = dynamic_cast<NumericUpDown^>(ctr)) {
+					numeric->ValueChanged -= gcnew System::EventHandler(this, &ObserverValue::eventHandler);
+					numeric->MouseEnter -= gcnew System::EventHandler(this, &ObserverValue::showErrorsEvent);
+				}
+			}
+
+			inputs->Clear();
+			eventHandlers->Clear();
+			errorTip = nullptr;
+			validate = nullptr;
+		}
+
 		static void inline addToErrors(Control^ control, String^ error, std::map<std::string, int>* errors, ToolTip^ errorTip) {
 			std::string name = SysToStd(control->Name);
 
@@ -360,10 +386,6 @@ namespace angarawindows {
 			for each (Control ^ box in inputs->Keys) {
 				removeFromsErrors(box, this->errors, this->errorTip);
 			}
-		}
-
-		void readFromDB() {
-
 		}
 	};
 }

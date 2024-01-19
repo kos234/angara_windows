@@ -1,9 +1,7 @@
 #pragma once
 
-#include <vector>
 #include <string>
 #include <functional>
-#include <iomanip>
 #include "RealChartPoint.h"
 #include "ObserverValue.h"
 #include "DBWrapper.h"
@@ -105,14 +103,21 @@ namespace angarawindows {
 		std::cout << value << "\n";
 	}
 
-	int getNextIdLink();
-
+	ref class GetNextIdLink {
+	protected:
+		int idLink = -1;
+		void readNextIdLink(OleDbDataReader^ reader);
+	public:
+		int get();
+	};
 
 
 	public ref class QueryBuilder {
 	protected:
 		OleDbCommand^ command;
 	public:
+		delegate void Read(OleDbDataReader^);
+
 		QueryBuilder() {
 
 		}
@@ -164,11 +169,15 @@ namespace angarawindows {
 			command->Parameters->Add(prms);
 			return this;
 		}
+		template<>
+		QueryBuilder^ add<String^>(String^ value) {
+			OleDbParameter^ prms = gcnew OleDbParameter("?", OleDbType::VarChar);
+			prms->Value = value;
+			command->Parameters->Add(prms);
+			return this;
+		}
 
 		QueryBuilder^ addEmpty() {
-
-			//OleDbParameter^ prms = gcnew OleDbParameter("?", OleDbType::IUnknown);
-			//prms->Value = "null";
 			command->Parameters->AddWithValue("?", DBNull::Value);
 			return this;
 		}
@@ -190,7 +199,7 @@ namespace angarawindows {
 			return ans;
 		}
 
-		void executeQuery(std::function<void(msclr::gcroot<OleDbDataReader^>)> func) {
+		void executeQuery(Read^ func) {
 			OleDbConnection^ connection = gcnew OleDbConnection(gcnew String(getUrlConnect()));
 			connection->Open();
 			command->Connection = connection;

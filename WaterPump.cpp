@@ -10,6 +10,7 @@
 #include "ObserverValue.h"
 #include "RealChartPoint.h"
 #include "RealWaterPump.h"
+#include "CurrentForm.h"
 
 namespace angarawindows {
 
@@ -21,7 +22,7 @@ namespace angarawindows {
 	RealWaterPump::RealWaterPump(WaterPump* model) {
 		this->model = model;
 		WaterPumpForm form;
-		this->form = %form;
+		this->form = % form;
 		init();
 	}
 	[STAThreadAttribute]
@@ -95,13 +96,17 @@ namespace angarawindows {
 			->addEventListener(gcnew ObserverValue<double>::Event(this, &RealWaterPump::set_k_event));
 
 		this->H0 = (gcnew ObserverValue<double>(0, &this->model->errors, form->toolTip1))
-			->addInput(this->form->box_k_h0);
+			->addInput(this->form->box_k_h0)
+			->addValidate(gcnew ObserverValue<double>::Valide(this, &RealWaterPump::five_points_valid));
 		this->S = (gcnew ObserverValue<float>(0, &this->model->errors, form->toolTip1))
-			->addInput(this->form->box_k_s);
+			->addInput(this->form->box_k_s)
+			->addValidate(gcnew ObserverValue<float>::Valide(this, &RealWaterPump::five_points_valid));
 		this->N0 = (gcnew ObserverValue<double>(0, &this->model->errors, form->toolTip1))
-			->addInput(this->form->box_k_n0);
+			->addInput(this->form->box_k_n0)
+			->addValidate(gcnew ObserverValue<double>::Valide(this, &RealWaterPump::five_points_valid));
 		this->C = (gcnew ObserverValue<double>(0, &this->model->errors, form->toolTip1))
-			->addInput(this->form->box_k_c);
+			->addInput(this->form->box_k_c)
+			->addValidate(gcnew ObserverValue<double>::Valide(this, &RealWaterPump::five_points_valid));
 
 
 		this->efficiency_min = (gcnew ObserverValue<double>(0, &this->model->errors, form->toolTip1))
@@ -163,12 +168,23 @@ namespace angarawindows {
 		//Настройка формы
 		this->form->KeyDown += gcnew System::Windows::Forms::KeyEventHandler(this, &RealWaterPump::chart_KeyDown);
 		this->form->KeyUp += gcnew System::Windows::Forms::KeyEventHandler(this, &RealWaterPump::chart_KeyUp);
+		this->form->FormClosing += gcnew System::Windows::Forms::FormClosingEventHandler(this, &RealWaterPump::FormClosing);
 
 		addEventsToChar(this->form->chart1);
 		addEventsToChar(this->form->chart2);
 		addEventsToChar(this->form->chart3);
 
+		this->form->button1->Click += gcnew System::EventHandler(this, &RealWaterPump::exitButtonClick);
+		this->form->button2->Click += gcnew System::EventHandler(this, &RealWaterPump::exitButtonClick);
+
 		///DATABASE
+		//Получение данных из бд------------------------------------------------------------------------
+		QueryBuilder("SELECT * FROM Состояния_элементов WHERE IdElement = 17 ORDER BY idState").executeQuery(gcnew QueryBuilder::Read(this, &RealWaterPump::readStatusesDB));
+
+		if (this->model->idLink != -1)
+			QueryBuilder("SELECT *, (SELECT IdState FROM Связи WHERE idLink = " + this->model->idLink + ") as IdState FROM Насосный_агрегат WHERE idLink = " + this->model->idLink)
+			.executeQuery(gcnew QueryBuilder::Read(this, &RealWaterPump::readDataDB));
+
 
 		this->efficiency_min->addEventListener(gcnew ObserverValue<double>::Event(this, &RealWaterPump::efficiency_event));
 		this->efficiency_max->addEventListener(gcnew ObserverValue<double>::Event(this, &RealWaterPump::efficiency_event));
@@ -186,24 +202,311 @@ namespace angarawindows {
 		Application::Run(this->form);
 	}
 
+	void RealWaterPump::save() {
+		exitButtonClick(this->form->button2, nullptr);
+	}
+	void RealWaterPump::migrate() {
+		for each (RealChartPoint ^ point in this->points->getValue()) {
+			WaterPump::ChartPoint tmp;
+			tmp.H = point->H;
+			tmp.N = point->N;
+			tmp.Q = point->Q;
 
+			this->model->points.push_back(tmp);
+		}
+
+		this->model->enable = this->enable->getValue();
+		this->model->name = SysToStd(this->name->getValue());
+		this->model->mark = SysToStd(this->mark->getValue());
+		this->model->diameter_max = this->diameter_max->getValue();
+		this->model->diameter_min = this->diameter_min->getValue();
+		this->model->diameter_nominal = this->diameter_nominal->getValue();
+		this->model->turnovers_current = this->turnovers_current->getValue();
+		this->model->turnovers_max = this->turnovers_max->getValue();
+		this->model->turnovers_min = this->turnovers_min->getValue();
+		this->model->turnovers_nominal = this->turnovers_nominal->getValue();
+		this->model->turnovers_current = this->turnovers_current->getValue();
+		this->model->H0 = this->H0->getValue();
+		this->model->S = this->S->getValue();
+		this->model->N0 = this->N0->getValue();
+		this->model->C = this->C->getValue();
+	}
+
+	void RealWaterPump::close() {
+		exitButtonClick(this->form->button1, nullptr);
+	}
+
+	System::Void RealWaterPump::FormClosing(System::Object^ sender, System::Windows::Forms::FormClosingEventArgs^ e) {
+		this->k->clear();
+		this->pointer->clear();
+		this->elemMove->clear();
+		this->point_input_q->clear();
+		this->point_input_h->clear();
+		this->point_input_n->clear();
+		this->point_input_m->clear();
+
+		this->name->clear();
+		this->mark->clear();
+		this->enable->clear();
+
+		this->diameter_nominal->clear();
+		this->diameter_current->clear();
+		this->diameter_min->clear();
+		this->diameter_max->clear();
+
+		this->turnovers_nominal->clear();
+		this->turnovers_current->clear();
+		this->turnovers_min->clear();
+		this->turnovers_max->clear();
+
+		this->H0->clear();
+		this->S->clear();
+		this->N0->clear();
+		this->C->clear();
+
+		this->resistance_current->clear();
+
+		this->efficiency_min->clear();
+		this->efficiency_max->clear();
+
+		this->pressure_in_min->clear();
+		this->pressure_in_max->clear();
+		this->pressure_out_min->clear();
+		this->pressure_out_max->clear();
+
+		this->points->clear();
+		this->form->KeyDown -= gcnew System::Windows::Forms::KeyEventHandler(this, &RealWaterPump::chart_KeyDown);
+		this->form->KeyUp -= gcnew System::Windows::Forms::KeyEventHandler(this, &RealWaterPump::chart_KeyUp);
+		this->form->FormClosing -= gcnew System::Windows::Forms::FormClosingEventHandler(this, &RealWaterPump::FormClosing);
+
+		removeEventsToChar(this->form->chart1);
+		removeEventsToChar(this->form->chart2);
+		removeEventsToChar(this->form->chart3);
+
+		this->form = nullptr;
+
+		clearCurrentDialog();
+	}
+
+	System::Void RealWaterPump::exitButtonClick(System::Object^ sender, System::EventArgs^ e) {
+		Button^ button = dynamic_cast<Button^>(sender);
+
+		if (button->Name == this->form->button2->Name) {
+			this->isSaveValidation = true;
+
+			this->name->valid();
+			this->mark->valid();
+			this->diameter_nominal->valid();
+			this->turnovers_nominal->valid();
+			this->H0->valid();
+			this->S->valid();
+			this->N0->valid();
+			this->C->valid();
+
+			int systemErrors = 0;
+			for (auto it : this->model->errors) {
+				if (it.first == SysToStd(this->form->input_data_q->Name))
+					systemErrors++;
+				else if (it.first == SysToStd(this->form->input_data_h_in->Name))
+					systemErrors++;
+				else if (it.first == SysToStd(this->form->input_data_h_out->Name))
+					systemErrors++;
+
+				if (systemErrors == 3)
+					return;
+			}
+
+			if (this->model->errors.size() - systemErrors == 0) {
+				QueryBuilder queryLinks;
+				QueryBuilder queryPumps;
+				bool isUpdate = true;
+
+				if (this->model->idLink == -1) {
+					isUpdate = false;
+					this->model->idLink = (gcnew GetNextIdLink)->get();
+
+					queryLinks.setSql("INSERT INTO Связи (idLink, IdElement, IdState) VALUES (?, 17, ?)")
+						->add(this->model->idLink);
+
+					queryPumps.setSql("INSERT INTO Насосный_агрегат (idLink, name, mark, DrkMax, DrkMin, Drk0, Drk, TurnMax, TurnMin, Turn0, Turn, H0, N0, S, C, H1, N1, Q1, H2, N2, Q2, H3, N3, Q3, H4, N4, Q4, H5, N5, Q5, Qmin, Qmax, HNmin, HNmax, HKmin, HKmax) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)")
+						->add(this->model->idLink);
+				}
+				else {
+					queryLinks.setSql("UPDATE Связи SET IdState = ? WHERE idLink = ?");
+					queryPumps.setSql("UPDATE Насосный_агрегат SET name = ?, mark = ?, DrkMax = ?, DrkMin = ?, Drk0 = ?, Drk = ?, TurnMax = ?, TurnMin = ?, Turn0 = ?, Turn = ?, H0 = ?, N0 = ?, S = ?, C = ?, H1 = ?, N1 = ?, Q1 = ?, H2 = ?, N2 = ?, Q2 = ?, H3 = ?, N3 = ?, Q3 = ?, H4 = ?, N4 = ?, Q4 = ?, H5 = ?, N5 = ?, Q5 = ?, Qmin = ?, Qmax = ?, HNmin = ?, HNmax = ?, HKmin = ?, HKmax = ? WHERE IdLink = ?");
+				}
+
+				queryLinks.add(this->enable);
+
+
+				queryPumps.add(this->name)
+					->add(this->mark)
+
+					->add(this->diameter_max)
+					->add(this->diameter_min)
+					->add(this->diameter_nominal)
+					->add(this->diameter_current)
+
+					->add(this->turnovers_max)
+					->add(this->turnovers_min)
+					->add(this->turnovers_nominal)
+					->add(this->turnovers_current)
+
+					->add(this->H0)
+					->add(this->N0)
+					->add(this->S)
+					->add(this->C);
+
+				List<RealChartPoint^>^ chartPoints = this->points->getValue();
+				for (int i = 0; i < 5; i++) {
+					if (chartPoints->Count > i) {
+						queryPumps.add(chartPoints[i]->H)->add(chartPoints[i]->N)->add(chartPoints[i]->Q);
+					}
+					else
+						queryPumps.addEmpty()->addEmpty()->addEmpty();
+				}
+
+				queryPumps.add(this->efficiency_min)
+					->add(this->efficiency_max)
+					->add(this->pressure_in_max)
+					->add(this->pressure_in_min)
+					->add(this->pressure_out_max)
+					->add(this->pressure_out_min);
+
+				if (isUpdate) {
+					queryLinks.add(this->model->idLink);
+					queryPumps.add(this->model->idLink);
+				}
+
+				queryLinks.executeUpdate();
+				queryPumps.executeUpdate();
+
+				migrate();
+			}
+			else {
+				MessageBox::Show(LocalizationManager::getStr("errors.to_save_correct_errors"), LocalizationManager::getStr("errors.attention"));
+				this->isSaveValidation = false;
+				return;
+			}
+		}
+
+		this->form->Close();
+	}
+
+	void RealWaterPump::readStatusesDB(OleDbDataReader^ reader) {
+		while (reader->Read()) {
+			this->form->pump_enable->Items->Add(getString(reader, "StateName")->value);
+		}
+		this->form->pump_enable->SelectedIndex = 0;
+	}
+
+	void RealWaterPump::readDataDB(OleDbDataReader^ reader) {
+		if (!reader->HasRows) {
+			MessageBox::Show(String::Format(LocalizationManager::getStr("errors.isLink_not_found"), this->model->idLink), LocalizationManager::getStr("errors.error"));
+			return;
+		}
+
+		reader->Read();
+
+		this->name->setValue(getString(reader, "name"));
+		this->mark->setValue(getString(reader, "mark"));
+
+
+		this->diameter_nominal->setValue(getFloat(reader, "Drk0"));
+		this->turnovers_nominal->setValue(getInt(reader, "Turn0"));
+
+		this->diameter_current->setValue(getFloat(reader, "Drk"));
+		this->turnovers_current->setValue(getFloat(reader, "Turn"));
+
+		this->diameter_max->setValue(getFloat(reader, "DrkMax"));
+		this->diameter_min->setValue(getFloat(reader, "DrkMin"));
+
+		this->turnovers_max->setValue(getFloat(reader, "TurnMax"));
+		this->turnovers_min->setValue(getFloat(reader, "TurnMin"));
+
+		this->H0->setValue(getDouble(reader, "H0"));
+		this->N0->setValue(getDouble(reader, "N0"));
+		this->S->setValue(getFloat(reader, "S"));
+		this->C->setValue(getDouble(reader, "C"));
+
+		for (int i = 1; i <= 5; i++) {
+			RealChartPoint^ tmpP = gcnew RealChartPoint;
+			DBWrapper<double>^ pr = getDouble(reader, "Q" + i);
+			if (pr->empty)
+				break;
+			tmpP->H = getDouble(reader, "H" + i)->value;
+			tmpP->N = getDouble(reader, "N" + i)->value;
+			tmpP->Q = pr->value;
+
+			this->points->getValue()->Add(tmpP);
+		}
+
+		this->points->throwEvent();
+
+		this->efficiency_min->setValue(getDouble(reader, "Qmin"));
+		this->efficiency_max->setValue(getDouble(reader, "Qmax"));
+
+		this->pressure_in_min->setValue(getFloat(reader, "HNmin"));
+		this->pressure_in_max->setValue(getFloat(reader, "HNmax"));
+
+		this->pressure_out_min->setValue(getFloat(reader, "HKmin"));
+		this->pressure_out_max->setValue(getFloat(reader, "HKmax"));
+
+
+		this->QPoint = getFloat(reader, "Q")->value;
+		this->form->input_data_q->Text = round3(this->QPoint) + "";
+		this->pointer->setValue(this->QPoint);
+		this->HInPoint = getFloat(reader, "HN")->value;
+		this->form->input_data_h_in->Text = round3(this->HInPoint) + "";
+		this->HOutPoint = getFloat(reader, "HK")->value;
+		this->form->input_data_h_out->Text = round3(this->HOutPoint) + "";
+
+
+		this->enable->setValue(getInt(reader, "IdState"));
+
+		migrate();
+	}
 
 	//События и валидаторы---------------------------------------------------------
 	String^ RealWaterPump::name_valide(String^ value, bool empty) {
 		if (value->Length > 50)
-			return "Длина имени не может быть больше 50 символов";
+			return LocalizationManager::getStr("errors.pump_name_greater_50");
+
+		if (this->isSaveValidation && empty) {
+			return LocalizationManager::getStr("errors.pump_name_empty");
+		}
 		return "";
 	}
 
 	String^ RealWaterPump::mark_valide(String^ value, bool empty) {
 		if (value->Length > 20)
-			return "Длина марки не может быть больше 20 символов";
+			return LocalizationManager::getStr("errors.pump_mark_greater_20");
+
+		if (this->isSaveValidation && empty) {
+			return LocalizationManager::getStr("errors.pump_mark_empty");
+		}
+
 		return "";
 	}
 
+	String^ RealWaterPump::five_points_valid(double value, bool empty) {
+		if (this->isSaveValidation && this->form->chart1->Series[0]->Points->Count < 2) {
+			return LocalizationManager::getStr("errors.chart_empty");
+		}
+
+		return "";
+	}
+	String^ RealWaterPump::five_points_valid(float value, bool empty) {
+		return five_points_valid((double)value, empty);
+	}
 	String^ RealWaterPump::diameter_valide(float value, bool empty) {
 		if (value < 0)
-			return "Диаметр не может быть меньше нуля";
+			return LocalizationManager::getStr("errors.diameter_less_0");
+
+		if (this->isSaveValidation && empty) {
+			return LocalizationManager::getStr("errors.nominal_diameter_empty");
+		}
+
 		return "";
 	}
 
@@ -217,11 +520,13 @@ namespace angarawindows {
 		if (this->diameter_min->isUserNotEdit()) {
 			this->diameter_min->setValue(0);
 		}
+
+		this->diameter_current->throwEvent();
 	}
 
 	void RealWaterPump::set_k_event(ObserverValue<double>^ link) {
 		this->k->setValue(
-			(this->turnovers_current->getValue() * this->diameter_current->getValue()) 
+			(this->turnovers_current->getValue() * this->diameter_current->getValue())
 			/ (this->turnovers_nominal->getValue() * this->diameter_nominal->getValue()));
 	}
 	void RealWaterPump::set_k_event(ObserverValue<float>^ link) {
@@ -233,10 +538,10 @@ namespace angarawindows {
 		this->diameter_min->valid();
 
 		if (!this->diameter_max->isEmpty() && !this->diameter_min->isEmpty() && this->diameter_min->getValue() > this->diameter_max->getValue()) {
-			return this->diameter_max->getValue() == value ? "Максимальный диаметр не может быть меньше минимального" : "Минимальный диаметр не может быть больше максимального";
+			return LocalizationManager::getStr("errors.diameter_" + (this->diameter_max->getValue() == value ? "max_less_min" : "min_greater_max"));
 		}
 
-		return diameter_valide(value, empty);
+		return diameter_valide(value, false); //false Чтобы не срабатывала валидация при сохранении
 	}
 
 	void RealWaterPump::diameter_max_event(ObserverValue<float>^ link) {
@@ -261,7 +566,12 @@ namespace angarawindows {
 
 	String^ RealWaterPump::turnovers_valide(float value, bool empty) {
 		if (value < 0)
-			return "Число оборотов не может быть меньше нуля";
+			return LocalizationManager::getStr("errors.turnovers_less_0");
+
+		if (this->isSaveValidation && empty) {
+			return LocalizationManager::getStr("errors.nominal_turnovers_empty");
+		}
+
 		return "";
 	}
 	String^ RealWaterPump::turnovers_valide(int value, bool empty) {
@@ -278,6 +588,8 @@ namespace angarawindows {
 		if (this->turnovers_min->isUserNotEdit()) {
 			this->turnovers_min->setValue(0);
 		}
+
+		this->turnovers_current->throwEvent();
 	}
 
 
@@ -286,10 +598,11 @@ namespace angarawindows {
 		this->turnovers_min->valid();
 
 		if (!this->turnovers_max->isEmpty() && !this->turnovers_min->isEmpty() && this->turnovers_min->getValue() > this->turnovers_max->getValue()) {
-			return this->turnovers_max->getValue() == value ? "Максимальное число оборотов не может быть меньше минимального" : "Минимальное число оборотов не может быть больше максимального";
+			
+			return LocalizationManager::getStr("errors.turnovers_" + (this->turnovers_max->getValue() == value ? "max_less_min" : "min_greater_max"));
 		}
 
-		return turnovers_valide(value, empty);
+		return turnovers_valide(value, false); //false Чтобы не срабатывала валидация при сохранении
 	}
 
 	void RealWaterPump::turnovers_max_event(ObserverValue<float>^ link) {
@@ -314,7 +627,6 @@ namespace angarawindows {
 
 	void RealWaterPump::k_event(ObserverValue<double>^ link) {
 		double value = link->getValue();
-		log("original k = " + std::to_string(value));
 		if (value == 0 || System::Double::IsInfinity(value) || System::Double::IsNaN(value))
 			value = 1;
 
@@ -327,7 +639,6 @@ namespace angarawindows {
 		this->form->pump_cur_s->Enabled = true;
 		this->form->pump_slide_s->Enabled = true;
 
-		log("original resMin = " + std::to_string(resMin));
 
 		if (Double::IsInfinity(resMin) || Double::IsNaN(resMin)) {
 			if (data.S == 0) {
@@ -337,7 +648,6 @@ namespace angarawindows {
 			}
 			else {
 				resMin = data.H0 / (0.1) - data.S;
-				log("next resMin = " + std::to_string(resMin));
 			}
 		}
 
@@ -363,26 +673,54 @@ namespace angarawindows {
 	}
 
 	void RealWaterPump::drawNominalPointCallBack(double q, double h, double n, double m) {
-		this->form->chart1->Series[0]->Points->Add(gcnew System::Windows::Forms::DataVisualization::Charting::DataPoint(q, h));
-		this->form->chart2->Series[0]->Points->Add(gcnew System::Windows::Forms::DataVisualization::Charting::DataPoint(q, n));
-		this->form->chart3->Series[0]->Points->Add(gcnew System::Windows::Forms::DataVisualization::Charting::DataPoint(q, m));
+		double mx = this->form->chart1->ChartAreas[0]->AxisY->Maximum * 2;
+		if (mx < 1'000)
+			mx = 1'000;
+		if (Math::Abs(h) < mx)
+			this->form->chart1->Series[0]->Points->Add(gcnew System::Windows::Forms::DataVisualization::Charting::DataPoint(q, h));
+
+		mx = this->form->chart2->ChartAreas[0]->AxisY->Maximum * 2;
+		if (mx < 1'000)
+			mx = 1'000;
+		if (Math::Abs(n) < mx)
+			this->form->chart2->Series[0]->Points->Add(gcnew System::Windows::Forms::DataVisualization::Charting::DataPoint(q, n));
+
+		mx = this->form->chart3->ChartAreas[0]->AxisY->Maximum * 2;
+		if (mx < 1'000)
+			mx = 1'000;
+		if (Math::Abs(m) < mx)
+			this->form->chart3->Series[0]->Points->Add(gcnew System::Windows::Forms::DataVisualization::Charting::DataPoint(q, m));
 	}
 
 	void RealWaterPump::drawExtendsPointCallBack(double q, double h, double n, double m) {
-		this->form->chart1->Series[1]->Points->Add(gcnew System::Windows::Forms::DataVisualization::Charting::DataPoint(q, h));
-		this->form->chart2->Series[1]->Points->Add(gcnew System::Windows::Forms::DataVisualization::Charting::DataPoint(q, n));
-		this->form->chart3->Series[1]->Points->Add(gcnew System::Windows::Forms::DataVisualization::Charting::DataPoint(q, m));
+		double mx = this->form->chart1->ChartAreas[0]->AxisY->Maximum * 2;
+		if (mx < 1'000)
+			mx = 1'000;
+		if (Math::Abs(h) < mx)
+			this->form->chart1->Series[1]->Points->Add(gcnew System::Windows::Forms::DataVisualization::Charting::DataPoint(q, h));
+
+		mx = this->form->chart2->ChartAreas[0]->AxisY->Maximum * 2;
+		if (mx < 1'000)
+			mx = 1'000;
+		if (Math::Abs(n) < mx)
+			this->form->chart2->Series[1]->Points->Add(gcnew System::Windows::Forms::DataVisualization::Charting::DataPoint(q, n));
+
+		mx = this->form->chart3->ChartAreas[0]->AxisY->Maximum * 2;
+		if (mx < 1'000)
+			mx = 1'000;
+		if (Math::Abs(m) < mx)
+			this->form->chart3->Series[1]->Points->Add(gcnew System::Windows::Forms::DataVisualization::Charting::DataPoint(q, m));
 	}
 
 	String^ RealWaterPump::resistance_current_valid(double value, bool empty) {
 		if (value < 0) {
-			return "Сопротивление не может быть отрицательным";
+			return LocalizationManager::getStr("errors.throttling_resistance_less_0");
 		}
 
 		double q = resistance_current_PrepareToShow(value, true);
 
 		if (q > 1000 || q < 0)
-			return "Сопротивление выходит за границы рабочей зоны";
+			return LocalizationManager::getStr("errors.resistance_exiting_working_area");
 
 		return "";
 	}
@@ -400,11 +738,11 @@ namespace angarawindows {
 		this->efficiency_min->valid();
 
 		if (!this->efficiency_max->isEmpty() && !this->efficiency_min->isEmpty() && this->efficiency_min->getValue() > this->efficiency_max->getValue()) {
-			return this->efficiency_max->getValue() == value ? "Максимальная производительность не может быть меньше минимальной" : "Минимальная производительность не может быть больше максимальной";
+			return LocalizationManager::getStr("errors.capacity_" + (this->efficiency_max->getValue() == value ? "max_less_min" : "min_greater_max"));
 		}
 
 		if (value < 0)
-			return "Производительность не может быть меньше нуля";
+			return LocalizationManager::getStr("errors.capacity_empty");
 
 		return "";
 	}
@@ -420,7 +758,7 @@ namespace angarawindows {
 				(!this->efficiency_max->isEmpty() && this->efficiency_max->getValue() < this->QPoint)) {
 
 
-				ObserverValue<int>::addToErrors(this->form->input_data_q, "Рабочая точка не попадает в диапазон рабочей зоны", &this->model->errors, this->form->toolTip1);
+				ObserverValue<int>::addToErrors(this->form->input_data_q, LocalizationManager::getStr("errors.work_point_exiting_working_area"), &this->model->errors, this->form->toolTip1);
 				return;
 			}
 
@@ -444,11 +782,11 @@ namespace angarawindows {
 		this->pressure_in_min->valid();
 
 		if (!this->pressure_in_max->isEmpty() && !this->pressure_in_min->isEmpty() && this->pressure_in_min->getValue() > this->pressure_in_max->getValue()) {
-			return this->pressure_in_max->getValue() == value ? "Максимальное давление не может быть меньше минимального" : "Минимальное давление не может быть больше максимального";
+			return LocalizationManager::getStr("errors.pressure_" + (this->pressure_in_max->getValue() == value ? "max_less_min" : "min_greater_max"));
 		}
 
 		if (value < 0)
-			return "Давление не может быть меньше нуля";
+			return LocalizationManager::getStr("errors.pressure_less_0");
 
 		return "";
 	}
@@ -458,11 +796,11 @@ namespace angarawindows {
 		this->pressure_out_min->valid();
 
 		if (!this->pressure_out_max->isEmpty() && !this->pressure_out_min->isEmpty() && this->pressure_out_min->getValue() > this->pressure_out_max->getValue()) {
-			return this->pressure_out_max->getValue() == value ? "Максимальное давление не может быть меньше минимального" : "Минимальное давление не может быть больше максимального";
+			return LocalizationManager::getStr("errors.pressure_" + (this->pressure_out_max->getValue() == value ? "max_less_min" : "min_greater_max"));
 		}
 
 		if (value < 0)
-			return "Давление не может быть меньше нуля";
+			return LocalizationManager::getStr("errors.pressure_less_0");
 
 		return "";
 	}
@@ -477,7 +815,7 @@ namespace angarawindows {
 				(!this->pressure_in_max->isEmpty() && this->pressure_in_max->getValue() < this->HInPoint)) {
 
 
-				ObserverValue<int>::addToErrors(this->form->input_data_h_in, "Рабочая точка не попадает в диапазон рабочей зоны", &this->model->errors, this->form->toolTip1);
+				ObserverValue<int>::addToErrors(this->form->input_data_h_in, LocalizationManager::getStr("errors.work_point_exiting_working_area"), &this->model->errors, this->form->toolTip1);
 				return;
 			}
 
@@ -495,7 +833,7 @@ namespace angarawindows {
 				(!this->pressure_out_max->isEmpty() && this->pressure_out_max->getValue() < this->HOutPoint)) {
 
 
-				ObserverValue<int>::addToErrors(this->form->input_data_h_out, "Рабочая точка не попадает в диапазон рабочей зоны", &this->model->errors, this->form->toolTip1);
+				ObserverValue<int>::addToErrors(this->form->input_data_h_out, LocalizationManager::getStr("errors.work_point_exiting_working_area"), &this->model->errors, this->form->toolTip1);
 				return;
 			}
 
@@ -564,11 +902,11 @@ namespace angarawindows {
 
 	String^ RealWaterPump::point_input_valide(double value, bool empty) {
 		if (value < 0) {
-			return "Характеристика не может быть отрицательной";
+			return LocalizationManager::getStr("errors.characterization_less_0");
 		}
 
 		if (empty && this->elemMove->getValue() != 0) {
-			return "Характеристика должна быть задана";
+			return LocalizationManager::getStr("errors.characterization_empty");
 		}
 
 		return "";
@@ -655,7 +993,7 @@ namespace angarawindows {
 
 	String^ RealWaterPump::pointer_valid(double value, bool empty) {
 		if (value < 0) {
-			return "Производительность не может быть отрицательной";
+			return LocalizationManager::getStr("errors.capacity_less_0");
 		}
 
 		return "";
@@ -744,9 +1082,11 @@ namespace angarawindows {
 		double endXNext = e->Chart->ChartAreas[0]->AxisX->ValueToPixelPosition(e->Chart->ChartAreas[0]->AxisX->Maximum - e->Chart->ChartAreas[0]->AxisX->Interval);
 		double startY = e->Chart->ChartAreas[0]->AxisY->ValueToPixelPosition(0);
 
+		String^ xText = "Q(" + LocalizationManager::getStr("charts.m3/h") + ")";
+
 		SizeF^ sizeIntervalX = e->ChartGraphics->Graphics->MeasureString(e->Chart->ChartAreas[0]->AxisX->Maximum + "", FMSS);
 		SizeF^ sizeIntervalXNext = e->ChartGraphics->Graphics->MeasureString((e->Chart->ChartAreas[0]->AxisX->Maximum - e->Chart->ChartAreas[0]->AxisX->Interval) + "", FMSS);
-		SizeF^ sizeTextX = e->ChartGraphics->Graphics->MeasureString("Q(м3/ч)", FMSS);
+		SizeF^ sizeTextX = e->ChartGraphics->Graphics->MeasureString(xText, FMSS);
 
 		double maxRecWidthX = Math::Max(sizeIntervalX->Width, sizeTextX->Width);
 
@@ -764,7 +1104,7 @@ namespace angarawindows {
 		);
 
 		e->ChartGraphics->Graphics->FillRectangle(backBrush, recBackTextX);
-		e->ChartGraphics->Graphics->DrawString("Q(м3/ч)",
+		e->ChartGraphics->Graphics->DrawString(xText,
 			FMSS,
 			gcnew System::Drawing::SolidBrush(System::Drawing::Color::FromArgb(0, 0, 0)),
 			LTX, startY + sizeTextX->Height / 2);
@@ -810,7 +1150,7 @@ namespace angarawindows {
 
 			e->ChartGraphics->Graphics->FillRectangle(gcnew System::Drawing::SolidBrush(System::Drawing::Color::FromArgb(128, 255, 255, 255)), recBackTextYZ);
 
-			String^ emptyText = e->Chart->Name != this->form->chart3->Name ? L"Нажмите два раза, чтобы добавить точку" : L"Добавьте точку на другие графики";
+			String^ emptyText = LocalizationManager::getStr("errors.message.chart_empty" + (e->Chart->Name != this->form->chart3->Name ? "" : "_efficiency"));
 
 			SizeF^ sizeAdd = e->ChartGraphics->Graphics->MeasureString(emptyText, FMSS);
 			e->ChartGraphics->Graphics->DrawString(emptyText,
@@ -862,25 +1202,22 @@ namespace angarawindows {
 		try {
 			xChart = chart->ChartAreas[0]->AxisX->PixelPositionToValue(e->X);
 			yChart = chart->ChartAreas[0]->AxisY->PixelPositionToValue(e->Y);
-		}catch (Exception^ ignore) {
+		}
+		catch (Exception^ ignore) {
 			return;
 		}
 
-			if (yChart < 0 || yChart > chart->ChartAreas[0]->AxisY->Maximum)
-				return;
-			if (xChart < 0 || xChart > chart->ChartAreas[0]->AxisX->Maximum)
-				return;
+		if (yChart < 0 || yChart > chart->ChartAreas[0]->AxisY->Maximum)
+			return;
+		if (xChart < 0 || xChart > chart->ChartAreas[0]->AxisX->Maximum)
+			return;
 
-			if (isShift) {
-				this->point_input_q->setValue(xChart);
-			}
-			else {
-				(this->chartMove ? this->point_input_h : this->point_input_n)->setValue(yChart);
-			}
-		//}
-		//catch (Exception^ ignore) {
-		//	;
-		//}
+		if (isShift) {
+			this->point_input_q->setValue(xChart);
+		}
+		else {
+			(this->chartMove ? this->point_input_h : this->point_input_n)->setValue(yChart);
+		}
 
 	}
 	System::Void RealWaterPump::chart_MouseLeave(System::Object^ sender, System::EventArgs^ e) {
@@ -904,8 +1241,8 @@ namespace angarawindows {
 
 		int i = this->elemMove->getValue();
 		if (e->KeyCode == Keys::Delete && i != -1)
-			if (MessageBox::Show("Вы действительно хотите удалить точку " + (i),
-				"Удаление точки", MessageBoxButtons::YesNo) == System::Windows::Forms::DialogResult::Yes) {
+			if (MessageBox::Show(String::Format(LocalizationManager::getStr("message.chart_point_delete"), i),
+				LocalizationManager::getStr("message.chart_point_delete_title"), MessageBoxButtons::YesNo) == System::Windows::Forms::DialogResult::Yes) {
 				this->points->getValue()->RemoveAt(i - 1);
 				this->points->throwEvent();
 				this->elemMove->setValue(0);
@@ -922,7 +1259,7 @@ namespace angarawindows {
 		if (this->isMove)
 			return;
 		if (this->points->getValue()->Count >= 5) {
-			MessageBox::Show("Можно добавить максимум 5 точек", "Внимание");
+			MessageBox::Show(LocalizationManager::getStr("message.maximum_5_points_added"), LocalizationManager::getStr("errors.attention"));
 			return;
 		}
 
@@ -950,156 +1287,32 @@ namespace angarawindows {
 		chart->MouseMove += gcnew System::Windows::Forms::MouseEventHandler(this, &RealWaterPump::chart_MouseMove);
 		chart->MouseUp += gcnew System::Windows::Forms::MouseEventHandler(this, &RealWaterPump::chart_MouseUp);
 	}
+	void RealWaterPump::removeEventsToChar(System::Windows::Forms::DataVisualization::Charting::Chart^ chart) {
+		chart->PostPaint -= gcnew System::EventHandler<System::Windows::Forms::DataVisualization::Charting::ChartPaintEventArgs^ >(this, &angarawindows::RealWaterPump::PostPaint);
+		if (chart->Name != this->form->chart3->Name)
+			chart->DoubleClick -= gcnew System::EventHandler(this, &RealWaterPump::chart_DoubleClick);
+		chart->MouseDown -= gcnew System::Windows::Forms::MouseEventHandler(this, &RealWaterPump::chart_MouseDown);
+		chart->MouseLeave -= gcnew System::EventHandler(this, &RealWaterPump::chart_MouseLeave);
+		chart->MouseMove -= gcnew System::Windows::Forms::MouseEventHandler(this, &RealWaterPump::chart_MouseMove);
+		chart->MouseUp -= gcnew System::Windows::Forms::MouseEventHandler(this, &RealWaterPump::chart_MouseUp);
+	}
 
 
 
 	void WaterPump::show(int idLink) {
 		this->idLink = idLink;
 		RealWaterPump^ rl = gcnew RealWaterPump(this);
+	//	currentDialog = rl;
+	}
 
-		/*
-
-
-
-
-
-		//Получение данных из бд------------------------------------------------------------------------
-		QueryBuilder("SELECT * FROM Состояния_элементов WHERE IdElement = 17 ORDER BY idState").executeQuery(
-			[&stackLink, this](msclr::gcroot <OleDbDataReader^> reader) {
-				while (reader->Read()) {
-					stackLink->pump_enable->Items->Add(StdToSys(getString(reader, "StateName").value));
-				}
-					stackLink->pump_enable->SelectedIndex = 0;
-			}
-		);
-
-		if (idLink != -1)
-			QueryBuilder("SELECT *, (SELECT IdState FROM Связи WHERE idLink = " + idLink + ") as IdState FROM Насосный_агрегат WHERE idLink = " + idLink).executeQuery(
-				[&idLink, this](msclr::gcroot <OleDbDataReader^> reader) {
-					if (!reader->HasRows) {
-						MessageBox::Show("Элемента с idLink = " + idLink + " не существует", "Ошибка");
-						return;
-					}
-
-					reader->Read();
-
-					this->name.setValue(getString(reader, "name"));
-					this->mark.setValue(getString(reader, "mark"));
-
-
-					this->diameter_nominal.setValue(getFloat(reader, "Drk0"));
-					this->turnovers_nominal.setValue(getInt(reader, "Turn0"));
-
-					this->diameter_current.setValue(getFloat(reader, "Drk"));
-					this->turnovers_current.setValue(getFloat(reader, "Turn"));
-
-					this->diameter_max.setValue(getFloat(reader, "DrkMax"));
-					this->diameter_min.setValue(getFloat(reader, "DrkMin"));
-
-					this->turnovers_max.setValue(getFloat(reader, "TurnMax"));
-					this->turnovers_min.setValue(getFloat(reader, "TurnMin"));
-
-					this->H0.setValue(getDouble(reader, "H0"));
-					this->N0.setValue(getDouble(reader, "N0"));
-					this->S.setValue(getFloat(reader, "S"));
-					this->C.setValue(getDouble(reader, "C"));
-
-					for (int i = 1; i <= 5; i++) {
-						ChartPoint tmpP;
-						tmpP.H = getDouble(reader, "H" + i).value;
-						tmpP.N = getDouble(reader, "N" + i).value;
-						tmpP.Q = getDouble(reader, "Q" + i).value;
-
-						this->chartPoints.getValue().push_back(tmpP);
-					}
-
-					this->chartPoints.throwEvent();
-
-					this->efficiency_min.setValue(getDouble(reader, "Qmin"));
-					this->efficiency_max.setValue(getDouble(reader, "Qmax"));
-
-					this->pressure_in_min.setValue(getFloat(reader, "HNmin"));
-					this->pressure_in_max.setValue(getFloat(reader, "HNmax"));
-
-					this->pressure_out_min.setValue(getFloat(reader, "HKmin"));
-					this->pressure_out_max.setValue(getFloat(reader, "HKmax"));
-
-
-					this->QPoint.setValue(getFloat(reader, "Q"));
-					this->HInPoint.setValue(getFloat(reader, "HN"));
-					this->HOutPoint.setValue(getFloat(reader, "HK"));
-
-					this->enable.setValue(getInt(reader, "IdState"));
-				});
-
-		//События, которые не должны вызываться при чтении -----------------------------------------------------------
-
-		//Application::Run(% form);*/
+	void WaterPump::close() {
+		//currentDialog->close();
+		clearCurrentDialog();
 	}
 
 	void WaterPump::save() {
-
-		QueryBuilder queryLinks;
-		QueryBuilder queryPumps;
-		bool isUpdate = true;
-		if (this->idLink == -1) {
-			isUpdate = false;
-			this->idLink = getNextIdLink();
-
-			queryLinks.setSql("INSERT INTO Связи (idLink, IdElement, IdState) VALUES (?, 17, ?)")
-				->add(this->idLink);
-
-			queryPumps.setSql("INSERT INTO Насосный_агрегат (idLink, name, mark, DrkMax, DrkMin, Drk0, Drk, TurnMax, TurnMin, Turn0, Turn, H0, N0, S, C, H1, N1, Q1, H2, N2, Q2, H3, N3, Q3, H4, N4, Q4, H5, N5, Q5, Qmin, Qmax, HNmin, HNmax, HKmin, HKmax) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)")
-				->add(this->idLink);
-		}
-		else {
-			queryLinks.setSql("UPDATE Связи SET IdState = ? WHERE idLink = ?");
-			queryPumps.setSql("UPDATE Насосный_агрегат SET name = ?, mark = ?, DrkMax = ?, DrkMin = ?, Drk0 = ?, Drk = ?, TurnMax = ?, TurnMin = ?, Turn0 = ?, Turn = ?, H0 = ?, N0 = ?, S = ?, C = ?, H1 = ?, N1 = ?, Q1 = ?, H2 = ?, N2 = ?, Q2 = ?, H3 = ?, N3 = ?, Q3 = ?, H4 = ?, N4 = ?, Q4 = ?, H5 = ?, N5 = ?, Q5 = ?, Qmin = ?, Qmax = ?, HNmin = ?, HNmax = ?, HKmin = ?, HKmax = ? WHERE IdLink = ?");
-		}
-
-		queryLinks.add(this->enable);
-
-
-		queryPumps.add(this->name)
-			->add(this->mark)
-
-			->add(this->diameter_max)
-			->add(this->diameter_min)
-			->add(this->diameter_nominal)
-			->add(this->diameter_current)
-
-			->add(this->turnovers_max)
-			->add(this->turnovers_min)
-			->add(this->turnovers_nominal)
-			->add(this->turnovers_current)
-
-			->add(this->H0)
-			->add(this->N0)
-			->add(this->S)
-			->add(this->C);
-
-		//std::vector<ChartPoint>& points = this->chartPoints.getValue();
-		//for (int i = 0; i < 5; i++) {
-		//	if (points.size() > i)
-		//		queryPumps.add(points[i].H)->add(points[i].N)->add(points[i].Q);
-		//	else
-		//		queryPumps.addEmpty()->addEmpty()->addEmpty();
-		//}
-
-		queryPumps.add(this->efficiency_min)
-			->add(this->efficiency_max)
-			->add(this->pressure_in_max)
-			->add(this->pressure_in_min)
-			->add(this->pressure_out_max)
-			->add(this->pressure_out_min);
-
-		if (isUpdate) {
-			queryLinks.add(this->idLink);
-			queryPumps.add(this->idLink);
-		}
-
-		queryLinks.executeUpdate();
-		queryPumps.executeUpdate();
+		//currentDialog->save();
+		//clearCurrentDialog();
 	}
 
 }

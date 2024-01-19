@@ -12,6 +12,7 @@ namespace angarawindows {
 		};
 
 		void save() override;
+		void close() override;
 
 	public:
 		int idLink;

@@ -2,6 +2,7 @@
 
 #include "utils.h"
 #include "RealChartPoint.h"
+#include "LocalizationManager.h"
 #include <cliext/set>
 #include <cliext/set>
 
@@ -37,9 +38,62 @@ namespace angarawindows {
 		WaterPumpForm() {
 			InitializeComponent();
 
-			setupChart(this->chart1, L"H(м)", Color::FromArgb(2, 8, 88), Color::FromArgb(4, 10, 144), Color::FromArgb(7, 15, 203));
-			setupChart(this->chart2, L"N(КВт)", Color::FromArgb(193, 143, 0), Color::FromArgb(218, 165, 32), Color::FromArgb(243, 187, 58));
+			setupChart(this->chart1, L"H("+ LocalizationManager::getStr("charts.m") +")", Color::FromArgb(2, 8, 88), Color::FromArgb(4, 10, 144), Color::FromArgb(7, 15, 203));
+			setupChart(this->chart2, L"N("+ LocalizationManager::getStr("charts.kw") +")", Color::FromArgb(193, 143, 0), Color::FromArgb(218, 165, 32), Color::FromArgb(243, 187, 58));
 			setupChart(this->chart3, L"η(%)", Color::FromArgb(30, 166, 61), Color::FromArgb(62, 188, 81), Color::FromArgb(88, 210, 101));
+		
+			this->tabPage1->Text = LocalizationManager::getStr("tabs.charts.hydraulic");
+			this->tabPage2->Text = LocalizationManager::getStr("tabs.charts.power");
+			this->tabPage3->Text = LocalizationManager::getStr("tabs.charts.efficiency");
+			this->groupBox7->Text = LocalizationManager::getStr("charts.point_graph");
+			this->label16->Text = LocalizationManager::getStr("charts.m3/h");
+			this->label20->Text = LocalizationManager::getStr("charts.m");
+			this->label24->Text = LocalizationManager::getStr("charts.m");
+			this->label26->Text = LocalizationManager::getStr("tabs.charts.efficiency");
+			this->label27->Text = LocalizationManager::getStr("charts.kw");
+			this->groupBox6->Text = LocalizationManager::getStr("charts.coefficients");
+			this->groupBox8->Text = LocalizationManager::getStr("charts.working_zone");
+			this->label_q_min->Text = LocalizationManager::getStr("charts.qmin");
+			this->label_q_max->Text = LocalizationManager::getStr("charts.qmax");
+			this->button1->Text = LocalizationManager::getStr("button.cancel");
+			this->button2->Text = LocalizationManager::getStr("button.save");
+			this->tabPage4->Text = LocalizationManager::getStr("tabs.parameters.main");
+			this->label1->Text = LocalizationManager::getStr("parameters.main.pump_name");
+			this->label2->Text = LocalizationManager::getStr("parameters.main.pump_status");
+			this->groupBox1->Text = LocalizationManager::getStr("parameters.main.nominal_parameters");
+			this->label3->Text = LocalizationManager::getStr("parameters.main.nominal_parameters.mark");
+			this->label4->Text = LocalizationManager::getStr("parameters.main.nominal_parameters.diameter");
+			this->label5->Text = LocalizationManager::getStr("parameters.main.nominal_parameters.turnovers");
+			this->label32->Text = LocalizationManager::getStr("parameters.main.dots_characteristics");
+			this->label35->Text = LocalizationManager::getStr("parameters.main.dots_characteristics.consumption");
+			this->label36->Text = LocalizationManager::getStr("parameters.main.dots_characteristics.pressure");
+			this->label38->Text = LocalizationManager::getStr("parameters.main.dots_characteristics.efficiency");
+			this->label37->Text = LocalizationManager::getStr("parameters.main.dots_characteristics.power");
+			this->tabPage5->Text = LocalizationManager::getStr("tabs.parameters.limits");
+			this->label42->Text = LocalizationManager::getStr("parameters.limits.mode_parameters");
+			this->groupBox2->Text = LocalizationManager::getStr("parameters.limits.mode_parameters.capacity");
+			this->label21->Text = LocalizationManager::getStr("parameters.limits.min");
+			this->label22->Text = LocalizationManager::getStr("parameters.limits.max");
+			this->label40->Text = LocalizationManager::getStr("parameters.limits.work_point");
+			this->groupBox3->Text = LocalizationManager::getStr("parameters.limits.mode_parameters.inlet_pressure");
+			this->label6->Text = LocalizationManager::getStr("parameters.limits.min");
+			this->label7->Text = LocalizationManager::getStr("parameters.limits.max");
+			this->label39->Text = LocalizationManager::getStr("parameters.limits.work_point");
+			this->groupBox9->Text = LocalizationManager::getStr("parameters.limits.mode_parameters.outlet_pressure");
+			this->label14->Text = LocalizationManager::getStr("parameters.limits.min");
+			this->label30->Text = LocalizationManager::getStr("parameters.limits.max");
+			this->label41->Text = LocalizationManager::getStr("parameters.limits.work_point");
+			this->label43->Text = LocalizationManager::getStr("parameters.limits.control_parameters");
+			this->groupBox5->Text = LocalizationManager::getStr("parameters.main.nominal_parameters.diameter");
+			this->label10->Text = LocalizationManager::getStr("parameters.limits.min");
+			this->label11->Text = LocalizationManager::getStr("parameters.limits.max");
+			this->groupBox4->Text = LocalizationManager::getStr("parameters.main.nominal_parameters.turnovers");
+			this->label8->Text = LocalizationManager::getStr("parameters.limits.min");
+			this->label9->Text = LocalizationManager::getStr("parameters.limits.max");
+			this->tabPage6->Text = LocalizationManager::getStr("tabs.parameters.control");
+			this->label18->Text = LocalizationManager::getStr("parameters.main.nominal_parameters.diameter");
+			this->label19->Text = LocalizationManager::getStr("parameters.main.nominal_parameters.turnovers");
+			this->label12->Text = LocalizationManager::getStr("parameters.control.throttling_resistance");
 		}
 
 	protected:
@@ -106,8 +160,8 @@ namespace angarawindows {
 	public: System::Windows::Forms::TextBox^ box_q_min;
 	public: System::Windows::Forms::TextBox^ box_q_max;
 	private: System::Windows::Forms::FlowLayoutPanel^ flowLayoutPanel1;
-	private: System::Windows::Forms::Button^ button1;
-	private: System::Windows::Forms::Button^ button2;
+	public: System::Windows::Forms::Button^ button1;
+	public: System::Windows::Forms::Button^ button2;
 	private: System::Windows::Forms::FlowLayoutPanel^ flowLayoutPanel24;
 	private: System::Windows::Forms::TabControl^ tabControl2;
 	private: System::Windows::Forms::TabPage^ tabPage4;
@@ -214,12 +268,12 @@ namespace angarawindows {
 		   void InitializeComponent(void)
 		   {
 			   this->components = (gcnew System::ComponentModel::Container());
-			   System::Windows::Forms::DataVisualization::Charting::ChartArea^ chartArea10 = (gcnew System::Windows::Forms::DataVisualization::Charting::ChartArea());
-			   System::Windows::Forms::DataVisualization::Charting::Legend^ legend10 = (gcnew System::Windows::Forms::DataVisualization::Charting::Legend());
-			   System::Windows::Forms::DataVisualization::Charting::ChartArea^ chartArea11 = (gcnew System::Windows::Forms::DataVisualization::Charting::ChartArea());
-			   System::Windows::Forms::DataVisualization::Charting::Legend^ legend11 = (gcnew System::Windows::Forms::DataVisualization::Charting::Legend());
-			   System::Windows::Forms::DataVisualization::Charting::ChartArea^ chartArea12 = (gcnew System::Windows::Forms::DataVisualization::Charting::ChartArea());
-			   System::Windows::Forms::DataVisualization::Charting::Legend^ legend12 = (gcnew System::Windows::Forms::DataVisualization::Charting::Legend());
+			   System::Windows::Forms::DataVisualization::Charting::ChartArea^ chartArea4 = (gcnew System::Windows::Forms::DataVisualization::Charting::ChartArea());
+			   System::Windows::Forms::DataVisualization::Charting::Legend^ legend4 = (gcnew System::Windows::Forms::DataVisualization::Charting::Legend());
+			   System::Windows::Forms::DataVisualization::Charting::ChartArea^ chartArea5 = (gcnew System::Windows::Forms::DataVisualization::Charting::ChartArea());
+			   System::Windows::Forms::DataVisualization::Charting::Legend^ legend5 = (gcnew System::Windows::Forms::DataVisualization::Charting::Legend());
+			   System::Windows::Forms::DataVisualization::Charting::ChartArea^ chartArea6 = (gcnew System::Windows::Forms::DataVisualization::Charting::ChartArea());
+			   System::Windows::Forms::DataVisualization::Charting::Legend^ legend6 = (gcnew System::Windows::Forms::DataVisualization::Charting::Legend());
 			   this->flowLayoutPanel16 = (gcnew System::Windows::Forms::FlowLayoutPanel());
 			   this->panel4 = (gcnew System::Windows::Forms::Panel());
 			   this->flowLayoutPanel2 = (gcnew System::Windows::Forms::FlowLayoutPanel());
@@ -332,18 +386,18 @@ namespace angarawindows {
 			   this->label41 = (gcnew System::Windows::Forms::Label());
 			   this->input_data_h_out = (gcnew System::Windows::Forms::TextBox());
 			   this->label43 = (gcnew System::Windows::Forms::Label());
-			   this->groupBox4 = (gcnew System::Windows::Forms::GroupBox());
-			   this->flowLayoutPanel12 = (gcnew System::Windows::Forms::FlowLayoutPanel());
-			   this->label8 = (gcnew System::Windows::Forms::Label());
-			   this->pump_turn_min = (gcnew System::Windows::Forms::TextBox());
-			   this->label9 = (gcnew System::Windows::Forms::Label());
-			   this->pump_turn_max = (gcnew System::Windows::Forms::TextBox());
 			   this->groupBox5 = (gcnew System::Windows::Forms::GroupBox());
 			   this->flowLayoutPanel13 = (gcnew System::Windows::Forms::FlowLayoutPanel());
 			   this->label10 = (gcnew System::Windows::Forms::Label());
 			   this->pump_dim_min = (gcnew System::Windows::Forms::TextBox());
 			   this->label11 = (gcnew System::Windows::Forms::Label());
 			   this->pump_dim_max = (gcnew System::Windows::Forms::TextBox());
+			   this->groupBox4 = (gcnew System::Windows::Forms::GroupBox());
+			   this->flowLayoutPanel12 = (gcnew System::Windows::Forms::FlowLayoutPanel());
+			   this->label8 = (gcnew System::Windows::Forms::Label());
+			   this->pump_turn_min = (gcnew System::Windows::Forms::TextBox());
+			   this->label9 = (gcnew System::Windows::Forms::Label());
+			   this->pump_turn_max = (gcnew System::Windows::Forms::TextBox());
 			   this->tabPage6 = (gcnew System::Windows::Forms::TabPage());
 			   this->flowLayoutPanel19 = (gcnew System::Windows::Forms::FlowLayoutPanel());
 			   this->flowLayoutPanel20 = (gcnew System::Windows::Forms::FlowLayoutPanel());
@@ -403,10 +457,10 @@ namespace angarawindows {
 			   this->flowLayoutPanel11->SuspendLayout();
 			   this->groupBox9->SuspendLayout();
 			   this->flowLayoutPanel25->SuspendLayout();
-			   this->groupBox4->SuspendLayout();
-			   this->flowLayoutPanel12->SuspendLayout();
 			   this->groupBox5->SuspendLayout();
 			   this->flowLayoutPanel13->SuspendLayout();
+			   this->groupBox4->SuspendLayout();
+			   this->flowLayoutPanel12->SuspendLayout();
 			   this->tabPage6->SuspendLayout();
 			   this->flowLayoutPanel19->SuspendLayout();
 			   this->flowLayoutPanel20->SuspendLayout();
@@ -478,39 +532,39 @@ namespace angarawindows {
 			   // 
 			   this->chart1->BackColor = System::Drawing::Color::Transparent;
 			   this->chart1->BackImageWrapMode = System::Windows::Forms::DataVisualization::Charting::ChartImageWrapMode::Scaled;
-			   chartArea10->AxisX->Interval = 2;
-			   chartArea10->AxisX->IntervalAutoMode = System::Windows::Forms::DataVisualization::Charting::IntervalAutoMode::VariableCount;
-			   chartArea10->AxisX->LineColor = System::Drawing::Color::Gray;
-			   chartArea10->AxisX->LogarithmBase = 100;
-			   chartArea10->AxisX->MajorGrid->LineColor = System::Drawing::Color::Gray;
-			   chartArea10->AxisX->Maximum = 10;
-			   chartArea10->AxisX->Minimum = 0;
-			   chartArea10->AxisX->TitleFont = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 6));
-			   chartArea10->AxisX2->LineColor = System::Drawing::Color::Gray;
-			   chartArea10->AxisY->Interval = 2;
-			   chartArea10->AxisY->IntervalAutoMode = System::Windows::Forms::DataVisualization::Charting::IntervalAutoMode::VariableCount;
-			   chartArea10->AxisY->LineColor = System::Drawing::Color::Gray;
-			   chartArea10->AxisY->MajorGrid->LineColor = System::Drawing::Color::Gray;
-			   chartArea10->AxisY->Maximum = 10;
-			   chartArea10->AxisY->Minimum = 0;
-			   chartArea10->AxisY->TitleAlignment = System::Drawing::StringAlignment::Far;
-			   chartArea10->AxisY2->LineColor = System::Drawing::Color::Gray;
-			   chartArea10->BackColor = System::Drawing::Color::Transparent;
-			   chartArea10->BackImageAlignment = System::Windows::Forms::DataVisualization::Charting::ChartImageAlignmentStyle::Center;
-			   chartArea10->BorderColor = System::Drawing::Color::Gray;
-			   chartArea10->Name = L"ChartArea1";
-			   chartArea10->Position->Auto = false;
-			   chartArea10->Position->Height = 100;
-			   chartArea10->Position->Width = 98;
-			   chartArea10->Position->X = 2;
-			   chartArea10->ShadowColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(128)), static_cast<System::Int32>(static_cast<System::Byte>(255)),
+			   chartArea4->AxisX->Interval = 2;
+			   chartArea4->AxisX->IntervalAutoMode = System::Windows::Forms::DataVisualization::Charting::IntervalAutoMode::VariableCount;
+			   chartArea4->AxisX->LineColor = System::Drawing::Color::Gray;
+			   chartArea4->AxisX->LogarithmBase = 100;
+			   chartArea4->AxisX->MajorGrid->LineColor = System::Drawing::Color::Gray;
+			   chartArea4->AxisX->Maximum = 10;
+			   chartArea4->AxisX->Minimum = 0;
+			   chartArea4->AxisX->TitleFont = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 6));
+			   chartArea4->AxisX2->LineColor = System::Drawing::Color::Gray;
+			   chartArea4->AxisY->Interval = 2;
+			   chartArea4->AxisY->IntervalAutoMode = System::Windows::Forms::DataVisualization::Charting::IntervalAutoMode::VariableCount;
+			   chartArea4->AxisY->LineColor = System::Drawing::Color::Gray;
+			   chartArea4->AxisY->MajorGrid->LineColor = System::Drawing::Color::Gray;
+			   chartArea4->AxisY->Maximum = 10;
+			   chartArea4->AxisY->Minimum = 0;
+			   chartArea4->AxisY->TitleAlignment = System::Drawing::StringAlignment::Far;
+			   chartArea4->AxisY2->LineColor = System::Drawing::Color::Gray;
+			   chartArea4->BackColor = System::Drawing::Color::Transparent;
+			   chartArea4->BackImageAlignment = System::Windows::Forms::DataVisualization::Charting::ChartImageAlignmentStyle::Center;
+			   chartArea4->BorderColor = System::Drawing::Color::Gray;
+			   chartArea4->Name = L"ChartArea1";
+			   chartArea4->Position->Auto = false;
+			   chartArea4->Position->Height = 100;
+			   chartArea4->Position->Width = 98;
+			   chartArea4->Position->X = 2;
+			   chartArea4->ShadowColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(128)), static_cast<System::Int32>(static_cast<System::Byte>(255)),
 				   static_cast<System::Int32>(static_cast<System::Byte>(128)));
-			   this->chart1->ChartAreas->Add(chartArea10);
+			   this->chart1->ChartAreas->Add(chartArea4);
 			   this->chart1->Dock = System::Windows::Forms::DockStyle::Fill;
-			   legend10->Enabled = false;
-			   legend10->Name = L"Legend1";
-			   legend10->TableStyle = System::Windows::Forms::DataVisualization::Charting::LegendTableStyle::Wide;
-			   this->chart1->Legends->Add(legend10);
+			   legend4->Enabled = false;
+			   legend4->Name = L"Legend1";
+			   legend4->TableStyle = System::Windows::Forms::DataVisualization::Charting::LegendTableStyle::Wide;
+			   this->chart1->Legends->Add(legend4);
 			   this->chart1->Location = System::Drawing::Point(0, 0);
 			   this->chart1->Margin = System::Windows::Forms::Padding(0);
 			   this->chart1->Name = L"chart1";
@@ -530,26 +584,26 @@ namespace angarawindows {
 			   // 
 			   // chart2
 			   // 
-			   chartArea11->AxisX->IntervalAutoMode = System::Windows::Forms::DataVisualization::Charting::IntervalAutoMode::VariableCount;
-			   chartArea11->AxisX->IsMarginVisible = false;
-			   chartArea11->AxisX->LineColor = System::Drawing::Color::Gray;
-			   chartArea11->AxisX->MajorGrid->LineColor = System::Drawing::Color::Gray;
-			   chartArea11->AxisX->Minimum = 0;
-			   chartArea11->AxisY->IntervalAutoMode = System::Windows::Forms::DataVisualization::Charting::IntervalAutoMode::VariableCount;
-			   chartArea11->AxisY->IsMarginVisible = false;
-			   chartArea11->AxisY->LineColor = System::Drawing::Color::Gray;
-			   chartArea11->AxisY->MajorGrid->LineColor = System::Drawing::Color::Gray;
-			   chartArea11->AxisY->Minimum = 0;
-			   chartArea11->Name = L"ChartArea1";
-			   chartArea11->Position->Auto = false;
-			   chartArea11->Position->Height = 100;
-			   chartArea11->Position->Width = 99.5F;
-			   chartArea11->Position->X = 0.5F;
-			   this->chart2->ChartAreas->Add(chartArea11);
-			   legend11->Enabled = false;
-			   legend11->Name = L"Legend1";
-			   legend11->TableStyle = System::Windows::Forms::DataVisualization::Charting::LegendTableStyle::Wide;
-			   this->chart2->Legends->Add(legend11);
+			   chartArea5->AxisX->IntervalAutoMode = System::Windows::Forms::DataVisualization::Charting::IntervalAutoMode::VariableCount;
+			   chartArea5->AxisX->IsMarginVisible = false;
+			   chartArea5->AxisX->LineColor = System::Drawing::Color::Gray;
+			   chartArea5->AxisX->MajorGrid->LineColor = System::Drawing::Color::Gray;
+			   chartArea5->AxisX->Minimum = 0;
+			   chartArea5->AxisY->IntervalAutoMode = System::Windows::Forms::DataVisualization::Charting::IntervalAutoMode::VariableCount;
+			   chartArea5->AxisY->IsMarginVisible = false;
+			   chartArea5->AxisY->LineColor = System::Drawing::Color::Gray;
+			   chartArea5->AxisY->MajorGrid->LineColor = System::Drawing::Color::Gray;
+			   chartArea5->AxisY->Minimum = 0;
+			   chartArea5->Name = L"ChartArea1";
+			   chartArea5->Position->Auto = false;
+			   chartArea5->Position->Height = 100;
+			   chartArea5->Position->Width = 99.5F;
+			   chartArea5->Position->X = 0.5F;
+			   this->chart2->ChartAreas->Add(chartArea5);
+			   legend5->Enabled = false;
+			   legend5->Name = L"Legend1";
+			   legend5->TableStyle = System::Windows::Forms::DataVisualization::Charting::LegendTableStyle::Wide;
+			   this->chart2->Legends->Add(legend5);
 			   this->chart2->Location = System::Drawing::Point(0, 0);
 			   this->chart2->Margin = System::Windows::Forms::Padding(0);
 			   this->chart2->Name = L"chart2";
@@ -569,23 +623,23 @@ namespace angarawindows {
 			   // 
 			   // chart3
 			   // 
-			   chartArea12->AxisX->IntervalAutoMode = System::Windows::Forms::DataVisualization::Charting::IntervalAutoMode::VariableCount;
-			   chartArea12->AxisX->LineColor = System::Drawing::Color::Gray;
-			   chartArea12->AxisX->MajorGrid->LineColor = System::Drawing::Color::Gray;
-			   chartArea12->AxisX->Minimum = 0;
-			   chartArea12->AxisY->IntervalAutoMode = System::Windows::Forms::DataVisualization::Charting::IntervalAutoMode::VariableCount;
-			   chartArea12->AxisY->LineColor = System::Drawing::Color::Gray;
-			   chartArea12->AxisY->MajorGrid->LineColor = System::Drawing::Color::Gray;
-			   chartArea12->AxisY->Minimum = 0;
-			   chartArea12->Name = L"ChartArea1";
-			   chartArea12->Position->Auto = false;
-			   chartArea12->Position->Height = 100;
-			   chartArea12->Position->Width = 100;
-			   this->chart3->ChartAreas->Add(chartArea12);
-			   legend12->Enabled = false;
-			   legend12->Name = L"Legend1";
-			   legend12->TableStyle = System::Windows::Forms::DataVisualization::Charting::LegendTableStyle::Wide;
-			   this->chart3->Legends->Add(legend12);
+			   chartArea6->AxisX->IntervalAutoMode = System::Windows::Forms::DataVisualization::Charting::IntervalAutoMode::VariableCount;
+			   chartArea6->AxisX->LineColor = System::Drawing::Color::Gray;
+			   chartArea6->AxisX->MajorGrid->LineColor = System::Drawing::Color::Gray;
+			   chartArea6->AxisX->Minimum = 0;
+			   chartArea6->AxisY->IntervalAutoMode = System::Windows::Forms::DataVisualization::Charting::IntervalAutoMode::VariableCount;
+			   chartArea6->AxisY->LineColor = System::Drawing::Color::Gray;
+			   chartArea6->AxisY->MajorGrid->LineColor = System::Drawing::Color::Gray;
+			   chartArea6->AxisY->Minimum = 0;
+			   chartArea6->Name = L"ChartArea1";
+			   chartArea6->Position->Auto = false;
+			   chartArea6->Position->Height = 100;
+			   chartArea6->Position->Width = 100;
+			   this->chart3->ChartAreas->Add(chartArea6);
+			   legend6->Enabled = false;
+			   legend6->Name = L"Legend1";
+			   legend6->TableStyle = System::Windows::Forms::DataVisualization::Charting::LegendTableStyle::Wide;
+			   this->chart3->Legends->Add(legend6);
 			   this->chart3->Location = System::Drawing::Point(0, 0);
 			   this->chart3->Margin = System::Windows::Forms::Padding(0);
 			   this->chart3->Name = L"chart3";
@@ -614,7 +668,6 @@ namespace angarawindows {
 			   this->tabPage1->Name = L"tabPage1";
 			   this->tabPage1->Size = System::Drawing::Size(343, 180);
 			   this->tabPage1->TabIndex = 0;
-			   this->tabPage1->Text = L"Гидравлическая";
 			   // 
 			   // tabPage2
 			   // 
@@ -623,7 +676,6 @@ namespace angarawindows {
 			   this->tabPage2->Padding = System::Windows::Forms::Padding(3);
 			   this->tabPage2->Size = System::Drawing::Size(343, 180);
 			   this->tabPage2->TabIndex = 1;
-			   this->tabPage2->Text = L"Мощностная";
 			   this->tabPage2->UseVisualStyleBackColor = true;
 			   // 
 			   // tabPage3
@@ -633,7 +685,6 @@ namespace angarawindows {
 			   this->tabPage3->Padding = System::Windows::Forms::Padding(3);
 			   this->tabPage3->Size = System::Drawing::Size(343, 180);
 			   this->tabPage3->TabIndex = 2;
-			   this->tabPage3->Text = L"КПД";
 			   this->tabPage3->UseVisualStyleBackColor = true;
 			   // 
 			   // flowLayoutPanel18
@@ -656,7 +707,6 @@ namespace angarawindows {
 			   this->groupBox7->Size = System::Drawing::Size(156, 155);
 			   this->groupBox7->TabIndex = 5;
 			   this->groupBox7->TabStop = false;
-			   this->groupBox7->Text = L"Точка на графике";
 			   this->groupBox7->Paint += gcnew System::Windows::Forms::PaintEventHandler(this, &WaterPumpForm::groupBox2_Paint);
 			   // 
 			   // tableLayoutPanel2
@@ -724,7 +774,6 @@ namespace angarawindows {
 			   this->label16->Name = L"label16";
 			   this->label16->Size = System::Drawing::Size(34, 27);
 			   this->label16->TabIndex = 7;
-			   this->label16->Text = L"м3/ч";
 			   this->label16->TextAlign = System::Drawing::ContentAlignment::MiddleLeft;
 			   // 
 			   // label17
@@ -746,7 +795,6 @@ namespace angarawindows {
 			   this->label20->Name = L"label20";
 			   this->label20->Size = System::Drawing::Size(34, 27);
 			   this->label20->TabIndex = 9;
-			   this->label20->Text = L"м";
 			   this->label20->TextAlign = System::Drawing::ContentAlignment::MiddleLeft;
 			   // 
 			   // box_point_h
@@ -778,7 +826,6 @@ namespace angarawindows {
 			   this->label24->Name = L"label24";
 			   this->label24->Size = System::Drawing::Size(34, 27);
 			   this->label24->TabIndex = 12;
-			   this->label24->Text = L"м";
 			   this->label24->TextAlign = System::Drawing::ContentAlignment::MiddleLeft;
 			   // 
 			   // label25
@@ -800,7 +847,6 @@ namespace angarawindows {
 			   this->label26->Name = L"label26";
 			   this->label26->Size = System::Drawing::Size(34, 27);
 			   this->label26->TabIndex = 14;
-			   this->label26->Text = L"КПД";
 			   this->label26->TextAlign = System::Drawing::ContentAlignment::MiddleLeft;
 			   // 
 			   // label27
@@ -811,7 +857,6 @@ namespace angarawindows {
 			   this->label27->Name = L"label27";
 			   this->label27->Size = System::Drawing::Size(34, 27);
 			   this->label27->TabIndex = 15;
-			   this->label27->Text = L"КВт";
 			   this->label27->TextAlign = System::Drawing::ContentAlignment::MiddleLeft;
 			   // 
 			   // label28
@@ -877,7 +922,6 @@ namespace angarawindows {
 			   this->groupBox6->Size = System::Drawing::Size(177, 130);
 			   this->groupBox6->TabIndex = 6;
 			   this->groupBox6->TabStop = false;
-			   this->groupBox6->Text = L"Коэффициенты";
 			   this->groupBox6->Paint += gcnew System::Windows::Forms::PaintEventHandler(this, &WaterPumpForm::groupBox2_Paint);
 			   // 
 			   // tableLayoutPanel3
@@ -997,7 +1041,6 @@ namespace angarawindows {
 			   this->groupBox8->Size = System::Drawing::Size(177, 76);
 			   this->groupBox8->TabIndex = 7;
 			   this->groupBox8->TabStop = false;
-			   this->groupBox8->Text = L"Рабочая зона, м3/ч";
 			   this->groupBox8->Paint += gcnew System::Windows::Forms::PaintEventHandler(this, &WaterPumpForm::groupBox2_Paint);
 			   // 
 			   // tableLayoutPanel4
@@ -1029,7 +1072,6 @@ namespace angarawindows {
 			   this->label_q_min->Name = L"label_q_min";
 			   this->label_q_min->Size = System::Drawing::Size(44, 27);
 			   this->label_q_min->TabIndex = 5;
-			   this->label_q_min->Text = L"Qmin";
 			   this->label_q_min->TextAlign = System::Drawing::ContentAlignment::MiddleLeft;
 			   // 
 			   // label_q_max
@@ -1039,7 +1081,6 @@ namespace angarawindows {
 			   this->label_q_max->Name = L"label_q_max";
 			   this->label_q_max->Size = System::Drawing::Size(44, 27);
 			   this->label_q_max->TabIndex = 8;
-			   this->label_q_max->Text = L"Qmax";
 			   this->label_q_max->TextAlign = System::Drawing::ContentAlignment::MiddleLeft;
 			   // 
 			   // box_q_min
@@ -1075,22 +1116,21 @@ namespace angarawindows {
 			   // 
 			   // button1
 			   // 
+			   this->button1->AutoSize = true;
 			   this->button1->Location = System::Drawing::Point(276, 3);
 			   this->button1->Name = L"button1";
 			   this->button1->Size = System::Drawing::Size(75, 23);
 			   this->button1->TabIndex = 0;
-			   this->button1->Text = L"Отмена";
 			   this->button1->UseVisualStyleBackColor = true;
 			   // 
 			   // button2
 			   // 
+			   this->button2->AutoSize = true;
 			   this->button2->Location = System::Drawing::Point(195, 3);
 			   this->button2->Name = L"button2";
 			   this->button2->Size = System::Drawing::Size(75, 23);
 			   this->button2->TabIndex = 1;
-			   this->button2->Text = L"Ок";
 			   this->button2->UseVisualStyleBackColor = true;
-			   this->button2->Click += gcnew System::EventHandler(this, &WaterPumpForm::exitButtonClick);
 			   // 
 			   // flowLayoutPanel24
 			   // 
@@ -1125,7 +1165,6 @@ namespace angarawindows {
 			   this->tabPage4->Padding = System::Windows::Forms::Padding(3);
 			   this->tabPage4->Size = System::Drawing::Size(346, 396);
 			   this->tabPage4->TabIndex = 0;
-			   this->tabPage4->Text = L"Основное";
 			   this->tabPage4->UseVisualStyleBackColor = true;
 			   // 
 			   // cardSettings1
@@ -1150,7 +1189,7 @@ namespace angarawindows {
 			   this->flowLayoutPanel4->Controls->Add(this->pump_name);
 			   this->flowLayoutPanel4->Location = System::Drawing::Point(3, 3);
 			   this->flowLayoutPanel4->Name = L"flowLayoutPanel4";
-			   this->flowLayoutPanel4->Size = System::Drawing::Size(337, 27);
+			   this->flowLayoutPanel4->Size = System::Drawing::Size(305, 27);
 			   this->flowLayoutPanel4->TabIndex = 0;
 			   this->flowLayoutPanel4->WrapContents = false;
 			   // 
@@ -1161,15 +1200,14 @@ namespace angarawindows {
 			   this->label1->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 9));
 			   this->label1->Location = System::Drawing::Point(3, 0);
 			   this->label1->Name = L"label1";
-			   this->label1->Size = System::Drawing::Size(32, 27);
+			   this->label1->Size = System::Drawing::Size(0, 27);
 			   this->label1->TabIndex = 0;
-			   this->label1->Text = L"Имя";
 			   this->label1->TextAlign = System::Drawing::ContentAlignment::MiddleLeft;
 			   // 
 			   // pump_name
 			   // 
 			   this->pump_name->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 9));
-			   this->pump_name->Location = System::Drawing::Point(41, 3);
+			   this->pump_name->Location = System::Drawing::Point(9, 3);
 			   this->pump_name->Name = L"pump_name";
 			   this->pump_name->Size = System::Drawing::Size(293, 21);
 			   this->pump_name->TabIndex = 1;
@@ -1182,7 +1220,7 @@ namespace angarawindows {
 			   this->flowLayoutPanel5->Location = System::Drawing::Point(3, 43);
 			   this->flowLayoutPanel5->Margin = System::Windows::Forms::Padding(3, 10, 3, 3);
 			   this->flowLayoutPanel5->Name = L"flowLayoutPanel5";
-			   this->flowLayoutPanel5->Size = System::Drawing::Size(337, 29);
+			   this->flowLayoutPanel5->Size = System::Drawing::Size(267, 29);
 			   this->flowLayoutPanel5->TabIndex = 1;
 			   this->flowLayoutPanel5->WrapContents = false;
 			   // 
@@ -1193,9 +1231,8 @@ namespace angarawindows {
 			   this->label2->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 9));
 			   this->label2->Location = System::Drawing::Point(3, 0);
 			   this->label2->Name = L"label2";
-			   this->label2->Size = System::Drawing::Size(70, 29);
+			   this->label2->Size = System::Drawing::Size(0, 29);
 			   this->label2->TabIndex = 0;
-			   this->label2->Text = L"Состояние";
 			   this->label2->TextAlign = System::Drawing::ContentAlignment::MiddleLeft;
 			   // 
 			   // pump_enable
@@ -1204,7 +1241,7 @@ namespace angarawindows {
 			   this->pump_enable->DropDownStyle = System::Windows::Forms::ComboBoxStyle::DropDownList;
 			   this->pump_enable->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 9));
 			   this->pump_enable->FormattingEnabled = true;
-			   this->pump_enable->Location = System::Drawing::Point(79, 3);
+			   this->pump_enable->Location = System::Drawing::Point(9, 3);
 			   this->pump_enable->Name = L"pump_enable";
 			   this->pump_enable->Size = System::Drawing::Size(255, 23);
 			   this->pump_enable->TabIndex = 1;
@@ -1219,7 +1256,6 @@ namespace angarawindows {
 			   this->groupBox1->Size = System::Drawing::Size(334, 137);
 			   this->groupBox1->TabIndex = 2;
 			   this->groupBox1->TabStop = false;
-			   this->groupBox1->Text = L"Номинальные параметры";
 			   this->groupBox1->Paint += gcnew System::Windows::Forms::PaintEventHandler(this, &WaterPumpForm::groupBox2_Paint);
 			   // 
 			   // flowLayoutPanel6
@@ -1242,7 +1278,7 @@ namespace angarawindows {
 			   this->flowLayoutPanel7->Controls->Add(this->pump_mark);
 			   this->flowLayoutPanel7->Location = System::Drawing::Point(3, 3);
 			   this->flowLayoutPanel7->Name = L"flowLayoutPanel7";
-			   this->flowLayoutPanel7->Size = System::Drawing::Size(325, 27);
+			   this->flowLayoutPanel7->Size = System::Drawing::Size(280, 27);
 			   this->flowLayoutPanel7->TabIndex = 1;
 			   this->flowLayoutPanel7->WrapContents = false;
 			   // 
@@ -1253,14 +1289,13 @@ namespace angarawindows {
 			   this->label3->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 9));
 			   this->label3->Location = System::Drawing::Point(3, 0);
 			   this->label3->Name = L"label3";
-			   this->label3->Size = System::Drawing::Size(45, 27);
+			   this->label3->Size = System::Drawing::Size(0, 27);
 			   this->label3->TabIndex = 0;
-			   this->label3->Text = L"Марка";
 			   this->label3->TextAlign = System::Drawing::ContentAlignment::MiddleLeft;
 			   // 
 			   // pump_mark
 			   // 
-			   this->pump_mark->Location = System::Drawing::Point(54, 3);
+			   this->pump_mark->Location = System::Drawing::Point(9, 3);
 			   this->pump_mark->Name = L"pump_mark";
 			   this->pump_mark->Size = System::Drawing::Size(268, 21);
 			   this->pump_mark->TabIndex = 1;
@@ -1273,7 +1308,7 @@ namespace angarawindows {
 			   this->flowLayoutPanel8->Location = System::Drawing::Point(3, 43);
 			   this->flowLayoutPanel8->Margin = System::Windows::Forms::Padding(3, 10, 3, 3);
 			   this->flowLayoutPanel8->Name = L"flowLayoutPanel8";
-			   this->flowLayoutPanel8->Size = System::Drawing::Size(325, 27);
+			   this->flowLayoutPanel8->Size = System::Drawing::Size(142, 27);
 			   this->flowLayoutPanel8->TabIndex = 2;
 			   this->flowLayoutPanel8->WrapContents = false;
 			   // 
@@ -1284,14 +1319,13 @@ namespace angarawindows {
 			   this->label4->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 9));
 			   this->label4->Location = System::Drawing::Point(3, 0);
 			   this->label4->Name = L"label4";
-			   this->label4->Size = System::Drawing::Size(183, 27);
+			   this->label4->Size = System::Drawing::Size(0, 27);
 			   this->label4->TabIndex = 0;
-			   this->label4->Text = L"Диаметр рабочего колеса, мм";
 			   this->label4->TextAlign = System::Drawing::ContentAlignment::MiddleLeft;
 			   // 
 			   // pump_dim
 			   // 
-			   this->pump_dim->Location = System::Drawing::Point(192, 3);
+			   this->pump_dim->Location = System::Drawing::Point(9, 3);
 			   this->pump_dim->Name = L"pump_dim";
 			   this->pump_dim->Size = System::Drawing::Size(130, 21);
 			   this->pump_dim->TabIndex = 1;
@@ -1304,7 +1338,7 @@ namespace angarawindows {
 			   this->flowLayoutPanel9->Location = System::Drawing::Point(3, 83);
 			   this->flowLayoutPanel9->Margin = System::Windows::Forms::Padding(3, 10, 3, 3);
 			   this->flowLayoutPanel9->Name = L"flowLayoutPanel9";
-			   this->flowLayoutPanel9->Size = System::Drawing::Size(325, 27);
+			   this->flowLayoutPanel9->Size = System::Drawing::Size(178, 27);
 			   this->flowLayoutPanel9->TabIndex = 3;
 			   this->flowLayoutPanel9->WrapContents = false;
 			   // 
@@ -1315,14 +1349,13 @@ namespace angarawindows {
 			   this->label5->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 9));
 			   this->label5->Location = System::Drawing::Point(3, 0);
 			   this->label5->Name = L"label5";
-			   this->label5->Size = System::Drawing::Size(147, 27);
+			   this->label5->Size = System::Drawing::Size(0, 27);
 			   this->label5->TabIndex = 0;
-			   this->label5->Text = L"Число оборотов, об/мин";
 			   this->label5->TextAlign = System::Drawing::ContentAlignment::MiddleLeft;
 			   // 
 			   // pump_turn
 			   // 
-			   this->pump_turn->Location = System::Drawing::Point(156, 3);
+			   this->pump_turn->Location = System::Drawing::Point(9, 3);
 			   this->pump_turn->Name = L"pump_turn";
 			   this->pump_turn->Size = System::Drawing::Size(166, 21);
 			   this->pump_turn->TabIndex = 1;
@@ -1334,9 +1367,8 @@ namespace angarawindows {
 			   this->label32->Location = System::Drawing::Point(3, 237);
 			   this->label32->Margin = System::Windows::Forms::Padding(3, 12, 3, 3);
 			   this->label32->Name = L"label32";
-			   this->label32->Size = System::Drawing::Size(160, 15);
+			   this->label32->Size = System::Drawing::Size(0, 15);
 			   this->label32->TabIndex = 3;
-			   this->label32->Text = L"Точки на характеристиках";
 			   // 
 			   // tableLayoutPanel6
 			   // 
@@ -1392,7 +1424,6 @@ namespace angarawindows {
 			   this->label35->Name = L"label35";
 			   this->label35->Size = System::Drawing::Size(64, 46);
 			   this->label35->TabIndex = 3;
-			   this->label35->Text = L"Расход, м3/ч";
 			   this->label35->TextAlign = System::Drawing::ContentAlignment::MiddleCenter;
 			   // 
 			   // label36
@@ -1404,7 +1435,6 @@ namespace angarawindows {
 			   this->label36->Name = L"label36";
 			   this->label36->Size = System::Drawing::Size(64, 46);
 			   this->label36->TabIndex = 4;
-			   this->label36->Text = L"Напор, м";
 			   this->label36->TextAlign = System::Drawing::ContentAlignment::MiddleCenter;
 			   // 
 			   // label38
@@ -1416,7 +1446,6 @@ namespace angarawindows {
 			   this->label38->Name = L"label38";
 			   this->label38->Size = System::Drawing::Size(66, 46);
 			   this->label38->TabIndex = 6;
-			   this->label38->Text = L"Кпд, %";
 			   this->label38->TextAlign = System::Drawing::ContentAlignment::MiddleCenter;
 			   // 
 			   // numeric_input_point
@@ -1471,7 +1500,6 @@ namespace angarawindows {
 			   this->label37->Name = L"label37";
 			   this->label37->Size = System::Drawing::Size(64, 46);
 			   this->label37->TabIndex = 5;
-			   this->label37->Text = L"Мощность, кВт";
 			   this->label37->TextAlign = System::Drawing::ContentAlignment::MiddleCenter;
 			   // 
 			   // tabPage5
@@ -1482,7 +1510,6 @@ namespace angarawindows {
 			   this->tabPage5->Name = L"tabPage5";
 			   this->tabPage5->Size = System::Drawing::Size(346, 396);
 			   this->tabPage5->TabIndex = 1;
-			   this->tabPage5->Text = L"Ограничения";
 			   this->tabPage5->UseVisualStyleBackColor = true;
 			   // 
 			   // flowLayoutPanel10
@@ -1511,9 +1538,8 @@ namespace angarawindows {
 			   this->label42->Location = System::Drawing::Point(3, 6);
 			   this->label42->Margin = System::Windows::Forms::Padding(3, 6, 3, 6);
 			   this->label42->Name = L"label42";
-			   this->label42->Size = System::Drawing::Size(141, 15);
+			   this->label42->Size = System::Drawing::Size(0, 15);
 			   this->label42->TabIndex = 7;
-			   this->label42->Text = L"Параметры режима";
 			   // 
 			   // groupBox2
 			   // 
@@ -1522,10 +1548,9 @@ namespace angarawindows {
 			   this->groupBox2->Controls->Add(this->flowLayoutPanel26);
 			   this->groupBox2->Location = System::Drawing::Point(3, 30);
 			   this->groupBox2->Name = L"groupBox2";
-			   this->groupBox2->Size = System::Drawing::Size(337, 61);
+			   this->groupBox2->Size = System::Drawing::Size(176, 61);
 			   this->groupBox2->TabIndex = 0;
 			   this->groupBox2->TabStop = false;
-			   this->groupBox2->Text = L"Производительность, м3/ч";
 			   this->groupBox2->Paint += gcnew System::Windows::Forms::PaintEventHandler(this, &WaterPumpForm::groupBox2_Paint);
 			   // 
 			   // flowLayoutPanel26
@@ -1542,7 +1567,7 @@ namespace angarawindows {
 			   this->flowLayoutPanel26->Margin = System::Windows::Forms::Padding(0);
 			   this->flowLayoutPanel26->Name = L"flowLayoutPanel26";
 			   this->flowLayoutPanel26->Padding = System::Windows::Forms::Padding(0, 7, 0, 7);
-			   this->flowLayoutPanel26->Size = System::Drawing::Size(331, 41);
+			   this->flowLayoutPanel26->Size = System::Drawing::Size(170, 41);
 			   this->flowLayoutPanel26->TabIndex = 2;
 			   this->flowLayoutPanel26->WrapContents = false;
 			   // 
@@ -1552,14 +1577,13 @@ namespace angarawindows {
 			   this->label21->Dock = System::Windows::Forms::DockStyle::Fill;
 			   this->label21->Location = System::Drawing::Point(3, 7);
 			   this->label21->Name = L"label21";
-			   this->label21->Size = System::Drawing::Size(32, 27);
+			   this->label21->Size = System::Drawing::Size(0, 27);
 			   this->label21->TabIndex = 0;
-			   this->label21->Text = L"Мин";
 			   this->label21->TextAlign = System::Drawing::ContentAlignment::MiddleLeft;
 			   // 
 			   // pump_eff_min
 			   // 
-			   this->pump_eff_min->Location = System::Drawing::Point(41, 10);
+			   this->pump_eff_min->Location = System::Drawing::Point(9, 10);
 			   this->pump_eff_min->Name = L"pump_eff_min";
 			   this->pump_eff_min->Size = System::Drawing::Size(45, 21);
 			   this->pump_eff_min->TabIndex = 1;
@@ -1568,16 +1592,15 @@ namespace angarawindows {
 			   // 
 			   this->label22->AutoSize = true;
 			   this->label22->Dock = System::Windows::Forms::DockStyle::Fill;
-			   this->label22->Location = System::Drawing::Point(92, 7);
+			   this->label22->Location = System::Drawing::Point(60, 7);
 			   this->label22->Name = L"label22";
-			   this->label22->Size = System::Drawing::Size(37, 27);
+			   this->label22->Size = System::Drawing::Size(0, 27);
 			   this->label22->TabIndex = 2;
-			   this->label22->Text = L"Макс";
 			   this->label22->TextAlign = System::Drawing::ContentAlignment::MiddleLeft;
 			   // 
 			   // pump_eff_max
 			   // 
-			   this->pump_eff_max->Location = System::Drawing::Point(135, 10);
+			   this->pump_eff_max->Location = System::Drawing::Point(66, 10);
 			   this->pump_eff_max->Name = L"pump_eff_max";
 			   this->pump_eff_max->Size = System::Drawing::Size(45, 21);
 			   this->pump_eff_max->TabIndex = 3;
@@ -1586,16 +1609,15 @@ namespace angarawindows {
 			   // 
 			   this->label40->AutoSize = true;
 			   this->label40->Dock = System::Windows::Forms::DockStyle::Fill;
-			   this->label40->Location = System::Drawing::Point(186, 7);
+			   this->label40->Location = System::Drawing::Point(117, 7);
 			   this->label40->Name = L"label40";
-			   this->label40->Size = System::Drawing::Size(92, 27);
+			   this->label40->Size = System::Drawing::Size(0, 27);
 			   this->label40->TabIndex = 0;
-			   this->label40->Text = L"Рабочая точка";
 			   this->label40->TextAlign = System::Drawing::ContentAlignment::MiddleLeft;
 			   // 
 			   // input_data_q
 			   // 
-			   this->input_data_q->Location = System::Drawing::Point(284, 10);
+			   this->input_data_q->Location = System::Drawing::Point(123, 10);
 			   this->input_data_q->Name = L"input_data_q";
 			   this->input_data_q->ReadOnly = true;
 			   this->input_data_q->Size = System::Drawing::Size(44, 21);
@@ -1608,10 +1630,9 @@ namespace angarawindows {
 			   this->groupBox3->Location = System::Drawing::Point(3, 97);
 			   this->groupBox3->Name = L"groupBox3";
 			   this->groupBox3->Padding = System::Windows::Forms::Padding(3, 5, 3, 3);
-			   this->groupBox3->Size = System::Drawing::Size(337, 63);
+			   this->groupBox3->Size = System::Drawing::Size(176, 63);
 			   this->groupBox3->TabIndex = 4;
 			   this->groupBox3->TabStop = false;
-			   this->groupBox3->Text = L"Давление на входе, м.в.ст";
 			   this->groupBox3->Paint += gcnew System::Windows::Forms::PaintEventHandler(this, &WaterPumpForm::groupBox2_Paint);
 			   // 
 			   // flowLayoutPanel11
@@ -1627,7 +1648,7 @@ namespace angarawindows {
 			   this->flowLayoutPanel11->Location = System::Drawing::Point(3, 19);
 			   this->flowLayoutPanel11->Name = L"flowLayoutPanel11";
 			   this->flowLayoutPanel11->Padding = System::Windows::Forms::Padding(0, 7, 0, 7);
-			   this->flowLayoutPanel11->Size = System::Drawing::Size(331, 41);
+			   this->flowLayoutPanel11->Size = System::Drawing::Size(170, 41);
 			   this->flowLayoutPanel11->TabIndex = 2;
 			   this->flowLayoutPanel11->WrapContents = false;
 			   // 
@@ -1638,14 +1659,13 @@ namespace angarawindows {
 			   this->label6->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 9));
 			   this->label6->Location = System::Drawing::Point(3, 7);
 			   this->label6->Name = L"label6";
-			   this->label6->Size = System::Drawing::Size(32, 27);
+			   this->label6->Size = System::Drawing::Size(0, 27);
 			   this->label6->TabIndex = 0;
-			   this->label6->Text = L"Мин";
 			   this->label6->TextAlign = System::Drawing::ContentAlignment::MiddleLeft;
 			   // 
 			   // pump_pres_min
 			   // 
-			   this->pump_pres_min->Location = System::Drawing::Point(41, 10);
+			   this->pump_pres_min->Location = System::Drawing::Point(9, 10);
 			   this->pump_pres_min->Name = L"pump_pres_min";
 			   this->pump_pres_min->Size = System::Drawing::Size(45, 21);
 			   this->pump_pres_min->TabIndex = 1;
@@ -1655,16 +1675,15 @@ namespace angarawindows {
 			   this->label7->AutoSize = true;
 			   this->label7->Dock = System::Windows::Forms::DockStyle::Fill;
 			   this->label7->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 9));
-			   this->label7->Location = System::Drawing::Point(92, 7);
+			   this->label7->Location = System::Drawing::Point(60, 7);
 			   this->label7->Name = L"label7";
-			   this->label7->Size = System::Drawing::Size(37, 27);
+			   this->label7->Size = System::Drawing::Size(0, 27);
 			   this->label7->TabIndex = 2;
-			   this->label7->Text = L"Макс";
 			   this->label7->TextAlign = System::Drawing::ContentAlignment::MiddleLeft;
 			   // 
 			   // pump_pres_max
 			   // 
-			   this->pump_pres_max->Location = System::Drawing::Point(135, 10);
+			   this->pump_pres_max->Location = System::Drawing::Point(66, 10);
 			   this->pump_pres_max->Name = L"pump_pres_max";
 			   this->pump_pres_max->Size = System::Drawing::Size(45, 21);
 			   this->pump_pres_max->TabIndex = 3;
@@ -1673,16 +1692,15 @@ namespace angarawindows {
 			   // 
 			   this->label39->AutoSize = true;
 			   this->label39->Dock = System::Windows::Forms::DockStyle::Fill;
-			   this->label39->Location = System::Drawing::Point(186, 7);
+			   this->label39->Location = System::Drawing::Point(117, 7);
 			   this->label39->Name = L"label39";
-			   this->label39->Size = System::Drawing::Size(92, 27);
+			   this->label39->Size = System::Drawing::Size(0, 27);
 			   this->label39->TabIndex = 0;
-			   this->label39->Text = L"Рабочая точка";
 			   this->label39->TextAlign = System::Drawing::ContentAlignment::MiddleLeft;
 			   // 
 			   // input_data_h_in
 			   // 
-			   this->input_data_h_in->Location = System::Drawing::Point(284, 10);
+			   this->input_data_h_in->Location = System::Drawing::Point(123, 10);
 			   this->input_data_h_in->Name = L"input_data_h_in";
 			   this->input_data_h_in->ReadOnly = true;
 			   this->input_data_h_in->Size = System::Drawing::Size(44, 21);
@@ -1695,10 +1713,9 @@ namespace angarawindows {
 			   this->groupBox9->Location = System::Drawing::Point(3, 166);
 			   this->groupBox9->Name = L"groupBox9";
 			   this->groupBox9->Padding = System::Windows::Forms::Padding(3, 5, 3, 3);
-			   this->groupBox9->Size = System::Drawing::Size(337, 63);
+			   this->groupBox9->Size = System::Drawing::Size(176, 63);
 			   this->groupBox9->TabIndex = 5;
 			   this->groupBox9->TabStop = false;
-			   this->groupBox9->Text = L"Давление на выходе, м.в.ст";
 			   this->groupBox9->Paint += gcnew System::Windows::Forms::PaintEventHandler(this, &WaterPumpForm::groupBox2_Paint);
 			   // 
 			   // flowLayoutPanel25
@@ -1715,7 +1732,7 @@ namespace angarawindows {
 			   this->flowLayoutPanel25->Margin = System::Windows::Forms::Padding(3, 10, 3, 3);
 			   this->flowLayoutPanel25->Name = L"flowLayoutPanel25";
 			   this->flowLayoutPanel25->Padding = System::Windows::Forms::Padding(0, 7, 0, 7);
-			   this->flowLayoutPanel25->Size = System::Drawing::Size(331, 41);
+			   this->flowLayoutPanel25->Size = System::Drawing::Size(170, 41);
 			   this->flowLayoutPanel25->TabIndex = 2;
 			   this->flowLayoutPanel25->WrapContents = false;
 			   // 
@@ -1725,14 +1742,13 @@ namespace angarawindows {
 			   this->label14->Dock = System::Windows::Forms::DockStyle::Fill;
 			   this->label14->Location = System::Drawing::Point(3, 7);
 			   this->label14->Name = L"label14";
-			   this->label14->Size = System::Drawing::Size(32, 27);
+			   this->label14->Size = System::Drawing::Size(0, 27);
 			   this->label14->TabIndex = 0;
-			   this->label14->Text = L"Мин";
 			   this->label14->TextAlign = System::Drawing::ContentAlignment::MiddleLeft;
 			   // 
 			   // pump_pres_min_out
 			   // 
-			   this->pump_pres_min_out->Location = System::Drawing::Point(41, 10);
+			   this->pump_pres_min_out->Location = System::Drawing::Point(9, 10);
 			   this->pump_pres_min_out->Name = L"pump_pres_min_out";
 			   this->pump_pres_min_out->Size = System::Drawing::Size(45, 21);
 			   this->pump_pres_min_out->TabIndex = 1;
@@ -1741,16 +1757,15 @@ namespace angarawindows {
 			   // 
 			   this->label30->AutoSize = true;
 			   this->label30->Dock = System::Windows::Forms::DockStyle::Fill;
-			   this->label30->Location = System::Drawing::Point(92, 7);
+			   this->label30->Location = System::Drawing::Point(60, 7);
 			   this->label30->Name = L"label30";
-			   this->label30->Size = System::Drawing::Size(37, 27);
+			   this->label30->Size = System::Drawing::Size(0, 27);
 			   this->label30->TabIndex = 2;
-			   this->label30->Text = L"Макс";
 			   this->label30->TextAlign = System::Drawing::ContentAlignment::MiddleLeft;
 			   // 
 			   // pump_pres_max_out
 			   // 
-			   this->pump_pres_max_out->Location = System::Drawing::Point(135, 10);
+			   this->pump_pres_max_out->Location = System::Drawing::Point(66, 10);
 			   this->pump_pres_max_out->Name = L"pump_pres_max_out";
 			   this->pump_pres_max_out->Size = System::Drawing::Size(45, 21);
 			   this->pump_pres_max_out->TabIndex = 3;
@@ -1759,16 +1774,15 @@ namespace angarawindows {
 			   // 
 			   this->label41->AutoSize = true;
 			   this->label41->Dock = System::Windows::Forms::DockStyle::Fill;
-			   this->label41->Location = System::Drawing::Point(186, 7);
+			   this->label41->Location = System::Drawing::Point(117, 7);
 			   this->label41->Name = L"label41";
-			   this->label41->Size = System::Drawing::Size(92, 27);
+			   this->label41->Size = System::Drawing::Size(0, 27);
 			   this->label41->TabIndex = 0;
-			   this->label41->Text = L"Рабочая точка";
 			   this->label41->TextAlign = System::Drawing::ContentAlignment::MiddleLeft;
 			   // 
 			   // input_data_h_out
 			   // 
-			   this->input_data_h_out->Location = System::Drawing::Point(284, 10);
+			   this->input_data_h_out->Location = System::Drawing::Point(123, 10);
 			   this->input_data_h_out->Name = L"input_data_h_out";
 			   this->input_data_h_out->ReadOnly = true;
 			   this->input_data_h_out->Size = System::Drawing::Size(44, 21);
@@ -1781,88 +1795,19 @@ namespace angarawindows {
 			   this->label43->Location = System::Drawing::Point(3, 238);
 			   this->label43->Margin = System::Windows::Forms::Padding(3, 6, 3, 3);
 			   this->label43->Name = L"label43";
-			   this->label43->Size = System::Drawing::Size(167, 15);
+			   this->label43->Size = System::Drawing::Size(0, 15);
 			   this->label43->TabIndex = 8;
-			   this->label43->Text = L"Параметры управления";
-			   // 
-			   // groupBox4
-			   // 
-			   this->groupBox4->AutoSize = true;
-			   this->groupBox4->Controls->Add(this->flowLayoutPanel12);
-			   this->groupBox4->Location = System::Drawing::Point(3, 259);
-			   this->groupBox4->Name = L"groupBox4";
-			   this->groupBox4->Padding = System::Windows::Forms::Padding(3, 5, 3, 3);
-			   this->groupBox4->Size = System::Drawing::Size(339, 63);
-			   this->groupBox4->TabIndex = 4;
-			   this->groupBox4->TabStop = false;
-			   this->groupBox4->Text = L"Число оборотов, об/мин";
-			   this->groupBox4->Paint += gcnew System::Windows::Forms::PaintEventHandler(this, &WaterPumpForm::groupBox2_Paint);
-			   // 
-			   // flowLayoutPanel12
-			   // 
-			   this->flowLayoutPanel12->AutoSize = true;
-			   this->flowLayoutPanel12->Controls->Add(this->label8);
-			   this->flowLayoutPanel12->Controls->Add(this->pump_turn_min);
-			   this->flowLayoutPanel12->Controls->Add(this->label9);
-			   this->flowLayoutPanel12->Controls->Add(this->pump_turn_max);
-			   this->flowLayoutPanel12->Dock = System::Windows::Forms::DockStyle::Fill;
-			   this->flowLayoutPanel12->Location = System::Drawing::Point(3, 19);
-			   this->flowLayoutPanel12->Margin = System::Windows::Forms::Padding(3, 10, 3, 3);
-			   this->flowLayoutPanel12->Name = L"flowLayoutPanel12";
-			   this->flowLayoutPanel12->Padding = System::Windows::Forms::Padding(0, 7, 0, 7);
-			   this->flowLayoutPanel12->Size = System::Drawing::Size(333, 41);
-			   this->flowLayoutPanel12->TabIndex = 2;
-			   this->flowLayoutPanel12->WrapContents = false;
-			   // 
-			   // label8
-			   // 
-			   this->label8->AutoSize = true;
-			   this->label8->Dock = System::Windows::Forms::DockStyle::Fill;
-			   this->label8->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 9));
-			   this->label8->Location = System::Drawing::Point(3, 7);
-			   this->label8->Name = L"label8";
-			   this->label8->Size = System::Drawing::Size(32, 27);
-			   this->label8->TabIndex = 0;
-			   this->label8->Text = L"Мин";
-			   this->label8->TextAlign = System::Drawing::ContentAlignment::MiddleLeft;
-			   // 
-			   // pump_turn_min
-			   // 
-			   this->pump_turn_min->Location = System::Drawing::Point(41, 10);
-			   this->pump_turn_min->Name = L"pump_turn_min";
-			   this->pump_turn_min->Size = System::Drawing::Size(120, 21);
-			   this->pump_turn_min->TabIndex = 1;
-			   // 
-			   // label9
-			   // 
-			   this->label9->AutoSize = true;
-			   this->label9->Dock = System::Windows::Forms::DockStyle::Fill;
-			   this->label9->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 9));
-			   this->label9->Location = System::Drawing::Point(167, 7);
-			   this->label9->Name = L"label9";
-			   this->label9->Size = System::Drawing::Size(37, 27);
-			   this->label9->TabIndex = 2;
-			   this->label9->Text = L"Макс";
-			   this->label9->TextAlign = System::Drawing::ContentAlignment::MiddleLeft;
-			   // 
-			   // pump_turn_max
-			   // 
-			   this->pump_turn_max->Location = System::Drawing::Point(210, 10);
-			   this->pump_turn_max->Name = L"pump_turn_max";
-			   this->pump_turn_max->Size = System::Drawing::Size(120, 21);
-			   this->pump_turn_max->TabIndex = 3;
 			   // 
 			   // groupBox5
 			   // 
 			   this->groupBox5->AutoSize = true;
 			   this->groupBox5->Controls->Add(this->flowLayoutPanel13);
-			   this->groupBox5->Location = System::Drawing::Point(3, 328);
+			   this->groupBox5->Location = System::Drawing::Point(3, 259);
 			   this->groupBox5->Name = L"groupBox5";
 			   this->groupBox5->Padding = System::Windows::Forms::Padding(3, 5, 3, 3);
-			   this->groupBox5->Size = System::Drawing::Size(339, 63);
+			   this->groupBox5->Size = System::Drawing::Size(270, 63);
 			   this->groupBox5->TabIndex = 6;
 			   this->groupBox5->TabStop = false;
-			   this->groupBox5->Text = L"Диаметр рабочего колеса, мм";
 			   this->groupBox5->Paint += gcnew System::Windows::Forms::PaintEventHandler(this, &WaterPumpForm::groupBox2_Paint);
 			   // 
 			   // flowLayoutPanel13
@@ -1877,7 +1822,7 @@ namespace angarawindows {
 			   this->flowLayoutPanel13->Margin = System::Windows::Forms::Padding(3, 10, 3, 3);
 			   this->flowLayoutPanel13->Name = L"flowLayoutPanel13";
 			   this->flowLayoutPanel13->Padding = System::Windows::Forms::Padding(0, 7, 0, 7);
-			   this->flowLayoutPanel13->Size = System::Drawing::Size(333, 41);
+			   this->flowLayoutPanel13->Size = System::Drawing::Size(264, 41);
 			   this->flowLayoutPanel13->TabIndex = 2;
 			   this->flowLayoutPanel13->WrapContents = false;
 			   // 
@@ -1887,14 +1832,13 @@ namespace angarawindows {
 			   this->label10->Dock = System::Windows::Forms::DockStyle::Fill;
 			   this->label10->Location = System::Drawing::Point(3, 7);
 			   this->label10->Name = L"label10";
-			   this->label10->Size = System::Drawing::Size(32, 27);
+			   this->label10->Size = System::Drawing::Size(0, 27);
 			   this->label10->TabIndex = 0;
-			   this->label10->Text = L"Мин";
 			   this->label10->TextAlign = System::Drawing::ContentAlignment::MiddleLeft;
 			   // 
 			   // pump_dim_min
 			   // 
-			   this->pump_dim_min->Location = System::Drawing::Point(41, 10);
+			   this->pump_dim_min->Location = System::Drawing::Point(9, 10);
 			   this->pump_dim_min->Name = L"pump_dim_min";
 			   this->pump_dim_min->Size = System::Drawing::Size(120, 21);
 			   this->pump_dim_min->TabIndex = 1;
@@ -1903,19 +1847,82 @@ namespace angarawindows {
 			   // 
 			   this->label11->AutoSize = true;
 			   this->label11->Dock = System::Windows::Forms::DockStyle::Fill;
-			   this->label11->Location = System::Drawing::Point(167, 7);
+			   this->label11->Location = System::Drawing::Point(135, 7);
 			   this->label11->Name = L"label11";
-			   this->label11->Size = System::Drawing::Size(37, 27);
+			   this->label11->Size = System::Drawing::Size(0, 27);
 			   this->label11->TabIndex = 2;
-			   this->label11->Text = L"Макс";
 			   this->label11->TextAlign = System::Drawing::ContentAlignment::MiddleLeft;
 			   // 
 			   // pump_dim_max
 			   // 
-			   this->pump_dim_max->Location = System::Drawing::Point(210, 10);
+			   this->pump_dim_max->Location = System::Drawing::Point(141, 10);
 			   this->pump_dim_max->Name = L"pump_dim_max";
 			   this->pump_dim_max->Size = System::Drawing::Size(120, 21);
 			   this->pump_dim_max->TabIndex = 3;
+			   // 
+			   // groupBox4
+			   // 
+			   this->groupBox4->AutoSize = true;
+			   this->groupBox4->Controls->Add(this->flowLayoutPanel12);
+			   this->groupBox4->Location = System::Drawing::Point(3, 328);
+			   this->groupBox4->Name = L"groupBox4";
+			   this->groupBox4->Padding = System::Windows::Forms::Padding(3, 5, 3, 3);
+			   this->groupBox4->Size = System::Drawing::Size(270, 63);
+			   this->groupBox4->TabIndex = 4;
+			   this->groupBox4->TabStop = false;
+			   this->groupBox4->Paint += gcnew System::Windows::Forms::PaintEventHandler(this, &WaterPumpForm::groupBox2_Paint);
+			   // 
+			   // flowLayoutPanel12
+			   // 
+			   this->flowLayoutPanel12->AutoSize = true;
+			   this->flowLayoutPanel12->Controls->Add(this->label8);
+			   this->flowLayoutPanel12->Controls->Add(this->pump_turn_min);
+			   this->flowLayoutPanel12->Controls->Add(this->label9);
+			   this->flowLayoutPanel12->Controls->Add(this->pump_turn_max);
+			   this->flowLayoutPanel12->Dock = System::Windows::Forms::DockStyle::Fill;
+			   this->flowLayoutPanel12->Location = System::Drawing::Point(3, 19);
+			   this->flowLayoutPanel12->Margin = System::Windows::Forms::Padding(3, 10, 3, 3);
+			   this->flowLayoutPanel12->Name = L"flowLayoutPanel12";
+			   this->flowLayoutPanel12->Padding = System::Windows::Forms::Padding(0, 7, 0, 7);
+			   this->flowLayoutPanel12->Size = System::Drawing::Size(264, 41);
+			   this->flowLayoutPanel12->TabIndex = 2;
+			   this->flowLayoutPanel12->WrapContents = false;
+			   // 
+			   // label8
+			   // 
+			   this->label8->AutoSize = true;
+			   this->label8->Dock = System::Windows::Forms::DockStyle::Fill;
+			   this->label8->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 9));
+			   this->label8->Location = System::Drawing::Point(3, 7);
+			   this->label8->Name = L"label8";
+			   this->label8->Size = System::Drawing::Size(0, 27);
+			   this->label8->TabIndex = 0;
+			   this->label8->TextAlign = System::Drawing::ContentAlignment::MiddleLeft;
+			   // 
+			   // pump_turn_min
+			   // 
+			   this->pump_turn_min->Location = System::Drawing::Point(9, 10);
+			   this->pump_turn_min->Name = L"pump_turn_min";
+			   this->pump_turn_min->Size = System::Drawing::Size(120, 21);
+			   this->pump_turn_min->TabIndex = 1;
+			   // 
+			   // label9
+			   // 
+			   this->label9->AutoSize = true;
+			   this->label9->Dock = System::Windows::Forms::DockStyle::Fill;
+			   this->label9->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 9));
+			   this->label9->Location = System::Drawing::Point(135, 7);
+			   this->label9->Name = L"label9";
+			   this->label9->Size = System::Drawing::Size(0, 27);
+			   this->label9->TabIndex = 2;
+			   this->label9->TextAlign = System::Drawing::ContentAlignment::MiddleLeft;
+			   // 
+			   // pump_turn_max
+			   // 
+			   this->pump_turn_max->Location = System::Drawing::Point(141, 10);
+			   this->pump_turn_max->Name = L"pump_turn_max";
+			   this->pump_turn_max->Size = System::Drawing::Size(120, 21);
+			   this->pump_turn_max->TabIndex = 3;
 			   // 
 			   // tabPage6
 			   // 
@@ -1925,7 +1932,6 @@ namespace angarawindows {
 			   this->tabPage6->Padding = System::Windows::Forms::Padding(3);
 			   this->tabPage6->Size = System::Drawing::Size(346, 396);
 			   this->tabPage6->TabIndex = 2;
-			   this->tabPage6->Text = L"Управление";
 			   this->tabPage6->UseVisualStyleBackColor = true;
 			   // 
 			   // flowLayoutPanel19
@@ -1960,7 +1966,6 @@ namespace angarawindows {
 			   this->label18->Name = L"label18";
 			   this->label18->Size = System::Drawing::Size(325, 15);
 			   this->label18->TabIndex = 0;
-			   this->label18->Text = L"Диаметр рабочего колеса, мм";
 			   this->label18->TextAlign = System::Drawing::ContentAlignment::MiddleLeft;
 			   // 
 			   // flowLayoutPanel21
@@ -2012,7 +2017,6 @@ namespace angarawindows {
 			   this->label19->Name = L"label19";
 			   this->label19->Size = System::Drawing::Size(325, 15);
 			   this->label19->TabIndex = 0;
-			   this->label19->Text = L"Число оборотов, об/мин";
 			   this->label19->TextAlign = System::Drawing::ContentAlignment::MiddleLeft;
 			   // 
 			   // flowLayoutPanel23
@@ -2064,7 +2068,6 @@ namespace angarawindows {
 			   this->label12->Name = L"label12";
 			   this->label12->Size = System::Drawing::Size(325, 15);
 			   this->label12->TabIndex = 0;
-			   this->label12->Text = L"Дросселирующее сопротивление, ч2/м5";
 			   this->label12->TextAlign = System::Drawing::ContentAlignment::MiddleLeft;
 			   // 
 			   // flowLayoutPanel15
@@ -2163,6 +2166,7 @@ namespace angarawindows {
 			   this->tableLayoutPanel4->ResumeLayout(false);
 			   this->tableLayoutPanel4->PerformLayout();
 			   this->flowLayoutPanel1->ResumeLayout(false);
+			   this->flowLayoutPanel1->PerformLayout();
 			   this->flowLayoutPanel24->ResumeLayout(false);
 			   this->tabControl2->ResumeLayout(false);
 			   this->tabPage4->ResumeLayout(false);
@@ -2200,14 +2204,14 @@ namespace angarawindows {
 			   this->groupBox9->PerformLayout();
 			   this->flowLayoutPanel25->ResumeLayout(false);
 			   this->flowLayoutPanel25->PerformLayout();
-			   this->groupBox4->ResumeLayout(false);
-			   this->groupBox4->PerformLayout();
-			   this->flowLayoutPanel12->ResumeLayout(false);
-			   this->flowLayoutPanel12->PerformLayout();
 			   this->groupBox5->ResumeLayout(false);
 			   this->groupBox5->PerformLayout();
 			   this->flowLayoutPanel13->ResumeLayout(false);
 			   this->flowLayoutPanel13->PerformLayout();
+			   this->groupBox4->ResumeLayout(false);
+			   this->groupBox4->PerformLayout();
+			   this->flowLayoutPanel12->ResumeLayout(false);
+			   this->flowLayoutPanel12->PerformLayout();
 			   this->tabPage6->ResumeLayout(false);
 			   this->flowLayoutPanel19->ResumeLayout(false);
 			   this->flowLayoutPanel19->PerformLayout();
@@ -2315,41 +2319,7 @@ namespace angarawindows {
 		gfx->DrawLine(pClear, (int)(8 + 2 + sizeTextX->Width), 7, r->Width - 1, 7);
 		gfx->DrawLine(p, (int)(8 + 2 + sizeTextX->Width), 7, r->Width - 1, 7);
 	}
-private: System::Void exitButtonClick(System::Object^ sender, System::EventArgs^ e) {
-	/*Button^ button = dynamic_cast<Button^>(sender);
 
-	if (button->Name == this->button2->Name) {
-		if (this->pump_name->Text->Length == 0)
-			addToErrors(this->pump_name, "Имя насоса должно быть указано");
 
-		if (this->pump_mark->Text->Length == 0)
-			addToErrors(this->pump_mark, "Марка насоса должна быть указана");
-
-	//	if (this->pump_enable->SelectedIndex == -1)
-	//		addToErrors(this->pump_enable, "Состояние насоса должно быть указано");
-
-		if (this->pump_dim->Text->Length == 0)
-			addToErrors(this->pump_dim, "Номинальный диаметр должен быть указан");
-
-		if (this->pump_turn->Text->Length == 0)
-			addToErrors(this->pump_turn, "Номинальное число оборотов должно быть указано");
-
-		if (model->chartPoints.getValue().size() < 2) {
-			addToErrors(this->box_k_h0, "Добавьте минимум 2 точки на график");
-			addToErrors(this->box_k_n0, "Добавьте минимум 2 точки на график");
-			addToErrors(this->box_k_s, "Добавьте минимум 2 точки на график");
-			addToErrors(this->box_k_c, "Добавьте минимум 2 точки на график");
-		}
-
-		if (errors->Count == 0)
-			this->model->save();
-		else {
-			MessageBox::Show("Для сохранения исправьте все ошибки!", "Внимание!");
-			return;
-		}
-	}
-
-	this->Close();*/
-}
 };
 }
