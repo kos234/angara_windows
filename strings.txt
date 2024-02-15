@@ -1,0 +1,641 @@
+zh.message.maximum_5_points_added 最多可添加 5 个积分
+zh.message.chart_point_delete_title 删除点
+zh.message.chart_point_delete 真的要删除点 {0}？
+zh.message.chart_empty_efficiency 在其他图表中添加点
+zh.message.chart_empty 点击两次添加点
+zh.errors.characterization_empty 必须设置特征值
+zh.errors.characterization_less_0 特征值不能为负值
+zh.errors.pressure_less_0 压力不能小于零
+zh.errors.pressure_min_greater_max 最小压力不能大于最大压力
+zh.errors.pressure_max_less_min 最大压力不能小于最小压力
+zh.errors.work_point_exiting_working_area 工作点不在工作区域范围内
+zh.errors.capacity_less_0 性能不能小于零
+zh.errors.capacity_min_greater_max 最小容量不能大于最大容量
+zh.errors.capacity_max_less_min 最大容量不能小于最小容量
+zh.errors.resistance_exiting_working_area 电阻不在工作区范围内
+zh.errors.throttling_resistance_less_0 阻力不能为负值
+zh.errors.turnovers_min_greater_max 最低转速不能大于最高转速
+zh.errors.turnovers_max_less_min 最高转速不能低于最低转速
+zh.errors.nominal_turnovers_empty 必须指定额定转速
+zh.errors.turnovers_less_0 转速不能小于零
+zh.errors.diameter_min_greater_max 最小直径不能大于最大直径
+zh.errors.diameter_max_less_min 最大直径不能小于最小直径
+zh.errors.nominal_diameter_empty 必须指定公称直径
+zh.errors.diameter_less_0 直径不能小于零
+zh.errors.chart_empty 添加点以显示图表
+zh.errors.pump_mark_empty 必须指定泵的品牌
+zh.errors.pump_mark_greater_20 品牌长度不能超过 20 个字符
+zh.errors.pump_name_empty 必须指定泵名
+zh.errors.pump_name_greater_50 名称长度不能超过 50 个字符
+zh.errors.isLink_not_found idLink = {0} 的元素不存在
+zh.errors.to_save_correct_errors 更正所有错误以保存
+zh.errors.error 错误！
+zh.errors.attention 警告！
+zh.button.save 保存
+zh.button.cancel 取消
+zh.charts.qmin Qmin
+zh.charts.qmax Qmax
+zh.charts.working_zone 工作区，立方米/小时
+zh.charts.coefficients 系数
+zh.charts.kw 千瓦
+zh.charts.m m
+zh.charts.m3/h m3/h
+zh.charts.point_graph 图表上的点
+zh.tabs.charts.efficiency 效率
+zh.tabs.charts.power 功率
+zh.tabs.charts.hydraulic 液压
+zh.parameters.control.throttling_resistance 节流阻力，h2/m5
+zh.parameters.limits.control_parameters 控制参数
+zh.parameters.limits.mode_parameters.outlet_pressure 出口压力，m.h.w.
+zh.parameters.limits.mode_parameters.inlet_pressure
+入口压力，m.h.w.
+
+
+zh.parameters.limits.work_point
+工作点
+
+
+zh.parameters.limits.max
+最大值
+
+
+zh.parameters.limits.min
+最小值
+
+
+zh.parameters.limits.mode_parameters.capacity
+容量，立方米/小时
+
+
+zh.parameters.limits.mode_parameters
+模式参数
+
+
+zh.parameters.main.dots_characteristics.efficiency
+效率，%
+
+
+zh.parameters.main.dots_characteristics.power
+功率，千瓦
+
+
+zh.parameters.main.dots_characteristics.pressure
+扬程，米
+
+
+zh.parameters.main.dots_characteristics.consumption
+流量，立方米/小时
+
+
+zh.parameters.main.dots_characteristics
+特性要点
+
+
+zh.parameters.main.nominal_parameters.turnovers
+转数，每分钟
+
+
+zh.parameters.main.nominal_parameters.diameter
+叶轮直径，毫米
+
+
+zh.parameters.main.nominal_parameters.mark
+品牌
+
+
+zh.parameters.main.nominal_parameters
+标称参数
+
+
+zh.parameters.main.pump_status
+状态
+
+
+zh.parameters.main.pump_name
+名称
+
+
+zh.tabs.parameters.control
+控制
+
+
+zh.tabs.parameters.limits
+限制
+
+
+zh.tabs.parameters.main
+基本参数
+
+
+en.message.maximum_5_points_added
+A maximum of 5 points can be added
+
+
+en.message.chart_point_delete_title
+Deleting a point
+
+
+en.message.chart_point_delete
+Do you really want to delete point {0}?
+
+
+en.message.chart_empty_efficiency
+Add a point to other charts
+
+
+en.message.chart_empty
+Click twice to add a point
+
+
+en.errors.characterization_empty
+The characteristic must be specified
+
+
+en.errors.characterization_less_0
+The characteristic cannot be negative
+
+
+en.errors.pressure_less_0
+Pressure cannot be less than zero
+
+
+en.errors.pressure_min_greater_max
+Minimum pressure cannot be greater than maximum pressure
+
+
+en.errors.pressure_max_less_min
+The maximum pressure cannot be less than the minimum pressure
+
+
+en.errors.work_point_exiting_working_area
+Operating point does not fall within the range of the working area
+
+
+en.errors.capacity_less_0
+Performance cannot be less than zero
+
+
+en.errors.capacity_min_greater_max
+Minimum capacity cannot be greater than maximum capacity
+
+
+en.errors.capacity_max_less_min
+Maximum capacity cannot be less than minimum capacity
+
+
+en.errors.resistance_exiting_working_area
+Resistance falls outside the working zone range
+
+
+en.errors.throttling_resistance_less_0
+Resistance cannot be negative
+
+
+en.errors.turnovers_min_greater_max
+Minimum RPM cannot be greater than maximum RPM
+
+
+en.errors.turnovers_max_less_min
+The maximum RPM cannot be less than the minimum RPM
+
+
+en.errors.nominal_turnovers_empty
+Nominal RPM must be specified
+
+
+en.errors.turnovers_less_0
+RPM cannot be less than zero
+
+
+en.errors.diameter_min_greater_max
+Minimum diameter cannot be greater than the maximum diameter
+
+
+en.errors.diameter_max_less_min
+The maximum diameter cannot be less than the minimum diameter
+
+
+en.errors.nominal_diameter_empty
+Nominal diameter must be specified
+
+
+en.errors.diameter_less_0
+Diameter cannot be less than zero
+
+
+en.errors.chart_empty
+Add points to make the graph appear
+
+
+en.errors.pump_mark_empty
+The pump brand must be specified
+
+
+en.errors.pump_mark_greater_20
+Brand length cannot be longer than 20 characters
+
+
+en.errors.pump_name_empty
+Pump name must be specified
+
+
+en.errors.pump_name_greater_50
+The name cannot be more than 50 characters long
+
+
+en.errors.isLink_not_found
+Element with idLink = {0} does not exist
+
+
+en.errors.to_save_correct_errors
+Correct all errors to save
+
+
+en.errors.error
+Error!
+
+
+en.errors.attention
+Warning!
+
+
+en.button.save
+Save
+
+
+en.button.cancel
+Cancel
+
+
+en.charts.qmin
+Qmin
+
+	
+en.charts.qmax
+Qmax
+
+
+en.charts.working_zone
+Working zone, m3/h
+
+
+en.charts.coefficients
+Coefficients
+
+
+en.charts.kw
+KW
+
+
+en.charts.m
+m
+
+
+en.charts.m3/h
+m3/h
+
+
+en.charts.point_graph
+Point on the graph
+
+
+en.tabs.charts.efficiency
+Efficiency
+
+
+en.tabs.charts.power
+Power
+
+
+en.tabs.charts.hydraulic
+Hydraulic
+
+
+en.parameters.control.throttling_resistance
+Throttling resistance, h2/m5
+
+
+en.parameters.limits.control_parameters
+Control parameters
+
+
+en.parameters.limits.mode_parameters.outlet_pressure
+Outlet pressure, m.h.w.
+
+
+en.parameters.limits.mode_parameters.inlet_pressure
+Inlet pressure, m.h.w.
+
+
+en.parameters.limits.work_point
+Operating point
+
+
+en.parameters.limits.max
+Max
+
+
+en.parameters.limits.min
+Min
+
+
+en.parameters.limits.mode_parameters.capacity
+Capacity, m3/h
+
+
+en.parameters.limits.mode_parameters
+Mode parameters
+
+
+en.parameters.main.dots_characteristics.efficiency
+Efficiency, %
+
+
+en.parameters.main.dots_characteristics.power
+Power, kW
+
+
+en.parameters.main.dots_characteristics.pressure
+Head, m
+
+
+en.parameters.main.dots_characteristics.consumption
+Flow rate, m3/h
+
+
+en.parameters.main.dots_characteristics
+Points on the characteristics
+
+
+en.parameters.main.nominal_parameters.turnovers
+Number of revolutions, rpm
+
+
+en.parameters.main.nominal_parameters.diameter
+Impeller diameter, mm
+
+
+en.parameters.main.nominal_parameters.mark
+Brand
+
+
+en.parameters.main.nominal_parameters
+Nominal parameters
+
+
+en.parameters.main.pump_status
+State
+
+
+en.parameters.main.pump_name
+Name
+
+
+en.tabs.parameters.control
+Control
+
+
+en.tabs.parameters.limits
+Limitations
+
+
+en.tabs.parameters.main
+Main
+
+
+
+ru.message.maximum_5_points_added
+		<value>Можно добавить максимум 5 точек
+	
+
+ru.message.chart_point_delete_title
+		<value>Удаление точки
+	
+
+ru.message.chart_point_delete
+		<value>Вы действительно хотите удалить точку {0}?
+	
+
+ru.message.chart_empty_efficiency
+		<value>Добавьте точку на другие графики
+	
+
+ru.message.chart_empty
+		<value>Нажмите два раза, чтобы добавить точку
+	
+
+ru.errors.characterization_empty
+		<value>Характеристика должна быть задана
+	
+
+ru.errors.characterization_less_0
+		<value>Характеристика не может быть отрицательной
+	
+
+ru.errors.pressure_less_0
+		<value>Давление не может быть меньше нуля
+	
+	
+ru.errors.pressure_min_greater_max
+		<value>Минимальное давление не может быть больше максимального
+	
+
+ru.errors.pressure_max_less_min
+		<value>Максимальное давление не может быть меньше минимального
+	
+
+ru.errors.work_point_exiting_working_area
+		<value>Рабочая точка не попадает в диапазон рабочей зоны
+	
+	
+ru.errors.capacity_less_0
+		<value>Производительность не может быть меньше нуля
+	
+	
+ru.errors.capacity_min_greater_max
+		<value>Минимальная производительность не может быть больше максимальной
+	
+	
+ru.errors.capacity_max_less_min
+		<value>Максимальная производительность не может быть меньше минимальной
+	
+
+ru.errors.resistance_exiting_working_area
+		<value>Сопротивление выходит за границы рабочей зоны
+	
+
+ru.errors.throttling_resistance_less_0
+		<value>Сопротивление не может быть отрицательным
+	
+
+ru.errors.turnovers_min_greater_max
+		<value>Минимальное число оборотов не может быть больше максимального
+	
+	
+ru.errors.turnovers_max_less_min
+		<value>Максимальное число оборотов не может быть меньше минимального
+	
+	
+ru.errors.nominal_turnovers_empty
+		<value>Номинальное число оборотов должно быть указано
+	
+	
+ru.errors.turnovers_less_0
+		<value>Число оборотов не может быть меньше нуля
+	
+
+ru.errors.diameter_min_greater_max
+		<value>Минимальный диаметр не может быть больше максимального
+	
+	
+ru.errors.diameter_max_less_min
+		<value>Максимальный диаметр не может быть меньше минимального
+	
+
+ru.errors.nominal_diameter_empty
+		<value>Номинальный диаметр должен быть указан
+	
+
+ru.errors.diameter_less_0
+		<value>Диаметр не может быть меньше нуля
+	
+	
+ru.errors.chart_empty
+		<value>Добавьте точки, чтобы появился график
+	
+	
+ru.errors.pump_mark_empty
+		<value>Марка насоса должна быть указана
+	
+
+ru.errors.pump_mark_greater_20
+		<value>Длина марки не может быть больше 20 символов
+	
+	
+ru.errors.pump_name_empty
+		<value>Имя насоса должно быть указано
+	
+
+ru.errors.pump_name_greater_50
+		<value>Длина имени не может быть больше 50 символов
+	
+	
+ru.errors.isLink_not_found
+		<value>Элемента с idLink = {0} не существует
+	
+ru.errors.to_save_correct_errors
+		<value>Для сохранения исправьте все ошибки
+	
+	
+ru.errors.error
+		<value>Ошибка!
+	
+ru.errors.attention
+		<value>Внимание!
+	
+	
+	
+ru.button.save
+		<value>Сохранить
+	
+ru.button.cancel
+		<value>Отмена
+	
+	
+ru.charts.qmin
+		<value>Qмин
+	
+ru.charts.qmax
+		<value>Qмакс
+	
+	
+ru.charts.working_zone
+		<value>Рабочая зона, м3/ч
+	
+
+ru.charts.coefficients
+		<value>Коэффициенты
+	
+
+ru.charts.kw
+		<value>КВт
+	
+
+ru.charts.m
+		<value>м
+	
+	
+ru.charts.m3/h
+		<value>м3/ч
+	
+
+ru.charts.point_graph
+		<value>Точка на графике
+	
+
+ru.tabs.charts.efficiency
+		<value>КПД
+	
+	
+ru.tabs.charts.power
+		<value>Мощностная
+	
+
+ru.tabs.charts.hydraulic
+		<value>Гидравлическая
+	
+	
+ru.parameters.control.throttling_resistance
+	Дросселирующее сопротивление, ч2/м5
+	
+	
+ru.parameters.limits.control_parameters
+	Параметры управления
+	
+	
+ru.parameters.limits.mode_parameters.outlet_pressure
+	Давление на выходе, м.в.ст
+	
+	
+ru.parameters.limits.mode_parameters.inlet_pressure
+	Давление на входе, м.в.ст
+	
+	
+ru.parameters.limits.work_point
+	Рабочая точка
+	
+ru.parameters.limits.max
+	Макс
+	
+ru.parameters.limits.min
+	Мин
+	
+	
+ru.parameters.limits.mode_parameters.capacity
+	Производительность, м3/ч
+	
+
+ru.parameters.limits.mode_parameters
+Параметры режима
+	
+
+ru.parameters.main.dots_characteristics.efficiency
+Кпд, %
+  
+ru.parameters.main.dots_characteristics.power
+Мощность, кВт
+  
+ru.parameters.main.dots_characteristics.pressure
+Напор, м
+  
+ru.parameters.main.dots_characteristics.consumption Расход, м3/ч
+ru.parameters.main.dots_characteristics Точки на характеристиках
+ru.parameters.main.nominal_parameters.turnovers Число оборотов, об/мин
+ru.parameters.main.nominal_parameters.diameter Диаметр рабочего колеса, мм
+ru.parameters.main.nominal_parameters.mark Марка
+ru.parameters.main.nominal_parameters Номинальные параметры
+ru.parameters.main.pump_status Состояние
+ru.parameters.main.pump_name Имя
+ru.tabs.parameters.control Управление
+ru.tabs.parameters.limits Ограничения
+ru.tabs.parameters.main Основное

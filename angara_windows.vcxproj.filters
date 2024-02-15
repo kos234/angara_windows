@@ -36,9 +36,6 @@
     <ClCompile Include="inputs.cpp">
       <Filter>Исходные файлы\main</Filter>
     </ClCompile>
-    <ClCompile Include="LocalizationManager.cpp">
-      <Filter>Исходные файлы\main</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="WaterPumpForm.h">
@@ -83,10 +80,18 @@
     <ClInclude Include="LocalizationManager.h">
       <Filter>Исходные файлы\main</Filter>
     </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="strings.resx">
       <Filter>Исходные файлы\resources</Filter>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="angara_windows.rc">
+      <Filter>Файлы ресурсов</Filter>
+    </ResourceCompile>
   </ItemGroup>
 </Project>

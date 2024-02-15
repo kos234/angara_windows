@@ -70,12 +70,14 @@ namespace angarawindows {
 		//System::Windows::Forms::MessageBox::Show(data.S + " = s");
 		//System::Windows::Forms::MessageBox::Show(data.C + " = C");
 
-		if (data.S <= 0 || data.C <= 0)
+		if (data.H0 == 0 || data.S < 0 || data.N0 == 0 || data.C < 0)
 			return intervals;
 
 
 		double lastX = 0;
 		double endX = maxX == -1 ? System::Math::Sqrt(data.H0 / data.S) : maxX;
+		if (Double::IsInfinity(endX) || Double::IsNaN(endX))
+			endX = 10;
 		double offset = endX / 8;
 
 		double maxM = 0;
@@ -218,46 +220,48 @@ namespace angarawindows {
 		return data;
 	}
 
+
 	std::string toSaintific(double value) {
-		int m = 0;
-		int m_size = 1;
+		std::string mantis = "";
 		int e = 0;
 		int first = 0;
 		bool isAllZero = true;
+		if (value >= 1) {
+			first = value;
+			value -= first;
+		}
+
+
 		for (; ;) {
 			value *= 10;
 
 			if (!value)
 				break;
 
-			if (!first)
+			if (first == 0)
 				e++;
 
 			int num = value;
 			value -= num;
 
-			if (!first && num == 0)
+			if (first == 0 && num == 0)
 				continue;
 
-			if (!first)
+			if (first == 0)
 				first = num;
 			else {
 				isAllZero &= num == 0;
-				m = num * m_size + m;
-				m_size *= 10;
+				mantis += std::to_string(num);
 			}
 
-			if (m_size == 1000)
+			if (mantis.size() >= 3)
 				break;
 		}
 
 		if (!first)
 			return std::to_string(0);
 
-		std::string mantis = std::to_string(Math::Abs(m));
-		mantis.reserve();
-
-		return std::to_string(first) + (isAllZero ? "" : ("," + mantis)) + "e-" + std::to_string(e);
+		return std::to_string(first) + (isAllZero ? "" : ("," + mantis)) + (e != 0 ? "e-" + std::to_string(e) : "");
 	}
 
 	int CompareChartPoints(RealChartPoint^ p1, RealChartPoint^ p2) {

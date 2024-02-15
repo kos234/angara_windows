@@ -6,7 +6,6 @@
 #include <cliext/set>
 #include <cliext/set>
 
-
 namespace angarawindows {
 
 	using namespace System;
@@ -26,6 +25,21 @@ namespace angarawindows {
 	private: System::Windows::Forms::GroupBox^ groupBox4;
 	private: System::Windows::Forms::Label^ label42;
 	private: System::Windows::Forms::Label^ label43;
+	private: System::Windows::Forms::TableLayoutPanel^ tableLayoutPanel7;
+	public: System::Windows::Forms::TextBox^ pump_dim;
+	private: System::Windows::Forms::TableLayoutPanel^ tableLayoutPanel8;
+	private: System::Windows::Forms::TableLayoutPanel^ tableLayoutPanel9;
+	private: System::Windows::Forms::TableLayoutPanel^ tableLayoutPanel10;
+	private: System::Windows::Forms::TableLayoutPanel^ tableLayoutPanel11;
+	private: System::Windows::Forms::TableLayoutPanel^ tableLayoutPanel12;
+	private: System::Windows::Forms::TableLayoutPanel^ tableLayoutPanel13;
+	private: System::Windows::Forms::TableLayoutPanel^ tableLayoutPanel14;
+	private: System::Windows::Forms::TableLayoutPanel^ tableLayoutPanel15;
+	private: System::Windows::Forms::TableLayoutPanel^ tableLayoutPanel16;
+
+
+	public:
+	private:
 
 
 	public:
@@ -37,7 +51,6 @@ namespace angarawindows {
 	public:
 		WaterPumpForm() {
 			InitializeComponent();
-
 			setupChart(this->chart1, L"H("+ LocalizationManager::getStr("charts.m") +")", Color::FromArgb(2, 8, 88), Color::FromArgb(4, 10, 144), Color::FromArgb(7, 15, 203));
 			setupChart(this->chart2, L"N("+ LocalizationManager::getStr("charts.kw") +")", Color::FromArgb(193, 143, 0), Color::FromArgb(218, 165, 32), Color::FromArgb(243, 187, 58));
 			setupChart(this->chart3, L"η(%)", Color::FromArgb(30, 166, 61), Color::FromArgb(62, 188, 81), Color::FromArgb(88, 210, 101));
@@ -167,21 +180,21 @@ namespace angarawindows {
 	private: System::Windows::Forms::TabPage^ tabPage4;
 
 	private: System::Windows::Forms::FlowLayoutPanel^ cardSettings1;
-	private: System::Windows::Forms::FlowLayoutPanel^ flowLayoutPanel4;
+
 	private: System::Windows::Forms::Label^ label1;
 	public: System::Windows::Forms::TextBox^ pump_name;
-	private: System::Windows::Forms::FlowLayoutPanel^ flowLayoutPanel5;
+
 	private: System::Windows::Forms::Label^ label2;
 	public: System::Windows::Forms::ComboBox^ pump_enable;
 	private: System::Windows::Forms::GroupBox^ groupBox1;
 	private: System::Windows::Forms::FlowLayoutPanel^ flowLayoutPanel6;
-	private: System::Windows::Forms::FlowLayoutPanel^ flowLayoutPanel7;
+
 	private: System::Windows::Forms::Label^ label3;
 	public: System::Windows::Forms::TextBox^ pump_mark;
-	private: System::Windows::Forms::FlowLayoutPanel^ flowLayoutPanel8;
+
 	private: System::Windows::Forms::Label^ label4;
-	public: System::Windows::Forms::TextBox^ pump_dim;
-	private: System::Windows::Forms::FlowLayoutPanel^ flowLayoutPanel9;
+
+
 	private: System::Windows::Forms::Label^ label5;
 	public: System::Windows::Forms::TextBox^ pump_turn;
 	private: System::Windows::Forms::Label^ label32;
@@ -199,31 +212,31 @@ namespace angarawindows {
 	private: System::Windows::Forms::TabPage^ tabPage5;
 	private: System::Windows::Forms::FlowLayoutPanel^ flowLayoutPanel10;
 	private: System::Windows::Forms::GroupBox^ groupBox2;
-	private: System::Windows::Forms::FlowLayoutPanel^ flowLayoutPanel26;
+
 	private: System::Windows::Forms::Label^ label21;
 	public: System::Windows::Forms::TextBox^ pump_eff_min;
 	private: System::Windows::Forms::Label^ label22;
 	public: System::Windows::Forms::TextBox^ pump_eff_max;
 
-	private: System::Windows::Forms::FlowLayoutPanel^ flowLayoutPanel11;
+
 	private: System::Windows::Forms::Label^ label6;
 	public: System::Windows::Forms::TextBox^ pump_pres_min;
 	private: System::Windows::Forms::Label^ label7;
 	public: System::Windows::Forms::TextBox^ pump_pres_max;
 
-	private: System::Windows::Forms::FlowLayoutPanel^ flowLayoutPanel25;
+
 	private: System::Windows::Forms::Label^ label14;
 	public: System::Windows::Forms::TextBox^ pump_pres_min_out;
 	private: System::Windows::Forms::Label^ label30;
 	public: System::Windows::Forms::TextBox^ pump_pres_max_out;
 
-	private: System::Windows::Forms::FlowLayoutPanel^ flowLayoutPanel12;
+
 	private: System::Windows::Forms::Label^ label8;
 	public: System::Windows::Forms::TextBox^ pump_turn_min;
 	private: System::Windows::Forms::Label^ label9;
 	public: System::Windows::Forms::TextBox^ pump_turn_max;
 	private: System::Windows::Forms::GroupBox^ groupBox5;
-	private: System::Windows::Forms::FlowLayoutPanel^ flowLayoutPanel13;
+
 	private: System::Windows::Forms::Label^ label10;
 	public: System::Windows::Forms::TextBox^ pump_dim_min;
 	private: System::Windows::Forms::Label^ label11;
@@ -268,12 +281,12 @@ namespace angarawindows {
 		   void InitializeComponent(void)
 		   {
 			   this->components = (gcnew System::ComponentModel::Container());
-			   System::Windows::Forms::DataVisualization::Charting::ChartArea^ chartArea4 = (gcnew System::Windows::Forms::DataVisualization::Charting::ChartArea());
-			   System::Windows::Forms::DataVisualization::Charting::Legend^ legend4 = (gcnew System::Windows::Forms::DataVisualization::Charting::Legend());
-			   System::Windows::Forms::DataVisualization::Charting::ChartArea^ chartArea5 = (gcnew System::Windows::Forms::DataVisualization::Charting::ChartArea());
-			   System::Windows::Forms::DataVisualization::Charting::Legend^ legend5 = (gcnew System::Windows::Forms::DataVisualization::Charting::Legend());
-			   System::Windows::Forms::DataVisualization::Charting::ChartArea^ chartArea6 = (gcnew System::Windows::Forms::DataVisualization::Charting::ChartArea());
-			   System::Windows::Forms::DataVisualization::Charting::Legend^ legend6 = (gcnew System::Windows::Forms::DataVisualization::Charting::Legend());
+			   System::Windows::Forms::DataVisualization::Charting::ChartArea^ chartArea22 = (gcnew System::Windows::Forms::DataVisualization::Charting::ChartArea());
+			   System::Windows::Forms::DataVisualization::Charting::Legend^ legend22 = (gcnew System::Windows::Forms::DataVisualization::Charting::Legend());
+			   System::Windows::Forms::DataVisualization::Charting::ChartArea^ chartArea23 = (gcnew System::Windows::Forms::DataVisualization::Charting::ChartArea());
+			   System::Windows::Forms::DataVisualization::Charting::Legend^ legend23 = (gcnew System::Windows::Forms::DataVisualization::Charting::Legend());
+			   System::Windows::Forms::DataVisualization::Charting::ChartArea^ chartArea24 = (gcnew System::Windows::Forms::DataVisualization::Charting::ChartArea());
+			   System::Windows::Forms::DataVisualization::Charting::Legend^ legend24 = (gcnew System::Windows::Forms::DataVisualization::Charting::Legend());
 			   this->flowLayoutPanel16 = (gcnew System::Windows::Forms::FlowLayoutPanel());
 			   this->panel4 = (gcnew System::Windows::Forms::Panel());
 			   this->flowLayoutPanel2 = (gcnew System::Windows::Forms::FlowLayoutPanel());
@@ -329,21 +342,21 @@ namespace angarawindows {
 			   this->tabControl2 = (gcnew System::Windows::Forms::TabControl());
 			   this->tabPage4 = (gcnew System::Windows::Forms::TabPage());
 			   this->cardSettings1 = (gcnew System::Windows::Forms::FlowLayoutPanel());
-			   this->flowLayoutPanel4 = (gcnew System::Windows::Forms::FlowLayoutPanel());
+			   this->tableLayoutPanel11 = (gcnew System::Windows::Forms::TableLayoutPanel());
 			   this->label1 = (gcnew System::Windows::Forms::Label());
 			   this->pump_name = (gcnew System::Windows::Forms::TextBox());
-			   this->flowLayoutPanel5 = (gcnew System::Windows::Forms::FlowLayoutPanel());
+			   this->tableLayoutPanel10 = (gcnew System::Windows::Forms::TableLayoutPanel());
 			   this->label2 = (gcnew System::Windows::Forms::Label());
 			   this->pump_enable = (gcnew System::Windows::Forms::ComboBox());
 			   this->groupBox1 = (gcnew System::Windows::Forms::GroupBox());
 			   this->flowLayoutPanel6 = (gcnew System::Windows::Forms::FlowLayoutPanel());
-			   this->flowLayoutPanel7 = (gcnew System::Windows::Forms::FlowLayoutPanel());
+			   this->tableLayoutPanel8 = (gcnew System::Windows::Forms::TableLayoutPanel());
 			   this->label3 = (gcnew System::Windows::Forms::Label());
 			   this->pump_mark = (gcnew System::Windows::Forms::TextBox());
-			   this->flowLayoutPanel8 = (gcnew System::Windows::Forms::FlowLayoutPanel());
+			   this->tableLayoutPanel7 = (gcnew System::Windows::Forms::TableLayoutPanel());
 			   this->label4 = (gcnew System::Windows::Forms::Label());
 			   this->pump_dim = (gcnew System::Windows::Forms::TextBox());
-			   this->flowLayoutPanel9 = (gcnew System::Windows::Forms::FlowLayoutPanel());
+			   this->tableLayoutPanel9 = (gcnew System::Windows::Forms::TableLayoutPanel());
 			   this->label5 = (gcnew System::Windows::Forms::Label());
 			   this->pump_turn = (gcnew System::Windows::Forms::TextBox());
 			   this->label32 = (gcnew System::Windows::Forms::Label());
@@ -362,7 +375,7 @@ namespace angarawindows {
 			   this->flowLayoutPanel10 = (gcnew System::Windows::Forms::FlowLayoutPanel());
 			   this->label42 = (gcnew System::Windows::Forms::Label());
 			   this->groupBox2 = (gcnew System::Windows::Forms::GroupBox());
-			   this->flowLayoutPanel26 = (gcnew System::Windows::Forms::FlowLayoutPanel());
+			   this->tableLayoutPanel14 = (gcnew System::Windows::Forms::TableLayoutPanel());
 			   this->label21 = (gcnew System::Windows::Forms::Label());
 			   this->pump_eff_min = (gcnew System::Windows::Forms::TextBox());
 			   this->label22 = (gcnew System::Windows::Forms::Label());
@@ -370,7 +383,7 @@ namespace angarawindows {
 			   this->label40 = (gcnew System::Windows::Forms::Label());
 			   this->input_data_q = (gcnew System::Windows::Forms::TextBox());
 			   this->groupBox3 = (gcnew System::Windows::Forms::GroupBox());
-			   this->flowLayoutPanel11 = (gcnew System::Windows::Forms::FlowLayoutPanel());
+			   this->tableLayoutPanel15 = (gcnew System::Windows::Forms::TableLayoutPanel());
 			   this->label6 = (gcnew System::Windows::Forms::Label());
 			   this->pump_pres_min = (gcnew System::Windows::Forms::TextBox());
 			   this->label7 = (gcnew System::Windows::Forms::Label());
@@ -378,7 +391,7 @@ namespace angarawindows {
 			   this->label39 = (gcnew System::Windows::Forms::Label());
 			   this->input_data_h_in = (gcnew System::Windows::Forms::TextBox());
 			   this->groupBox9 = (gcnew System::Windows::Forms::GroupBox());
-			   this->flowLayoutPanel25 = (gcnew System::Windows::Forms::FlowLayoutPanel());
+			   this->tableLayoutPanel16 = (gcnew System::Windows::Forms::TableLayoutPanel());
 			   this->label14 = (gcnew System::Windows::Forms::Label());
 			   this->pump_pres_min_out = (gcnew System::Windows::Forms::TextBox());
 			   this->label30 = (gcnew System::Windows::Forms::Label());
@@ -387,13 +400,13 @@ namespace angarawindows {
 			   this->input_data_h_out = (gcnew System::Windows::Forms::TextBox());
 			   this->label43 = (gcnew System::Windows::Forms::Label());
 			   this->groupBox5 = (gcnew System::Windows::Forms::GroupBox());
-			   this->flowLayoutPanel13 = (gcnew System::Windows::Forms::FlowLayoutPanel());
+			   this->tableLayoutPanel12 = (gcnew System::Windows::Forms::TableLayoutPanel());
 			   this->label10 = (gcnew System::Windows::Forms::Label());
 			   this->pump_dim_min = (gcnew System::Windows::Forms::TextBox());
 			   this->label11 = (gcnew System::Windows::Forms::Label());
 			   this->pump_dim_max = (gcnew System::Windows::Forms::TextBox());
 			   this->groupBox4 = (gcnew System::Windows::Forms::GroupBox());
-			   this->flowLayoutPanel12 = (gcnew System::Windows::Forms::FlowLayoutPanel());
+			   this->tableLayoutPanel13 = (gcnew System::Windows::Forms::TableLayoutPanel());
 			   this->label8 = (gcnew System::Windows::Forms::Label());
 			   this->pump_turn_min = (gcnew System::Windows::Forms::TextBox());
 			   this->label9 = (gcnew System::Windows::Forms::Label());
@@ -440,27 +453,27 @@ namespace angarawindows {
 			   this->tabControl2->SuspendLayout();
 			   this->tabPage4->SuspendLayout();
 			   this->cardSettings1->SuspendLayout();
-			   this->flowLayoutPanel4->SuspendLayout();
-			   this->flowLayoutPanel5->SuspendLayout();
+			   this->tableLayoutPanel11->SuspendLayout();
+			   this->tableLayoutPanel10->SuspendLayout();
 			   this->groupBox1->SuspendLayout();
 			   this->flowLayoutPanel6->SuspendLayout();
-			   this->flowLayoutPanel7->SuspendLayout();
-			   this->flowLayoutPanel8->SuspendLayout();
-			   this->flowLayoutPanel9->SuspendLayout();
+			   this->tableLayoutPanel8->SuspendLayout();
+			   this->tableLayoutPanel7->SuspendLayout();
+			   this->tableLayoutPanel9->SuspendLayout();
 			   this->tableLayoutPanel6->SuspendLayout();
 			   (cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->numeric_input_point))->BeginInit();
 			   this->tabPage5->SuspendLayout();
 			   this->flowLayoutPanel10->SuspendLayout();
 			   this->groupBox2->SuspendLayout();
-			   this->flowLayoutPanel26->SuspendLayout();
+			   this->tableLayoutPanel14->SuspendLayout();
 			   this->groupBox3->SuspendLayout();
-			   this->flowLayoutPanel11->SuspendLayout();
+			   this->tableLayoutPanel15->SuspendLayout();
 			   this->groupBox9->SuspendLayout();
-			   this->flowLayoutPanel25->SuspendLayout();
+			   this->tableLayoutPanel16->SuspendLayout();
 			   this->groupBox5->SuspendLayout();
-			   this->flowLayoutPanel13->SuspendLayout();
+			   this->tableLayoutPanel12->SuspendLayout();
 			   this->groupBox4->SuspendLayout();
-			   this->flowLayoutPanel12->SuspendLayout();
+			   this->tableLayoutPanel13->SuspendLayout();
 			   this->tabPage6->SuspendLayout();
 			   this->flowLayoutPanel19->SuspendLayout();
 			   this->flowLayoutPanel20->SuspendLayout();
@@ -532,39 +545,39 @@ namespace angarawindows {
 			   // 
 			   this->chart1->BackColor = System::Drawing::Color::Transparent;
 			   this->chart1->BackImageWrapMode = System::Windows::Forms::DataVisualization::Charting::ChartImageWrapMode::Scaled;
-			   chartArea4->AxisX->Interval = 2;
-			   chartArea4->AxisX->IntervalAutoMode = System::Windows::Forms::DataVisualization::Charting::IntervalAutoMode::VariableCount;
-			   chartArea4->AxisX->LineColor = System::Drawing::Color::Gray;
-			   chartArea4->AxisX->LogarithmBase = 100;
-			   chartArea4->AxisX->MajorGrid->LineColor = System::Drawing::Color::Gray;
-			   chartArea4->AxisX->Maximum = 10;
-			   chartArea4->AxisX->Minimum = 0;
-			   chartArea4->AxisX->TitleFont = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 6));
-			   chartArea4->AxisX2->LineColor = System::Drawing::Color::Gray;
-			   chartArea4->AxisY->Interval = 2;
-			   chartArea4->AxisY->IntervalAutoMode = System::Windows::Forms::DataVisualization::Charting::IntervalAutoMode::VariableCount;
-			   chartArea4->AxisY->LineColor = System::Drawing::Color::Gray;
-			   chartArea4->AxisY->MajorGrid->LineColor = System::Drawing::Color::Gray;
-			   chartArea4->AxisY->Maximum = 10;
-			   chartArea4->AxisY->Minimum = 0;
-			   chartArea4->AxisY->TitleAlignment = System::Drawing::StringAlignment::Far;
-			   chartArea4->AxisY2->LineColor = System::Drawing::Color::Gray;
-			   chartArea4->BackColor = System::Drawing::Color::Transparent;
-			   chartArea4->BackImageAlignment = System::Windows::Forms::DataVisualization::Charting::ChartImageAlignmentStyle::Center;
-			   chartArea4->BorderColor = System::Drawing::Color::Gray;
-			   chartArea4->Name = L"ChartArea1";
-			   chartArea4->Position->Auto = false;
-			   chartArea4->Position->Height = 100;
-			   chartArea4->Position->Width = 98;
-			   chartArea4->Position->X = 2;
-			   chartArea4->ShadowColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(128)), static_cast<System::Int32>(static_cast<System::Byte>(255)),
+			   chartArea22->AxisX->Interval = 2;
+			   chartArea22->AxisX->IntervalAutoMode = System::Windows::Forms::DataVisualization::Charting::IntervalAutoMode::VariableCount;
+			   chartArea22->AxisX->LineColor = System::Drawing::Color::Gray;
+			   chartArea22->AxisX->LogarithmBase = 100;
+			   chartArea22->AxisX->MajorGrid->LineColor = System::Drawing::Color::Gray;
+			   chartArea22->AxisX->Maximum = 10;
+			   chartArea22->AxisX->Minimum = 0;
+			   chartArea22->AxisX->TitleFont = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 6));
+			   chartArea22->AxisX2->LineColor = System::Drawing::Color::Gray;
+			   chartArea22->AxisY->Interval = 2;
+			   chartArea22->AxisY->IntervalAutoMode = System::Windows::Forms::DataVisualization::Charting::IntervalAutoMode::VariableCount;
+			   chartArea22->AxisY->LineColor = System::Drawing::Color::Gray;
+			   chartArea22->AxisY->MajorGrid->LineColor = System::Drawing::Color::Gray;
+			   chartArea22->AxisY->Maximum = 10;
+			   chartArea22->AxisY->Minimum = 0;
+			   chartArea22->AxisY->TitleAlignment = System::Drawing::StringAlignment::Far;
+			   chartArea22->AxisY2->LineColor = System::Drawing::Color::Gray;
+			   chartArea22->BackColor = System::Drawing::Color::Transparent;
+			   chartArea22->BackImageAlignment = System::Windows::Forms::DataVisualization::Charting::ChartImageAlignmentStyle::Center;
+			   chartArea22->BorderColor = System::Drawing::Color::Gray;
+			   chartArea22->Name = L"ChartArea1";
+			   chartArea22->Position->Auto = false;
+			   chartArea22->Position->Height = 100;
+			   chartArea22->Position->Width = 98;
+			   chartArea22->Position->X = 2;
+			   chartArea22->ShadowColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(128)), static_cast<System::Int32>(static_cast<System::Byte>(255)),
 				   static_cast<System::Int32>(static_cast<System::Byte>(128)));
-			   this->chart1->ChartAreas->Add(chartArea4);
+			   this->chart1->ChartAreas->Add(chartArea22);
 			   this->chart1->Dock = System::Windows::Forms::DockStyle::Fill;
-			   legend4->Enabled = false;
-			   legend4->Name = L"Legend1";
-			   legend4->TableStyle = System::Windows::Forms::DataVisualization::Charting::LegendTableStyle::Wide;
-			   this->chart1->Legends->Add(legend4);
+			   legend22->Enabled = false;
+			   legend22->Name = L"Legend1";
+			   legend22->TableStyle = System::Windows::Forms::DataVisualization::Charting::LegendTableStyle::Wide;
+			   this->chart1->Legends->Add(legend22);
 			   this->chart1->Location = System::Drawing::Point(0, 0);
 			   this->chart1->Margin = System::Windows::Forms::Padding(0);
 			   this->chart1->Name = L"chart1";
@@ -584,26 +597,26 @@ namespace angarawindows {
 			   // 
 			   // chart2
 			   // 
-			   chartArea5->AxisX->IntervalAutoMode = System::Windows::Forms::DataVisualization::Charting::IntervalAutoMode::VariableCount;
-			   chartArea5->AxisX->IsMarginVisible = false;
-			   chartArea5->AxisX->LineColor = System::Drawing::Color::Gray;
-			   chartArea5->AxisX->MajorGrid->LineColor = System::Drawing::Color::Gray;
-			   chartArea5->AxisX->Minimum = 0;
-			   chartArea5->AxisY->IntervalAutoMode = System::Windows::Forms::DataVisualization::Charting::IntervalAutoMode::VariableCount;
-			   chartArea5->AxisY->IsMarginVisible = false;
-			   chartArea5->AxisY->LineColor = System::Drawing::Color::Gray;
-			   chartArea5->AxisY->MajorGrid->LineColor = System::Drawing::Color::Gray;
-			   chartArea5->AxisY->Minimum = 0;
-			   chartArea5->Name = L"ChartArea1";
-			   chartArea5->Position->Auto = false;
-			   chartArea5->Position->Height = 100;
-			   chartArea5->Position->Width = 99.5F;
-			   chartArea5->Position->X = 0.5F;
-			   this->chart2->ChartAreas->Add(chartArea5);
-			   legend5->Enabled = false;
-			   legend5->Name = L"Legend1";
-			   legend5->TableStyle = System::Windows::Forms::DataVisualization::Charting::LegendTableStyle::Wide;
-			   this->chart2->Legends->Add(legend5);
+			   chartArea23->AxisX->IntervalAutoMode = System::Windows::Forms::DataVisualization::Charting::IntervalAutoMode::VariableCount;
+			   chartArea23->AxisX->IsMarginVisible = false;
+			   chartArea23->AxisX->LineColor = System::Drawing::Color::Gray;
+			   chartArea23->AxisX->MajorGrid->LineColor = System::Drawing::Color::Gray;
+			   chartArea23->AxisX->Minimum = 0;
+			   chartArea23->AxisY->IntervalAutoMode = System::Windows::Forms::DataVisualization::Charting::IntervalAutoMode::VariableCount;
+			   chartArea23->AxisY->IsMarginVisible = false;
+			   chartArea23->AxisY->LineColor = System::Drawing::Color::Gray;
+			   chartArea23->AxisY->MajorGrid->LineColor = System::Drawing::Color::Gray;
+			   chartArea23->AxisY->Minimum = 0;
+			   chartArea23->Name = L"ChartArea1";
+			   chartArea23->Position->Auto = false;
+			   chartArea23->Position->Height = 100;
+			   chartArea23->Position->Width = 99.5F;
+			   chartArea23->Position->X = 0.5F;
+			   this->chart2->ChartAreas->Add(chartArea23);
+			   legend23->Enabled = false;
+			   legend23->Name = L"Legend1";
+			   legend23->TableStyle = System::Windows::Forms::DataVisualization::Charting::LegendTableStyle::Wide;
+			   this->chart2->Legends->Add(legend23);
 			   this->chart2->Location = System::Drawing::Point(0, 0);
 			   this->chart2->Margin = System::Windows::Forms::Padding(0);
 			   this->chart2->Name = L"chart2";
@@ -623,23 +636,23 @@ namespace angarawindows {
 			   // 
 			   // chart3
 			   // 
-			   chartArea6->AxisX->IntervalAutoMode = System::Windows::Forms::DataVisualization::Charting::IntervalAutoMode::VariableCount;
-			   chartArea6->AxisX->LineColor = System::Drawing::Color::Gray;
-			   chartArea6->AxisX->MajorGrid->LineColor = System::Drawing::Color::Gray;
-			   chartArea6->AxisX->Minimum = 0;
-			   chartArea6->AxisY->IntervalAutoMode = System::Windows::Forms::DataVisualization::Charting::IntervalAutoMode::VariableCount;
-			   chartArea6->AxisY->LineColor = System::Drawing::Color::Gray;
-			   chartArea6->AxisY->MajorGrid->LineColor = System::Drawing::Color::Gray;
-			   chartArea6->AxisY->Minimum = 0;
-			   chartArea6->Name = L"ChartArea1";
-			   chartArea6->Position->Auto = false;
-			   chartArea6->Position->Height = 100;
-			   chartArea6->Position->Width = 100;
-			   this->chart3->ChartAreas->Add(chartArea6);
-			   legend6->Enabled = false;
-			   legend6->Name = L"Legend1";
-			   legend6->TableStyle = System::Windows::Forms::DataVisualization::Charting::LegendTableStyle::Wide;
-			   this->chart3->Legends->Add(legend6);
+			   chartArea24->AxisX->IntervalAutoMode = System::Windows::Forms::DataVisualization::Charting::IntervalAutoMode::VariableCount;
+			   chartArea24->AxisX->LineColor = System::Drawing::Color::Gray;
+			   chartArea24->AxisX->MajorGrid->LineColor = System::Drawing::Color::Gray;
+			   chartArea24->AxisX->Minimum = 0;
+			   chartArea24->AxisY->IntervalAutoMode = System::Windows::Forms::DataVisualization::Charting::IntervalAutoMode::VariableCount;
+			   chartArea24->AxisY->LineColor = System::Drawing::Color::Gray;
+			   chartArea24->AxisY->MajorGrid->LineColor = System::Drawing::Color::Gray;
+			   chartArea24->AxisY->Minimum = 0;
+			   chartArea24->Name = L"ChartArea1";
+			   chartArea24->Position->Auto = false;
+			   chartArea24->Position->Height = 100;
+			   chartArea24->Position->Width = 100;
+			   this->chart3->ChartAreas->Add(chartArea24);
+			   legend24->Enabled = false;
+			   legend24->Name = L"Legend1";
+			   legend24->TableStyle = System::Windows::Forms::DataVisualization::Charting::LegendTableStyle::Wide;
+			   this->chart3->Legends->Add(legend24);
 			   this->chart3->Location = System::Drawing::Point(0, 0);
 			   this->chart3->Margin = System::Windows::Forms::Padding(0);
 			   this->chart3->Name = L"chart3";
@@ -1169,8 +1182,8 @@ namespace angarawindows {
 			   // 
 			   // cardSettings1
 			   // 
-			   this->cardSettings1->Controls->Add(this->flowLayoutPanel4);
-			   this->cardSettings1->Controls->Add(this->flowLayoutPanel5);
+			   this->cardSettings1->Controls->Add(this->tableLayoutPanel11);
+			   this->cardSettings1->Controls->Add(this->tableLayoutPanel10);
 			   this->cardSettings1->Controls->Add(this->groupBox1);
 			   this->cardSettings1->Controls->Add(this->label32);
 			   this->cardSettings1->Controls->Add(this->tableLayoutPanel6);
@@ -1182,23 +1195,31 @@ namespace angarawindows {
 			   this->cardSettings1->TabIndex = 0;
 			   this->cardSettings1->WrapContents = false;
 			   // 
-			   // flowLayoutPanel4
+			   // tableLayoutPanel11
 			   // 
-			   this->flowLayoutPanel4->AutoSize = true;
-			   this->flowLayoutPanel4->Controls->Add(this->label1);
-			   this->flowLayoutPanel4->Controls->Add(this->pump_name);
-			   this->flowLayoutPanel4->Location = System::Drawing::Point(3, 3);
-			   this->flowLayoutPanel4->Name = L"flowLayoutPanel4";
-			   this->flowLayoutPanel4->Size = System::Drawing::Size(305, 27);
-			   this->flowLayoutPanel4->TabIndex = 0;
-			   this->flowLayoutPanel4->WrapContents = false;
+			   this->tableLayoutPanel11->AutoSize = true;
+			   this->tableLayoutPanel11->ColumnCount = 2;
+			   this->tableLayoutPanel11->ColumnStyles->Add((gcnew System::Windows::Forms::ColumnStyle()));
+			   this->tableLayoutPanel11->ColumnStyles->Add((gcnew System::Windows::Forms::ColumnStyle(System::Windows::Forms::SizeType::Percent,
+				   100)));
+			   this->tableLayoutPanel11->Controls->Add(this->label1, 0, 0);
+			   this->tableLayoutPanel11->Controls->Add(this->pump_name, 1, 0);
+			   this->tableLayoutPanel11->Dock = System::Windows::Forms::DockStyle::Bottom;
+			   this->tableLayoutPanel11->Location = System::Drawing::Point(3, 3);
+			   this->tableLayoutPanel11->Name = L"tableLayoutPanel11";
+			   this->tableLayoutPanel11->RowCount = 1;
+			   this->tableLayoutPanel11->RowStyles->Add((gcnew System::Windows::Forms::RowStyle()));
+			   this->tableLayoutPanel11->RowStyles->Add((gcnew System::Windows::Forms::RowStyle(System::Windows::Forms::SizeType::Absolute,
+				   27)));
+			   this->tableLayoutPanel11->Size = System::Drawing::Size(334, 27);
+			   this->tableLayoutPanel11->TabIndex = 5;
 			   // 
 			   // label1
 			   // 
 			   this->label1->AutoSize = true;
 			   this->label1->Dock = System::Windows::Forms::DockStyle::Right;
 			   this->label1->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 9));
-			   this->label1->Location = System::Drawing::Point(3, 0);
+			   this->label1->Location = System::Drawing::Point(4, 0);
 			   this->label1->Name = L"label1";
 			   this->label1->Size = System::Drawing::Size(0, 27);
 			   this->label1->TabIndex = 0;
@@ -1206,23 +1227,30 @@ namespace angarawindows {
 			   // 
 			   // pump_name
 			   // 
+			   this->pump_name->Dock = System::Windows::Forms::DockStyle::Bottom;
 			   this->pump_name->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 9));
 			   this->pump_name->Location = System::Drawing::Point(9, 3);
 			   this->pump_name->Name = L"pump_name";
-			   this->pump_name->Size = System::Drawing::Size(293, 21);
+			   this->pump_name->Size = System::Drawing::Size(322, 21);
 			   this->pump_name->TabIndex = 1;
 			   // 
-			   // flowLayoutPanel5
+			   // tableLayoutPanel10
 			   // 
-			   this->flowLayoutPanel5->AutoSize = true;
-			   this->flowLayoutPanel5->Controls->Add(this->label2);
-			   this->flowLayoutPanel5->Controls->Add(this->pump_enable);
-			   this->flowLayoutPanel5->Location = System::Drawing::Point(3, 43);
-			   this->flowLayoutPanel5->Margin = System::Windows::Forms::Padding(3, 10, 3, 3);
-			   this->flowLayoutPanel5->Name = L"flowLayoutPanel5";
-			   this->flowLayoutPanel5->Size = System::Drawing::Size(267, 29);
-			   this->flowLayoutPanel5->TabIndex = 1;
-			   this->flowLayoutPanel5->WrapContents = false;
+			   this->tableLayoutPanel10->AutoSize = true;
+			   this->tableLayoutPanel10->ColumnCount = 2;
+			   this->tableLayoutPanel10->ColumnStyles->Add((gcnew System::Windows::Forms::ColumnStyle()));
+			   this->tableLayoutPanel10->ColumnStyles->Add((gcnew System::Windows::Forms::ColumnStyle(System::Windows::Forms::SizeType::Percent,
+				   100)));
+			   this->tableLayoutPanel10->Controls->Add(this->label2, 0, 0);
+			   this->tableLayoutPanel10->Controls->Add(this->pump_enable, 1, 0);
+			   this->tableLayoutPanel10->Dock = System::Windows::Forms::DockStyle::Bottom;
+			   this->tableLayoutPanel10->Location = System::Drawing::Point(3, 43);
+			   this->tableLayoutPanel10->Margin = System::Windows::Forms::Padding(3, 10, 3, 3);
+			   this->tableLayoutPanel10->Name = L"tableLayoutPanel10";
+			   this->tableLayoutPanel10->RowCount = 1;
+			   this->tableLayoutPanel10->RowStyles->Add((gcnew System::Windows::Forms::RowStyle()));
+			   this->tableLayoutPanel10->Size = System::Drawing::Size(334, 29);
+			   this->tableLayoutPanel10->TabIndex = 4;
 			   // 
 			   // label2
 			   // 
@@ -1231,19 +1259,20 @@ namespace angarawindows {
 			   this->label2->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 9));
 			   this->label2->Location = System::Drawing::Point(3, 0);
 			   this->label2->Name = L"label2";
-			   this->label2->Size = System::Drawing::Size(0, 29);
+			   this->label2->Size = System::Drawing::Size(1, 29);
 			   this->label2->TabIndex = 0;
 			   this->label2->TextAlign = System::Drawing::ContentAlignment::MiddleLeft;
 			   // 
 			   // pump_enable
 			   // 
 			   this->pump_enable->BackColor = System::Drawing::SystemColors::Control;
+			   this->pump_enable->Dock = System::Windows::Forms::DockStyle::Fill;
 			   this->pump_enable->DropDownStyle = System::Windows::Forms::ComboBoxStyle::DropDownList;
 			   this->pump_enable->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 9));
 			   this->pump_enable->FormattingEnabled = true;
 			   this->pump_enable->Location = System::Drawing::Point(9, 3);
 			   this->pump_enable->Name = L"pump_enable";
-			   this->pump_enable->Size = System::Drawing::Size(255, 23);
+			   this->pump_enable->Size = System::Drawing::Size(322, 23);
 			   this->pump_enable->TabIndex = 1;
 			   // 
 			   // groupBox1
@@ -1260,9 +1289,9 @@ namespace angarawindows {
 			   // 
 			   // flowLayoutPanel6
 			   // 
-			   this->flowLayoutPanel6->Controls->Add(this->flowLayoutPanel7);
-			   this->flowLayoutPanel6->Controls->Add(this->flowLayoutPanel8);
-			   this->flowLayoutPanel6->Controls->Add(this->flowLayoutPanel9);
+			   this->flowLayoutPanel6->Controls->Add(this->tableLayoutPanel8);
+			   this->flowLayoutPanel6->Controls->Add(this->tableLayoutPanel7);
+			   this->flowLayoutPanel6->Controls->Add(this->tableLayoutPanel9);
 			   this->flowLayoutPanel6->Dock = System::Windows::Forms::DockStyle::Fill;
 			   this->flowLayoutPanel6->FlowDirection = System::Windows::Forms::FlowDirection::TopDown;
 			   this->flowLayoutPanel6->Location = System::Drawing::Point(3, 17);
@@ -1271,16 +1300,22 @@ namespace angarawindows {
 			   this->flowLayoutPanel6->TabIndex = 0;
 			   this->flowLayoutPanel6->WrapContents = false;
 			   // 
-			   // flowLayoutPanel7
+			   // tableLayoutPanel8
 			   // 
-			   this->flowLayoutPanel7->AutoSize = true;
-			   this->flowLayoutPanel7->Controls->Add(this->label3);
-			   this->flowLayoutPanel7->Controls->Add(this->pump_mark);
-			   this->flowLayoutPanel7->Location = System::Drawing::Point(3, 3);
-			   this->flowLayoutPanel7->Name = L"flowLayoutPanel7";
-			   this->flowLayoutPanel7->Size = System::Drawing::Size(280, 27);
-			   this->flowLayoutPanel7->TabIndex = 1;
-			   this->flowLayoutPanel7->WrapContents = false;
+			   this->tableLayoutPanel8->AutoSize = true;
+			   this->tableLayoutPanel8->ColumnCount = 2;
+			   this->tableLayoutPanel8->ColumnStyles->Add((gcnew System::Windows::Forms::ColumnStyle()));
+			   this->tableLayoutPanel8->ColumnStyles->Add((gcnew System::Windows::Forms::ColumnStyle(System::Windows::Forms::SizeType::Percent,
+				   100)));
+			   this->tableLayoutPanel8->Controls->Add(this->label3, 0, 0);
+			   this->tableLayoutPanel8->Controls->Add(this->pump_mark, 1, 0);
+			   this->tableLayoutPanel8->Dock = System::Windows::Forms::DockStyle::Bottom;
+			   this->tableLayoutPanel8->Location = System::Drawing::Point(3, 3);
+			   this->tableLayoutPanel8->Name = L"tableLayoutPanel8";
+			   this->tableLayoutPanel8->RowCount = 1;
+			   this->tableLayoutPanel8->RowStyles->Add((gcnew System::Windows::Forms::RowStyle()));
+			   this->tableLayoutPanel8->Size = System::Drawing::Size(230, 27);
+			   this->tableLayoutPanel8->TabIndex = 5;
 			   // 
 			   // label3
 			   // 
@@ -1289,28 +1324,35 @@ namespace angarawindows {
 			   this->label3->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 9));
 			   this->label3->Location = System::Drawing::Point(3, 0);
 			   this->label3->Name = L"label3";
-			   this->label3->Size = System::Drawing::Size(0, 27);
+			   this->label3->Size = System::Drawing::Size(1, 27);
 			   this->label3->TabIndex = 0;
 			   this->label3->TextAlign = System::Drawing::ContentAlignment::MiddleLeft;
 			   // 
 			   // pump_mark
 			   // 
+			   this->pump_mark->Dock = System::Windows::Forms::DockStyle::Fill;
 			   this->pump_mark->Location = System::Drawing::Point(9, 3);
 			   this->pump_mark->Name = L"pump_mark";
-			   this->pump_mark->Size = System::Drawing::Size(268, 21);
+			   this->pump_mark->Size = System::Drawing::Size(218, 21);
 			   this->pump_mark->TabIndex = 1;
 			   // 
-			   // flowLayoutPanel8
+			   // tableLayoutPanel7
 			   // 
-			   this->flowLayoutPanel8->AutoSize = true;
-			   this->flowLayoutPanel8->Controls->Add(this->label4);
-			   this->flowLayoutPanel8->Controls->Add(this->pump_dim);
-			   this->flowLayoutPanel8->Location = System::Drawing::Point(3, 43);
-			   this->flowLayoutPanel8->Margin = System::Windows::Forms::Padding(3, 10, 3, 3);
-			   this->flowLayoutPanel8->Name = L"flowLayoutPanel8";
-			   this->flowLayoutPanel8->Size = System::Drawing::Size(142, 27);
-			   this->flowLayoutPanel8->TabIndex = 2;
-			   this->flowLayoutPanel8->WrapContents = false;
+			   this->tableLayoutPanel7->AutoSize = true;
+			   this->tableLayoutPanel7->ColumnCount = 2;
+			   this->tableLayoutPanel7->ColumnStyles->Add((gcnew System::Windows::Forms::ColumnStyle()));
+			   this->tableLayoutPanel7->ColumnStyles->Add((gcnew System::Windows::Forms::ColumnStyle(System::Windows::Forms::SizeType::Percent,
+				   100)));
+			   this->tableLayoutPanel7->Controls->Add(this->label4, 0, 0);
+			   this->tableLayoutPanel7->Controls->Add(this->pump_dim, 1, 0);
+			   this->tableLayoutPanel7->Dock = System::Windows::Forms::DockStyle::Bottom;
+			   this->tableLayoutPanel7->Location = System::Drawing::Point(3, 43);
+			   this->tableLayoutPanel7->Margin = System::Windows::Forms::Padding(3, 10, 3, 3);
+			   this->tableLayoutPanel7->Name = L"tableLayoutPanel7";
+			   this->tableLayoutPanel7->RowCount = 1;
+			   this->tableLayoutPanel7->RowStyles->Add((gcnew System::Windows::Forms::RowStyle()));
+			   this->tableLayoutPanel7->Size = System::Drawing::Size(230, 27);
+			   this->tableLayoutPanel7->TabIndex = 4;
 			   // 
 			   // label4
 			   // 
@@ -1319,28 +1361,35 @@ namespace angarawindows {
 			   this->label4->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 9));
 			   this->label4->Location = System::Drawing::Point(3, 0);
 			   this->label4->Name = L"label4";
-			   this->label4->Size = System::Drawing::Size(0, 27);
+			   this->label4->Size = System::Drawing::Size(1, 27);
 			   this->label4->TabIndex = 0;
 			   this->label4->TextAlign = System::Drawing::ContentAlignment::MiddleLeft;
 			   // 
 			   // pump_dim
 			   // 
+			   this->pump_dim->Dock = System::Windows::Forms::DockStyle::Fill;
 			   this->pump_dim->Location = System::Drawing::Point(9, 3);
 			   this->pump_dim->Name = L"pump_dim";
-			   this->pump_dim->Size = System::Drawing::Size(130, 21);
+			   this->pump_dim->Size = System::Drawing::Size(218, 21);
 			   this->pump_dim->TabIndex = 1;
 			   // 
-			   // flowLayoutPanel9
+			   // tableLayoutPanel9
 			   // 
-			   this->flowLayoutPanel9->AutoSize = true;
-			   this->flowLayoutPanel9->Controls->Add(this->label5);
-			   this->flowLayoutPanel9->Controls->Add(this->pump_turn);
-			   this->flowLayoutPanel9->Location = System::Drawing::Point(3, 83);
-			   this->flowLayoutPanel9->Margin = System::Windows::Forms::Padding(3, 10, 3, 3);
-			   this->flowLayoutPanel9->Name = L"flowLayoutPanel9";
-			   this->flowLayoutPanel9->Size = System::Drawing::Size(178, 27);
-			   this->flowLayoutPanel9->TabIndex = 3;
-			   this->flowLayoutPanel9->WrapContents = false;
+			   this->tableLayoutPanel9->AutoSize = true;
+			   this->tableLayoutPanel9->ColumnCount = 2;
+			   this->tableLayoutPanel9->ColumnStyles->Add((gcnew System::Windows::Forms::ColumnStyle()));
+			   this->tableLayoutPanel9->ColumnStyles->Add((gcnew System::Windows::Forms::ColumnStyle(System::Windows::Forms::SizeType::Percent,
+				   100)));
+			   this->tableLayoutPanel9->Controls->Add(this->label5, 0, 0);
+			   this->tableLayoutPanel9->Controls->Add(this->pump_turn, 1, 0);
+			   this->tableLayoutPanel9->Dock = System::Windows::Forms::DockStyle::Bottom;
+			   this->tableLayoutPanel9->Location = System::Drawing::Point(3, 83);
+			   this->tableLayoutPanel9->Margin = System::Windows::Forms::Padding(3, 10, 3, 3);
+			   this->tableLayoutPanel9->Name = L"tableLayoutPanel9";
+			   this->tableLayoutPanel9->RowCount = 1;
+			   this->tableLayoutPanel9->RowStyles->Add((gcnew System::Windows::Forms::RowStyle()));
+			   this->tableLayoutPanel9->Size = System::Drawing::Size(230, 27);
+			   this->tableLayoutPanel9->TabIndex = 6;
 			   // 
 			   // label5
 			   // 
@@ -1349,15 +1398,16 @@ namespace angarawindows {
 			   this->label5->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 9));
 			   this->label5->Location = System::Drawing::Point(3, 0);
 			   this->label5->Name = L"label5";
-			   this->label5->Size = System::Drawing::Size(0, 27);
+			   this->label5->Size = System::Drawing::Size(1, 27);
 			   this->label5->TabIndex = 0;
 			   this->label5->TextAlign = System::Drawing::ContentAlignment::MiddleLeft;
 			   // 
 			   // pump_turn
 			   // 
+			   this->pump_turn->Dock = System::Windows::Forms::DockStyle::Fill;
 			   this->pump_turn->Location = System::Drawing::Point(9, 3);
 			   this->pump_turn->Name = L"pump_turn";
-			   this->pump_turn->Size = System::Drawing::Size(166, 21);
+			   this->pump_turn->Size = System::Drawing::Size(218, 21);
 			   this->pump_turn->TabIndex = 1;
 			   // 
 			   // label32
@@ -1533,43 +1583,56 @@ namespace angarawindows {
 			   // 
 			   // label42
 			   // 
-			   this->label42->AutoSize = true;
 			   this->label42->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 9, System::Drawing::FontStyle::Bold));
 			   this->label42->Location = System::Drawing::Point(3, 6);
 			   this->label42->Margin = System::Windows::Forms::Padding(3, 6, 3, 6);
 			   this->label42->Name = L"label42";
-			   this->label42->Size = System::Drawing::Size(0, 15);
+			   this->label42->Size = System::Drawing::Size(340, 15);
 			   this->label42->TabIndex = 7;
 			   // 
 			   // groupBox2
 			   // 
 			   this->groupBox2->AutoSize = true;
 			   this->groupBox2->BackColor = System::Drawing::Color::Transparent;
-			   this->groupBox2->Controls->Add(this->flowLayoutPanel26);
+			   this->groupBox2->Controls->Add(this->tableLayoutPanel14);
+			   this->groupBox2->Dock = System::Windows::Forms::DockStyle::Bottom;
 			   this->groupBox2->Location = System::Drawing::Point(3, 30);
 			   this->groupBox2->Name = L"groupBox2";
-			   this->groupBox2->Size = System::Drawing::Size(176, 61);
+			   this->groupBox2->Size = System::Drawing::Size(340, 61);
 			   this->groupBox2->TabIndex = 0;
 			   this->groupBox2->TabStop = false;
 			   this->groupBox2->Paint += gcnew System::Windows::Forms::PaintEventHandler(this, &WaterPumpForm::groupBox2_Paint);
 			   // 
-			   // flowLayoutPanel26
+			   // tableLayoutPanel14
 			   // 
-			   this->flowLayoutPanel26->AutoSize = true;
-			   this->flowLayoutPanel26->Controls->Add(this->label21);
-			   this->flowLayoutPanel26->Controls->Add(this->pump_eff_min);
-			   this->flowLayoutPanel26->Controls->Add(this->label22);
-			   this->flowLayoutPanel26->Controls->Add(this->pump_eff_max);
-			   this->flowLayoutPanel26->Controls->Add(this->label40);
-			   this->flowLayoutPanel26->Controls->Add(this->input_data_q);
-			   this->flowLayoutPanel26->Dock = System::Windows::Forms::DockStyle::Fill;
-			   this->flowLayoutPanel26->Location = System::Drawing::Point(3, 17);
-			   this->flowLayoutPanel26->Margin = System::Windows::Forms::Padding(0);
-			   this->flowLayoutPanel26->Name = L"flowLayoutPanel26";
-			   this->flowLayoutPanel26->Padding = System::Windows::Forms::Padding(0, 7, 0, 7);
-			   this->flowLayoutPanel26->Size = System::Drawing::Size(170, 41);
-			   this->flowLayoutPanel26->TabIndex = 2;
-			   this->flowLayoutPanel26->WrapContents = false;
+			   this->tableLayoutPanel14->AutoSize = true;
+			   this->tableLayoutPanel14->ColumnCount = 6;
+			   this->tableLayoutPanel14->ColumnStyles->Add((gcnew System::Windows::Forms::ColumnStyle()));
+			   this->tableLayoutPanel14->ColumnStyles->Add((gcnew System::Windows::Forms::ColumnStyle(System::Windows::Forms::SizeType::Percent,
+				   33.33333F)));
+			   this->tableLayoutPanel14->ColumnStyles->Add((gcnew System::Windows::Forms::ColumnStyle()));
+			   this->tableLayoutPanel14->ColumnStyles->Add((gcnew System::Windows::Forms::ColumnStyle(System::Windows::Forms::SizeType::Percent,
+				   33.33333F)));
+			   this->tableLayoutPanel14->ColumnStyles->Add((gcnew System::Windows::Forms::ColumnStyle()));
+			   this->tableLayoutPanel14->ColumnStyles->Add((gcnew System::Windows::Forms::ColumnStyle(System::Windows::Forms::SizeType::Percent,
+				   33.33333F)));
+			   this->tableLayoutPanel14->Controls->Add(this->label21, 0, 0);
+			   this->tableLayoutPanel14->Controls->Add(this->pump_eff_min, 1, 0);
+			   this->tableLayoutPanel14->Controls->Add(this->label22, 2, 0);
+			   this->tableLayoutPanel14->Controls->Add(this->pump_eff_max, 3, 0);
+			   this->tableLayoutPanel14->Controls->Add(this->label40, 4, 0);
+			   this->tableLayoutPanel14->Controls->Add(this->input_data_q, 5, 0);
+			   this->tableLayoutPanel14->Dock = System::Windows::Forms::DockStyle::Bottom;
+			   this->tableLayoutPanel14->Location = System::Drawing::Point(3, 17);
+			   this->tableLayoutPanel14->Margin = System::Windows::Forms::Padding(0);
+			   this->tableLayoutPanel14->Name = L"tableLayoutPanel14";
+			   this->tableLayoutPanel14->Padding = System::Windows::Forms::Padding(0, 7, 0, 7);
+			   this->tableLayoutPanel14->RowCount = 1;
+			   this->tableLayoutPanel14->RowStyles->Add((gcnew System::Windows::Forms::RowStyle()));
+			   this->tableLayoutPanel14->RowStyles->Add((gcnew System::Windows::Forms::RowStyle(System::Windows::Forms::SizeType::Absolute,
+				   27)));
+			   this->tableLayoutPanel14->Size = System::Drawing::Size(334, 41);
+			   this->tableLayoutPanel14->TabIndex = 7;
 			   // 
 			   // label21
 			   // 
@@ -1577,80 +1640,98 @@ namespace angarawindows {
 			   this->label21->Dock = System::Windows::Forms::DockStyle::Fill;
 			   this->label21->Location = System::Drawing::Point(3, 7);
 			   this->label21->Name = L"label21";
-			   this->label21->Size = System::Drawing::Size(0, 27);
+			   this->label21->Size = System::Drawing::Size(1, 27);
 			   this->label21->TabIndex = 0;
 			   this->label21->TextAlign = System::Drawing::ContentAlignment::MiddleLeft;
 			   // 
 			   // pump_eff_min
 			   // 
+			   this->pump_eff_min->Dock = System::Windows::Forms::DockStyle::Fill;
 			   this->pump_eff_min->Location = System::Drawing::Point(9, 10);
 			   this->pump_eff_min->Name = L"pump_eff_min";
-			   this->pump_eff_min->Size = System::Drawing::Size(45, 21);
+			   this->pump_eff_min->Size = System::Drawing::Size(99, 21);
 			   this->pump_eff_min->TabIndex = 1;
 			   // 
 			   // label22
 			   // 
 			   this->label22->AutoSize = true;
 			   this->label22->Dock = System::Windows::Forms::DockStyle::Fill;
-			   this->label22->Location = System::Drawing::Point(60, 7);
+			   this->label22->Location = System::Drawing::Point(114, 7);
 			   this->label22->Name = L"label22";
-			   this->label22->Size = System::Drawing::Size(0, 27);
+			   this->label22->Size = System::Drawing::Size(1, 27);
 			   this->label22->TabIndex = 2;
 			   this->label22->TextAlign = System::Drawing::ContentAlignment::MiddleLeft;
 			   // 
 			   // pump_eff_max
 			   // 
-			   this->pump_eff_max->Location = System::Drawing::Point(66, 10);
+			   this->pump_eff_max->Dock = System::Windows::Forms::DockStyle::Fill;
+			   this->pump_eff_max->Location = System::Drawing::Point(120, 10);
 			   this->pump_eff_max->Name = L"pump_eff_max";
-			   this->pump_eff_max->Size = System::Drawing::Size(45, 21);
+			   this->pump_eff_max->Size = System::Drawing::Size(99, 21);
 			   this->pump_eff_max->TabIndex = 3;
 			   // 
 			   // label40
 			   // 
 			   this->label40->AutoSize = true;
 			   this->label40->Dock = System::Windows::Forms::DockStyle::Fill;
-			   this->label40->Location = System::Drawing::Point(117, 7);
+			   this->label40->Location = System::Drawing::Point(225, 7);
 			   this->label40->Name = L"label40";
-			   this->label40->Size = System::Drawing::Size(0, 27);
+			   this->label40->Size = System::Drawing::Size(1, 27);
 			   this->label40->TabIndex = 0;
 			   this->label40->TextAlign = System::Drawing::ContentAlignment::MiddleLeft;
 			   // 
 			   // input_data_q
 			   // 
-			   this->input_data_q->Location = System::Drawing::Point(123, 10);
+			   this->input_data_q->Dock = System::Windows::Forms::DockStyle::Fill;
+			   this->input_data_q->Location = System::Drawing::Point(231, 10);
 			   this->input_data_q->Name = L"input_data_q";
 			   this->input_data_q->ReadOnly = true;
-			   this->input_data_q->Size = System::Drawing::Size(44, 21);
+			   this->input_data_q->Size = System::Drawing::Size(100, 21);
 			   this->input_data_q->TabIndex = 6;
 			   // 
 			   // groupBox3
 			   // 
 			   this->groupBox3->AutoSize = true;
-			   this->groupBox3->Controls->Add(this->flowLayoutPanel11);
+			   this->groupBox3->Controls->Add(this->tableLayoutPanel15);
+			   this->groupBox3->Dock = System::Windows::Forms::DockStyle::Bottom;
 			   this->groupBox3->Location = System::Drawing::Point(3, 97);
 			   this->groupBox3->Name = L"groupBox3";
 			   this->groupBox3->Padding = System::Windows::Forms::Padding(3, 5, 3, 3);
-			   this->groupBox3->Size = System::Drawing::Size(176, 63);
+			   this->groupBox3->Size = System::Drawing::Size(340, 63);
 			   this->groupBox3->TabIndex = 4;
 			   this->groupBox3->TabStop = false;
 			   this->groupBox3->Paint += gcnew System::Windows::Forms::PaintEventHandler(this, &WaterPumpForm::groupBox2_Paint);
 			   // 
-			   // flowLayoutPanel11
+			   // tableLayoutPanel15
 			   // 
-			   this->flowLayoutPanel11->AutoSize = true;
-			   this->flowLayoutPanel11->Controls->Add(this->label6);
-			   this->flowLayoutPanel11->Controls->Add(this->pump_pres_min);
-			   this->flowLayoutPanel11->Controls->Add(this->label7);
-			   this->flowLayoutPanel11->Controls->Add(this->pump_pres_max);
-			   this->flowLayoutPanel11->Controls->Add(this->label39);
-			   this->flowLayoutPanel11->Controls->Add(this->input_data_h_in);
-			   this->flowLayoutPanel11->Dock = System::Windows::Forms::DockStyle::Fill;
-			   this->flowLayoutPanel11->Location = System::Drawing::Point(3, 19);
-			   this->flowLayoutPanel11->Name = L"flowLayoutPanel11";
-			   this->flowLayoutPanel11->Padding = System::Windows::Forms::Padding(0, 7, 0, 7);
-			   this->flowLayoutPanel11->Size = System::Drawing::Size(170, 41);
-			   this->flowLayoutPanel11->TabIndex = 2;
-			   this->flowLayoutPanel11->WrapContents = false;
+			   this->tableLayoutPanel15->AutoSize = true;
+			   this->tableLayoutPanel15->ColumnCount = 6;
+			   this->tableLayoutPanel15->ColumnStyles->Add((gcnew System::Windows::Forms::ColumnStyle()));
+			   this->tableLayoutPanel15->ColumnStyles->Add((gcnew System::Windows::Forms::ColumnStyle(System::Windows::Forms::SizeType::Percent,
+				   33.33333F)));
+			   this->tableLayoutPanel15->ColumnStyles->Add((gcnew System::Windows::Forms::ColumnStyle()));
+			   this->tableLayoutPanel15->ColumnStyles->Add((gcnew System::Windows::Forms::ColumnStyle(System::Windows::Forms::SizeType::Percent,
+				   33.33333F)));
+			   this->tableLayoutPanel15->ColumnStyles->Add((gcnew System::Windows::Forms::ColumnStyle()));
+			   this->tableLayoutPanel15->ColumnStyles->Add((gcnew System::Windows::Forms::ColumnStyle(System::Windows::Forms::SizeType::Percent,
+				   33.33333F)));
+			   this->tableLayoutPanel15->Controls->Add(this->label6, 0, 0);
+			   this->tableLayoutPanel15->Controls->Add(this->pump_pres_min, 1, 0);
+			   this->tableLayoutPanel15->Controls->Add(this->label7, 2, 0);
+			   this->tableLayoutPanel15->Controls->Add(this->pump_pres_max, 3, 0);
+			   this->tableLayoutPanel15->Controls->Add(this->label39, 4, 0);
+			   this->tableLayoutPanel15->Controls->Add(this->input_data_h_in, 5, 0);
+			   this->tableLayoutPanel15->Dock = System::Windows::Forms::DockStyle::Bottom;
+			   this->tableLayoutPanel15->Location = System::Drawing::Point(3, 19);
+			   this->tableLayoutPanel15->Margin = System::Windows::Forms::Padding(3, 10, 3, 3);
+			   this->tableLayoutPanel15->Name = L"tableLayoutPanel15";
+			   this->tableLayoutPanel15->Padding = System::Windows::Forms::Padding(0, 7, 0, 7);
+			   this->tableLayoutPanel15->RowCount = 1;
+			   this->tableLayoutPanel15->RowStyles->Add((gcnew System::Windows::Forms::RowStyle()));
+			   this->tableLayoutPanel15->RowStyles->Add((gcnew System::Windows::Forms::RowStyle(System::Windows::Forms::SizeType::Absolute,
+				   27)));
+			   this->tableLayoutPanel15->Size = System::Drawing::Size(334, 41);
+			   this->tableLayoutPanel15->TabIndex = 7;
 			   // 
 			   // label6
 			   // 
@@ -1659,15 +1740,16 @@ namespace angarawindows {
 			   this->label6->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 9));
 			   this->label6->Location = System::Drawing::Point(3, 7);
 			   this->label6->Name = L"label6";
-			   this->label6->Size = System::Drawing::Size(0, 27);
+			   this->label6->Size = System::Drawing::Size(1, 27);
 			   this->label6->TabIndex = 0;
 			   this->label6->TextAlign = System::Drawing::ContentAlignment::MiddleLeft;
 			   // 
 			   // pump_pres_min
 			   // 
+			   this->pump_pres_min->Dock = System::Windows::Forms::DockStyle::Fill;
 			   this->pump_pres_min->Location = System::Drawing::Point(9, 10);
 			   this->pump_pres_min->Name = L"pump_pres_min";
-			   this->pump_pres_min->Size = System::Drawing::Size(45, 21);
+			   this->pump_pres_min->Size = System::Drawing::Size(99, 21);
 			   this->pump_pres_min->TabIndex = 1;
 			   // 
 			   // label7
@@ -1675,66 +1757,82 @@ namespace angarawindows {
 			   this->label7->AutoSize = true;
 			   this->label7->Dock = System::Windows::Forms::DockStyle::Fill;
 			   this->label7->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 9));
-			   this->label7->Location = System::Drawing::Point(60, 7);
+			   this->label7->Location = System::Drawing::Point(114, 7);
 			   this->label7->Name = L"label7";
-			   this->label7->Size = System::Drawing::Size(0, 27);
+			   this->label7->Size = System::Drawing::Size(1, 27);
 			   this->label7->TabIndex = 2;
 			   this->label7->TextAlign = System::Drawing::ContentAlignment::MiddleLeft;
 			   // 
 			   // pump_pres_max
 			   // 
-			   this->pump_pres_max->Location = System::Drawing::Point(66, 10);
+			   this->pump_pres_max->Dock = System::Windows::Forms::DockStyle::Fill;
+			   this->pump_pres_max->Location = System::Drawing::Point(120, 10);
 			   this->pump_pres_max->Name = L"pump_pres_max";
-			   this->pump_pres_max->Size = System::Drawing::Size(45, 21);
+			   this->pump_pres_max->Size = System::Drawing::Size(99, 21);
 			   this->pump_pres_max->TabIndex = 3;
 			   // 
 			   // label39
 			   // 
 			   this->label39->AutoSize = true;
 			   this->label39->Dock = System::Windows::Forms::DockStyle::Fill;
-			   this->label39->Location = System::Drawing::Point(117, 7);
+			   this->label39->Location = System::Drawing::Point(225, 7);
 			   this->label39->Name = L"label39";
-			   this->label39->Size = System::Drawing::Size(0, 27);
+			   this->label39->Size = System::Drawing::Size(1, 27);
 			   this->label39->TabIndex = 0;
 			   this->label39->TextAlign = System::Drawing::ContentAlignment::MiddleLeft;
 			   // 
 			   // input_data_h_in
 			   // 
-			   this->input_data_h_in->Location = System::Drawing::Point(123, 10);
+			   this->input_data_h_in->Dock = System::Windows::Forms::DockStyle::Fill;
+			   this->input_data_h_in->Location = System::Drawing::Point(231, 10);
 			   this->input_data_h_in->Name = L"input_data_h_in";
 			   this->input_data_h_in->ReadOnly = true;
-			   this->input_data_h_in->Size = System::Drawing::Size(44, 21);
+			   this->input_data_h_in->Size = System::Drawing::Size(100, 21);
 			   this->input_data_h_in->TabIndex = 6;
 			   // 
 			   // groupBox9
 			   // 
 			   this->groupBox9->AutoSize = true;
-			   this->groupBox9->Controls->Add(this->flowLayoutPanel25);
+			   this->groupBox9->Controls->Add(this->tableLayoutPanel16);
+			   this->groupBox9->Dock = System::Windows::Forms::DockStyle::Bottom;
 			   this->groupBox9->Location = System::Drawing::Point(3, 166);
 			   this->groupBox9->Name = L"groupBox9";
 			   this->groupBox9->Padding = System::Windows::Forms::Padding(3, 5, 3, 3);
-			   this->groupBox9->Size = System::Drawing::Size(176, 63);
+			   this->groupBox9->Size = System::Drawing::Size(340, 63);
 			   this->groupBox9->TabIndex = 5;
 			   this->groupBox9->TabStop = false;
 			   this->groupBox9->Paint += gcnew System::Windows::Forms::PaintEventHandler(this, &WaterPumpForm::groupBox2_Paint);
 			   // 
-			   // flowLayoutPanel25
+			   // tableLayoutPanel16
 			   // 
-			   this->flowLayoutPanel25->AutoSize = true;
-			   this->flowLayoutPanel25->Controls->Add(this->label14);
-			   this->flowLayoutPanel25->Controls->Add(this->pump_pres_min_out);
-			   this->flowLayoutPanel25->Controls->Add(this->label30);
-			   this->flowLayoutPanel25->Controls->Add(this->pump_pres_max_out);
-			   this->flowLayoutPanel25->Controls->Add(this->label41);
-			   this->flowLayoutPanel25->Controls->Add(this->input_data_h_out);
-			   this->flowLayoutPanel25->Dock = System::Windows::Forms::DockStyle::Fill;
-			   this->flowLayoutPanel25->Location = System::Drawing::Point(3, 19);
-			   this->flowLayoutPanel25->Margin = System::Windows::Forms::Padding(3, 10, 3, 3);
-			   this->flowLayoutPanel25->Name = L"flowLayoutPanel25";
-			   this->flowLayoutPanel25->Padding = System::Windows::Forms::Padding(0, 7, 0, 7);
-			   this->flowLayoutPanel25->Size = System::Drawing::Size(170, 41);
-			   this->flowLayoutPanel25->TabIndex = 2;
-			   this->flowLayoutPanel25->WrapContents = false;
+			   this->tableLayoutPanel16->AutoSize = true;
+			   this->tableLayoutPanel16->ColumnCount = 6;
+			   this->tableLayoutPanel16->ColumnStyles->Add((gcnew System::Windows::Forms::ColumnStyle()));
+			   this->tableLayoutPanel16->ColumnStyles->Add((gcnew System::Windows::Forms::ColumnStyle(System::Windows::Forms::SizeType::Percent,
+				   33.33333F)));
+			   this->tableLayoutPanel16->ColumnStyles->Add((gcnew System::Windows::Forms::ColumnStyle()));
+			   this->tableLayoutPanel16->ColumnStyles->Add((gcnew System::Windows::Forms::ColumnStyle(System::Windows::Forms::SizeType::Percent,
+				   33.33333F)));
+			   this->tableLayoutPanel16->ColumnStyles->Add((gcnew System::Windows::Forms::ColumnStyle()));
+			   this->tableLayoutPanel16->ColumnStyles->Add((gcnew System::Windows::Forms::ColumnStyle(System::Windows::Forms::SizeType::Percent,
+				   33.33333F)));
+			   this->tableLayoutPanel16->Controls->Add(this->label14, 0, 0);
+			   this->tableLayoutPanel16->Controls->Add(this->pump_pres_min_out, 1, 0);
+			   this->tableLayoutPanel16->Controls->Add(this->label30, 2, 0);
+			   this->tableLayoutPanel16->Controls->Add(this->pump_pres_max_out, 3, 0);
+			   this->tableLayoutPanel16->Controls->Add(this->label41, 4, 0);
+			   this->tableLayoutPanel16->Controls->Add(this->input_data_h_out, 5, 0);
+			   this->tableLayoutPanel16->Dock = System::Windows::Forms::DockStyle::Bottom;
+			   this->tableLayoutPanel16->Location = System::Drawing::Point(3, 19);
+			   this->tableLayoutPanel16->Margin = System::Windows::Forms::Padding(3, 10, 3, 3);
+			   this->tableLayoutPanel16->Name = L"tableLayoutPanel16";
+			   this->tableLayoutPanel16->Padding = System::Windows::Forms::Padding(0, 7, 0, 7);
+			   this->tableLayoutPanel16->RowCount = 1;
+			   this->tableLayoutPanel16->RowStyles->Add((gcnew System::Windows::Forms::RowStyle()));
+			   this->tableLayoutPanel16->RowStyles->Add((gcnew System::Windows::Forms::RowStyle(System::Windows::Forms::SizeType::Absolute,
+				   27)));
+			   this->tableLayoutPanel16->Size = System::Drawing::Size(334, 41);
+			   this->tableLayoutPanel16->TabIndex = 7;
 			   // 
 			   // label14
 			   // 
@@ -1742,50 +1840,53 @@ namespace angarawindows {
 			   this->label14->Dock = System::Windows::Forms::DockStyle::Fill;
 			   this->label14->Location = System::Drawing::Point(3, 7);
 			   this->label14->Name = L"label14";
-			   this->label14->Size = System::Drawing::Size(0, 27);
+			   this->label14->Size = System::Drawing::Size(1, 27);
 			   this->label14->TabIndex = 0;
 			   this->label14->TextAlign = System::Drawing::ContentAlignment::MiddleLeft;
 			   // 
 			   // pump_pres_min_out
 			   // 
+			   this->pump_pres_min_out->Dock = System::Windows::Forms::DockStyle::Fill;
 			   this->pump_pres_min_out->Location = System::Drawing::Point(9, 10);
 			   this->pump_pres_min_out->Name = L"pump_pres_min_out";
-			   this->pump_pres_min_out->Size = System::Drawing::Size(45, 21);
+			   this->pump_pres_min_out->Size = System::Drawing::Size(99, 21);
 			   this->pump_pres_min_out->TabIndex = 1;
 			   // 
 			   // label30
 			   // 
 			   this->label30->AutoSize = true;
 			   this->label30->Dock = System::Windows::Forms::DockStyle::Fill;
-			   this->label30->Location = System::Drawing::Point(60, 7);
+			   this->label30->Location = System::Drawing::Point(114, 7);
 			   this->label30->Name = L"label30";
-			   this->label30->Size = System::Drawing::Size(0, 27);
+			   this->label30->Size = System::Drawing::Size(1, 27);
 			   this->label30->TabIndex = 2;
 			   this->label30->TextAlign = System::Drawing::ContentAlignment::MiddleLeft;
 			   // 
 			   // pump_pres_max_out
 			   // 
-			   this->pump_pres_max_out->Location = System::Drawing::Point(66, 10);
+			   this->pump_pres_max_out->Dock = System::Windows::Forms::DockStyle::Fill;
+			   this->pump_pres_max_out->Location = System::Drawing::Point(120, 10);
 			   this->pump_pres_max_out->Name = L"pump_pres_max_out";
-			   this->pump_pres_max_out->Size = System::Drawing::Size(45, 21);
+			   this->pump_pres_max_out->Size = System::Drawing::Size(99, 21);
 			   this->pump_pres_max_out->TabIndex = 3;
 			   // 
 			   // label41
 			   // 
 			   this->label41->AutoSize = true;
 			   this->label41->Dock = System::Windows::Forms::DockStyle::Fill;
-			   this->label41->Location = System::Drawing::Point(117, 7);
+			   this->label41->Location = System::Drawing::Point(225, 7);
 			   this->label41->Name = L"label41";
-			   this->label41->Size = System::Drawing::Size(0, 27);
+			   this->label41->Size = System::Drawing::Size(1, 27);
 			   this->label41->TabIndex = 0;
 			   this->label41->TextAlign = System::Drawing::ContentAlignment::MiddleLeft;
 			   // 
 			   // input_data_h_out
 			   // 
-			   this->input_data_h_out->Location = System::Drawing::Point(123, 10);
+			   this->input_data_h_out->Dock = System::Windows::Forms::DockStyle::Fill;
+			   this->input_data_h_out->Location = System::Drawing::Point(231, 10);
 			   this->input_data_h_out->Name = L"input_data_h_out";
 			   this->input_data_h_out->ReadOnly = true;
-			   this->input_data_h_out->Size = System::Drawing::Size(44, 21);
+			   this->input_data_h_out->Size = System::Drawing::Size(100, 21);
 			   this->input_data_h_out->TabIndex = 6;
 			   // 
 			   // label43
@@ -1801,109 +1902,128 @@ namespace angarawindows {
 			   // groupBox5
 			   // 
 			   this->groupBox5->AutoSize = true;
-			   this->groupBox5->Controls->Add(this->flowLayoutPanel13);
+			   this->groupBox5->Controls->Add(this->tableLayoutPanel12);
+			   this->groupBox5->Dock = System::Windows::Forms::DockStyle::Bottom;
 			   this->groupBox5->Location = System::Drawing::Point(3, 259);
 			   this->groupBox5->Name = L"groupBox5";
 			   this->groupBox5->Padding = System::Windows::Forms::Padding(3, 5, 3, 3);
-			   this->groupBox5->Size = System::Drawing::Size(270, 63);
+			   this->groupBox5->Size = System::Drawing::Size(340, 49);
 			   this->groupBox5->TabIndex = 6;
 			   this->groupBox5->TabStop = false;
 			   this->groupBox5->Paint += gcnew System::Windows::Forms::PaintEventHandler(this, &WaterPumpForm::groupBox2_Paint);
 			   // 
-			   // flowLayoutPanel13
+			   // tableLayoutPanel12
 			   // 
-			   this->flowLayoutPanel13->AutoSize = true;
-			   this->flowLayoutPanel13->Controls->Add(this->label10);
-			   this->flowLayoutPanel13->Controls->Add(this->pump_dim_min);
-			   this->flowLayoutPanel13->Controls->Add(this->label11);
-			   this->flowLayoutPanel13->Controls->Add(this->pump_dim_max);
-			   this->flowLayoutPanel13->Dock = System::Windows::Forms::DockStyle::Fill;
-			   this->flowLayoutPanel13->Location = System::Drawing::Point(3, 19);
-			   this->flowLayoutPanel13->Margin = System::Windows::Forms::Padding(3, 10, 3, 3);
-			   this->flowLayoutPanel13->Name = L"flowLayoutPanel13";
-			   this->flowLayoutPanel13->Padding = System::Windows::Forms::Padding(0, 7, 0, 7);
-			   this->flowLayoutPanel13->Size = System::Drawing::Size(264, 41);
-			   this->flowLayoutPanel13->TabIndex = 2;
-			   this->flowLayoutPanel13->WrapContents = false;
+			   this->tableLayoutPanel12->AutoSize = true;
+			   this->tableLayoutPanel12->ColumnCount = 4;
+			   this->tableLayoutPanel12->ColumnStyles->Add((gcnew System::Windows::Forms::ColumnStyle()));
+			   this->tableLayoutPanel12->ColumnStyles->Add((gcnew System::Windows::Forms::ColumnStyle(System::Windows::Forms::SizeType::Percent,
+				   50)));
+			   this->tableLayoutPanel12->ColumnStyles->Add((gcnew System::Windows::Forms::ColumnStyle()));
+			   this->tableLayoutPanel12->ColumnStyles->Add((gcnew System::Windows::Forms::ColumnStyle(System::Windows::Forms::SizeType::Percent,
+				   50)));
+			   this->tableLayoutPanel12->Controls->Add(this->label10, 0, 0);
+			   this->tableLayoutPanel12->Controls->Add(this->pump_dim_min, 1, 0);
+			   this->tableLayoutPanel12->Controls->Add(this->label11, 2, 0);
+			   this->tableLayoutPanel12->Controls->Add(this->pump_dim_max, 3, 0);
+			   this->tableLayoutPanel12->Dock = System::Windows::Forms::DockStyle::Bottom;
+			   this->tableLayoutPanel12->Location = System::Drawing::Point(3, 19);
+			   this->tableLayoutPanel12->Margin = System::Windows::Forms::Padding(3, 10, 3, 3);
+			   this->tableLayoutPanel12->Name = L"tableLayoutPanel12";
+			   this->tableLayoutPanel12->RowCount = 1;
+			   this->tableLayoutPanel12->RowStyles->Add((gcnew System::Windows::Forms::RowStyle()));
+			   this->tableLayoutPanel12->Size = System::Drawing::Size(334, 27);
+			   this->tableLayoutPanel12->TabIndex = 4;
 			   // 
 			   // label10
 			   // 
 			   this->label10->AutoSize = true;
 			   this->label10->Dock = System::Windows::Forms::DockStyle::Fill;
-			   this->label10->Location = System::Drawing::Point(3, 7);
+			   this->label10->Location = System::Drawing::Point(3, 0);
 			   this->label10->Name = L"label10";
-			   this->label10->Size = System::Drawing::Size(0, 27);
+			   this->label10->Size = System::Drawing::Size(1, 27);
 			   this->label10->TabIndex = 0;
 			   this->label10->TextAlign = System::Drawing::ContentAlignment::MiddleLeft;
 			   // 
 			   // pump_dim_min
 			   // 
-			   this->pump_dim_min->Location = System::Drawing::Point(9, 10);
+			   this->pump_dim_min->Dock = System::Windows::Forms::DockStyle::Fill;
+			   this->pump_dim_min->Location = System::Drawing::Point(9, 3);
 			   this->pump_dim_min->Name = L"pump_dim_min";
-			   this->pump_dim_min->Size = System::Drawing::Size(120, 21);
+			   this->pump_dim_min->Size = System::Drawing::Size(155, 21);
 			   this->pump_dim_min->TabIndex = 1;
 			   // 
 			   // label11
 			   // 
 			   this->label11->AutoSize = true;
 			   this->label11->Dock = System::Windows::Forms::DockStyle::Fill;
-			   this->label11->Location = System::Drawing::Point(135, 7);
+			   this->label11->Location = System::Drawing::Point(170, 0);
 			   this->label11->Name = L"label11";
-			   this->label11->Size = System::Drawing::Size(0, 27);
+			   this->label11->Size = System::Drawing::Size(1, 27);
 			   this->label11->TabIndex = 2;
 			   this->label11->TextAlign = System::Drawing::ContentAlignment::MiddleLeft;
 			   // 
 			   // pump_dim_max
 			   // 
-			   this->pump_dim_max->Location = System::Drawing::Point(141, 10);
+			   this->pump_dim_max->Dock = System::Windows::Forms::DockStyle::Fill;
+			   this->pump_dim_max->Location = System::Drawing::Point(176, 3);
 			   this->pump_dim_max->Name = L"pump_dim_max";
-			   this->pump_dim_max->Size = System::Drawing::Size(120, 21);
+			   this->pump_dim_max->Size = System::Drawing::Size(155, 21);
 			   this->pump_dim_max->TabIndex = 3;
 			   // 
 			   // groupBox4
 			   // 
 			   this->groupBox4->AutoSize = true;
-			   this->groupBox4->Controls->Add(this->flowLayoutPanel12);
-			   this->groupBox4->Location = System::Drawing::Point(3, 328);
+			   this->groupBox4->Controls->Add(this->tableLayoutPanel13);
+			   this->groupBox4->Dock = System::Windows::Forms::DockStyle::Bottom;
+			   this->groupBox4->Location = System::Drawing::Point(3, 314);
 			   this->groupBox4->Name = L"groupBox4";
 			   this->groupBox4->Padding = System::Windows::Forms::Padding(3, 5, 3, 3);
-			   this->groupBox4->Size = System::Drawing::Size(270, 63);
+			   this->groupBox4->Size = System::Drawing::Size(340, 49);
 			   this->groupBox4->TabIndex = 4;
 			   this->groupBox4->TabStop = false;
 			   this->groupBox4->Paint += gcnew System::Windows::Forms::PaintEventHandler(this, &WaterPumpForm::groupBox2_Paint);
 			   // 
-			   // flowLayoutPanel12
+			   // tableLayoutPanel13
 			   // 
-			   this->flowLayoutPanel12->AutoSize = true;
-			   this->flowLayoutPanel12->Controls->Add(this->label8);
-			   this->flowLayoutPanel12->Controls->Add(this->pump_turn_min);
-			   this->flowLayoutPanel12->Controls->Add(this->label9);
-			   this->flowLayoutPanel12->Controls->Add(this->pump_turn_max);
-			   this->flowLayoutPanel12->Dock = System::Windows::Forms::DockStyle::Fill;
-			   this->flowLayoutPanel12->Location = System::Drawing::Point(3, 19);
-			   this->flowLayoutPanel12->Margin = System::Windows::Forms::Padding(3, 10, 3, 3);
-			   this->flowLayoutPanel12->Name = L"flowLayoutPanel12";
-			   this->flowLayoutPanel12->Padding = System::Windows::Forms::Padding(0, 7, 0, 7);
-			   this->flowLayoutPanel12->Size = System::Drawing::Size(264, 41);
-			   this->flowLayoutPanel12->TabIndex = 2;
-			   this->flowLayoutPanel12->WrapContents = false;
+			   this->tableLayoutPanel13->AutoSize = true;
+			   this->tableLayoutPanel13->ColumnCount = 4;
+			   this->tableLayoutPanel13->ColumnStyles->Add((gcnew System::Windows::Forms::ColumnStyle()));
+			   this->tableLayoutPanel13->ColumnStyles->Add((gcnew System::Windows::Forms::ColumnStyle(System::Windows::Forms::SizeType::Percent,
+				   50)));
+			   this->tableLayoutPanel13->ColumnStyles->Add((gcnew System::Windows::Forms::ColumnStyle()));
+			   this->tableLayoutPanel13->ColumnStyles->Add((gcnew System::Windows::Forms::ColumnStyle(System::Windows::Forms::SizeType::Percent,
+				   50)));
+			   this->tableLayoutPanel13->Controls->Add(this->label8, 0, 0);
+			   this->tableLayoutPanel13->Controls->Add(this->pump_turn_min, 1, 0);
+			   this->tableLayoutPanel13->Controls->Add(this->label9, 2, 0);
+			   this->tableLayoutPanel13->Controls->Add(this->pump_turn_max, 3, 0);
+			   this->tableLayoutPanel13->Dock = System::Windows::Forms::DockStyle::Bottom;
+			   this->tableLayoutPanel13->Location = System::Drawing::Point(3, 19);
+			   this->tableLayoutPanel13->Margin = System::Windows::Forms::Padding(3, 10, 3, 3);
+			   this->tableLayoutPanel13->Name = L"tableLayoutPanel13";
+			   this->tableLayoutPanel13->RowCount = 1;
+			   this->tableLayoutPanel13->RowStyles->Add((gcnew System::Windows::Forms::RowStyle()));
+			   this->tableLayoutPanel13->Size = System::Drawing::Size(334, 27);
+			   this->tableLayoutPanel13->TabIndex = 4;
 			   // 
 			   // label8
 			   // 
 			   this->label8->AutoSize = true;
 			   this->label8->Dock = System::Windows::Forms::DockStyle::Fill;
 			   this->label8->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 9));
-			   this->label8->Location = System::Drawing::Point(3, 7);
+			   this->label8->Location = System::Drawing::Point(3, 0);
 			   this->label8->Name = L"label8";
-			   this->label8->Size = System::Drawing::Size(0, 27);
+			   this->label8->Size = System::Drawing::Size(1, 27);
 			   this->label8->TabIndex = 0;
 			   this->label8->TextAlign = System::Drawing::ContentAlignment::MiddleLeft;
 			   // 
 			   // pump_turn_min
 			   // 
-			   this->pump_turn_min->Location = System::Drawing::Point(9, 10);
+			   this->pump_turn_min->Dock = System::Windows::Forms::DockStyle::Fill;
+			   this->pump_turn_min->Location = System::Drawing::Point(9, 3);
 			   this->pump_turn_min->Name = L"pump_turn_min";
-			   this->pump_turn_min->Size = System::Drawing::Size(120, 21);
+			   this->pump_turn_min->Size = System::Drawing::Size(155, 21);
 			   this->pump_turn_min->TabIndex = 1;
 			   // 
 			   // label9
@@ -1911,17 +2031,18 @@ namespace angarawindows {
 			   this->label9->AutoSize = true;
 			   this->label9->Dock = System::Windows::Forms::DockStyle::Fill;
 			   this->label9->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 9));
-			   this->label9->Location = System::Drawing::Point(135, 7);
+			   this->label9->Location = System::Drawing::Point(170, 0);
 			   this->label9->Name = L"label9";
-			   this->label9->Size = System::Drawing::Size(0, 27);
+			   this->label9->Size = System::Drawing::Size(1, 27);
 			   this->label9->TabIndex = 2;
 			   this->label9->TextAlign = System::Drawing::ContentAlignment::MiddleLeft;
 			   // 
 			   // pump_turn_max
 			   // 
-			   this->pump_turn_max->Location = System::Drawing::Point(141, 10);
+			   this->pump_turn_max->Dock = System::Windows::Forms::DockStyle::Fill;
+			   this->pump_turn_max->Location = System::Drawing::Point(176, 3);
 			   this->pump_turn_max->Name = L"pump_turn_max";
-			   this->pump_turn_max->Size = System::Drawing::Size(120, 21);
+			   this->pump_turn_max->Size = System::Drawing::Size(155, 21);
 			   this->pump_turn_max->TabIndex = 3;
 			   // 
 			   // tabPage6
@@ -2172,19 +2293,19 @@ namespace angarawindows {
 			   this->tabPage4->ResumeLayout(false);
 			   this->cardSettings1->ResumeLayout(false);
 			   this->cardSettings1->PerformLayout();
-			   this->flowLayoutPanel4->ResumeLayout(false);
-			   this->flowLayoutPanel4->PerformLayout();
-			   this->flowLayoutPanel5->ResumeLayout(false);
-			   this->flowLayoutPanel5->PerformLayout();
+			   this->tableLayoutPanel11->ResumeLayout(false);
+			   this->tableLayoutPanel11->PerformLayout();
+			   this->tableLayoutPanel10->ResumeLayout(false);
+			   this->tableLayoutPanel10->PerformLayout();
 			   this->groupBox1->ResumeLayout(false);
 			   this->flowLayoutPanel6->ResumeLayout(false);
 			   this->flowLayoutPanel6->PerformLayout();
-			   this->flowLayoutPanel7->ResumeLayout(false);
-			   this->flowLayoutPanel7->PerformLayout();
-			   this->flowLayoutPanel8->ResumeLayout(false);
-			   this->flowLayoutPanel8->PerformLayout();
-			   this->flowLayoutPanel9->ResumeLayout(false);
-			   this->flowLayoutPanel9->PerformLayout();
+			   this->tableLayoutPanel8->ResumeLayout(false);
+			   this->tableLayoutPanel8->PerformLayout();
+			   this->tableLayoutPanel7->ResumeLayout(false);
+			   this->tableLayoutPanel7->PerformLayout();
+			   this->tableLayoutPanel9->ResumeLayout(false);
+			   this->tableLayoutPanel9->PerformLayout();
 			   this->tableLayoutPanel6->ResumeLayout(false);
 			   this->tableLayoutPanel6->PerformLayout();
 			   (cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->numeric_input_point))->EndInit();
@@ -2194,24 +2315,24 @@ namespace angarawindows {
 			   this->flowLayoutPanel10->PerformLayout();
 			   this->groupBox2->ResumeLayout(false);
 			   this->groupBox2->PerformLayout();
-			   this->flowLayoutPanel26->ResumeLayout(false);
-			   this->flowLayoutPanel26->PerformLayout();
+			   this->tableLayoutPanel14->ResumeLayout(false);
+			   this->tableLayoutPanel14->PerformLayout();
 			   this->groupBox3->ResumeLayout(false);
 			   this->groupBox3->PerformLayout();
-			   this->flowLayoutPanel11->ResumeLayout(false);
-			   this->flowLayoutPanel11->PerformLayout();
+			   this->tableLayoutPanel15->ResumeLayout(false);
+			   this->tableLayoutPanel15->PerformLayout();
 			   this->groupBox9->ResumeLayout(false);
 			   this->groupBox9->PerformLayout();
-			   this->flowLayoutPanel25->ResumeLayout(false);
-			   this->flowLayoutPanel25->PerformLayout();
+			   this->tableLayoutPanel16->ResumeLayout(false);
+			   this->tableLayoutPanel16->PerformLayout();
 			   this->groupBox5->ResumeLayout(false);
 			   this->groupBox5->PerformLayout();
-			   this->flowLayoutPanel13->ResumeLayout(false);
-			   this->flowLayoutPanel13->PerformLayout();
+			   this->tableLayoutPanel12->ResumeLayout(false);
+			   this->tableLayoutPanel12->PerformLayout();
 			   this->groupBox4->ResumeLayout(false);
 			   this->groupBox4->PerformLayout();
-			   this->flowLayoutPanel12->ResumeLayout(false);
-			   this->flowLayoutPanel12->PerformLayout();
+			   this->tableLayoutPanel13->ResumeLayout(false);
+			   this->tableLayoutPanel13->PerformLayout();
 			   this->tabPage6->ResumeLayout(false);
 			   this->flowLayoutPanel19->ResumeLayout(false);
 			   this->flowLayoutPanel19->PerformLayout();

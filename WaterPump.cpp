@@ -3,6 +3,7 @@
 #include <msclr/gcroot.h>
 #include <iostream>
 #include <string>
+#include "LocalizationManager.h"
 #include "utils.h"
 #include "WaterPumpForm.h"
 #include "WaterPump.h"
@@ -640,11 +641,12 @@ namespace angarawindows {
 		this->form->pump_slide_s->Enabled = true;
 
 
-		if (Double::IsInfinity(resMin) || Double::IsNaN(resMin)) {
+		if (Double::IsInfinity(resMin) || Double::IsNaN(resMin) || data.S == 0) {
 			if (data.S == 0) {
 				resMin = 1;
 				this->form->pump_cur_s->Enabled = false;
 				this->form->pump_slide_s->Enabled = false;
+				this->resistance_current->setValue(0);
 			}
 			else {
 				resMin = data.H0 / (0.1) - data.S;
@@ -897,7 +899,6 @@ namespace angarawindows {
 		this->form->numeric_input_point->Maximum = link->getValue()->Count;
 
 		this->k->throwEvent();
-		this->resistance_current->throwEvent();
 	}
 
 	String^ RealWaterPump::point_input_valide(double value, bool empty) {
@@ -1150,7 +1151,7 @@ namespace angarawindows {
 
 			e->ChartGraphics->Graphics->FillRectangle(gcnew System::Drawing::SolidBrush(System::Drawing::Color::FromArgb(128, 255, 255, 255)), recBackTextYZ);
 
-			String^ emptyText = LocalizationManager::getStr("errors.message.chart_empty" + (e->Chart->Name != this->form->chart3->Name ? "" : "_efficiency"));
+			String^ emptyText = LocalizationManager::getStr("message.chart_empty" + (e->Chart->Name != this->form->chart3->Name ? "" : "_efficiency"));
 
 			SizeF^ sizeAdd = e->ChartGraphics->Graphics->MeasureString(emptyText, FMSS);
 			e->ChartGraphics->Graphics->DrawString(emptyText,
