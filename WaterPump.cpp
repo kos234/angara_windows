@@ -728,6 +728,8 @@ namespace angarawindows {
 	}
 
 	double RealWaterPump::resistance_current_PrepareToShow(double value, bool isShow) {
+		if (this->resistance_min == 0)
+			return 0;
 		if (isShow) {
 			return value / this->resistance_min;
 		}
@@ -850,6 +852,8 @@ namespace angarawindows {
 	}
 
 	void RealWaterPump::points_event(ObserverValue<List<RealChartPoint^>^>^ link) {
+		if (link->getValue()->Count == 0)
+			return;
 		this->form->chart1->Series[0]->Points->Clear();
 		this->form->chart1->Series[3]->Points->Clear();
 		this->form->chart2->Series[0]->Points->Clear();
@@ -890,7 +894,7 @@ namespace angarawindows {
 				this->form->chart3->ChartAreas[0]->AxisY->Interval = intervals.MInterval;
 			if (intervals.MMax != 0)
 				this->form->chart3->ChartAreas[0]->AxisY->Maximum = intervals.MMax;
-
+			
 			normalyzeTitleChart(this->form->chart1);
 			normalyzeTitleChart(this->form->chart2);
 			normalyzeTitleChart(this->form->chart3);
@@ -1117,17 +1121,27 @@ namespace angarawindows {
 		double endY = e->Chart->ChartAreas[0]->AxisY->ValueToPixelPosition(e->Chart->ChartAreas[0]->AxisY->Maximum);
 
 		SizeF^ sizeIntervalY = e->ChartGraphics->Graphics->MeasureString(e->Chart->ChartAreas[0]->AxisY->Maximum + "", FMSS);
+
 		SizeF^ sizeTextY = e->ChartGraphics->Graphics->MeasureString(e->Chart->Text, FMSS);
+		SizeF^ sizeTextYMax = e->ChartGraphics->Graphics->MeasureString(e->Chart->ChartAreas[0]->AxisY->Maximum + "", FMSS);
 
 		double maxRecHeightY = Math::Max(sizeIntervalY->Height, sizeTextY->Height);
 
 		double RBY = endY + maxRecHeightY / 2;
 		double LTY = endY - maxRecHeightY / 2;
 
+		double maxTextWidth = Math::Max(sizeTextY->Width, sizeTextYMax->Width) + 2;
+
+		e->Chart->ChartAreas[0]->Position->X = 30;
+		e->Chart->ChartAreas[0]->Position->Width = 100 - 30;
+		
+
 		if (LTY < 0) {
 			RBY -= LTY;
 			LTY = 0;
 		}
+
+		
 
 		System::Drawing::RectangleF recBackTextY = System::Drawing::RectangleF::FromLTRB(
 			0, LTY,
@@ -1138,7 +1152,7 @@ namespace angarawindows {
 		e->ChartGraphics->Graphics->DrawString(e->Chart->Text,
 			FMSS,
 			gcnew System::Drawing::SolidBrush(System::Drawing::Color::FromArgb(0, 0, 0)),
-			startX - sizeTextY->Width - 2, LTY);
+			startX - maxTextWidth, LTY);
 
 
 		//----------------------------------------------------------------------------------------------------------

@@ -40,6 +40,6 @@ int maind() {
 	angarawindows::setLocale(angarawindows::locales::ZH_LOCALE);
 
 	angarawindows::WaterPump windPump;
-	windPump.show(4012);
+	windPump.show(4028);
 	return 0;
 }

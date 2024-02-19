@@ -503,21 +503,19 @@ namespace angarawindows {
 		if (System::Double::IsNaN(max) || max == 0)
 			return;
 
-		//std::cout << SysToStd(chart->Name) << " ";
-		////std::cout << "pow = " << (std::pow(10, chart->Text->Length)) << "; max = " << max << " ";
-
 		int lenMax = getNumberLenght(max);
 
-		if (chart->Text->Length <= lenMax) {
-			chart->ChartAreas[0]->Position->X = 0;
-			chart->ChartAreas[0]->Position->Width = 100;
-			//std::cout << "return " << max << "\n";
-			return;
-		}
+		System::Drawing::Font^ FMSS = gcnew System::Drawing::Font(gcnew System::Drawing::FontFamily("Microsoft Sans Serif"), 9);
+		System::Drawing::Graphics^ graphics = chart->CreateGraphics();
+		System::Drawing::SizeF^ sizeTextY = graphics->MeasureString(chart->Text, FMSS);
 
-		//std::cout << "set " << (2 * (chart->Text->Length - lenMax - 1)) << "\n";
-		chart->ChartAreas[0]->Position->X = 2 * (chart->Text->Length - lenMax - 1);
+		double defaultOffset = lenMax + 4;
+		double offset = sizeTextY->Width * 100 / chart->Width - defaultOffset;
+		if (offset < 0)
+			offset = 0;
+		chart->ChartAreas[0]->Position->X = offset;
 		chart->ChartAreas[0]->Position->Width = 100 - chart->ChartAreas[0]->Position->X;
+	
 	}
 
 	void GetNextIdLink::readNextIdLink(OleDbDataReader^ reader) {

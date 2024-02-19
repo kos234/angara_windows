@@ -9,14 +9,13 @@ namespace angarawindows {
 
 	ref class LocalizationManager {
 			static ResourceManager^ rm = nullptr;
-			static String^ locale = "ru";
+			static String^ locale = "en";
 	public:
 		static void init() {
 			System::Reflection::Assembly^ as = System::Reflection::Assembly::GetExecutingAssembly();
 
 			array<System::String^>^ tmp = as->GetManifestResourceNames();
 			System::String^ asname = as->GetName()->Name;
-			//log(SysToStd(asname));
 			asname = asname->Replace("_", "");
 			/*for each (System::String ^ sad in tmp) {
 				log(SysToStd(sad));
