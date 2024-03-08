@@ -43,7 +43,7 @@
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
-    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v143</PlatformToolset>
     <CLRSupport>true</CLRSupport>
@@ -126,6 +126,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="inputs.cpp" />
+    <ClCompile Include="RegionPipe.cpp" />
     <ClCompile Include="WaterPump.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="utils.cpp" />
@@ -138,22 +139,24 @@
     <ClInclude Include="ObserverValue.h" />
     <ClInclude Include="RealAbstractDialog.h" />
     <ClInclude Include="RealChartPoint.h" />
+    <ClInclude Include="RealRegionPipe.h" />
     <ClInclude Include="RealWaterPump.h" />
     <ClInclude Include="LocalizationManager.h" />
+    <ClInclude Include="RegionForm.h">
+      <FileType>CppForm</FileType>
+    </ClInclude>
+    <ClInclude Include="RegionPipe.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="WaterPump.h" />
     <ClInclude Include="main.h" />
-    <ClInclude Include="Pipe.h">
-      <FileType>CppForm</FileType>
-    </ClInclude>
     <ClInclude Include="utils.h" />
     <ClInclude Include="WaterPumpForm.h">
       <FileType>CppForm</FileType>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Pipe.resx">
-      <DependentUpon>Pipe.h</DependentUpon>
+    <EmbeddedResource Include="RegionForm.resx">
+      <DependentUpon>RegionForm.h</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="strings.resx">
       <SubType>Designer</SubType>

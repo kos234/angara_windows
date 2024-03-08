@@ -19,12 +19,13 @@ namespace angarawindows {
 	using namespace System::Windows::Forms;
 	using namespace System::Data::OleDb;
 
-
+	[STAThreadAttribute]
 	RealWaterPump::RealWaterPump(WaterPump* model) {
 		this->model = model;
 		WaterPumpForm form;
 		this->form = % form;
 		init();
+		Application::Run(this->form);
 	}
 	[STAThreadAttribute]
 		void RealWaterPump::init() {
@@ -199,8 +200,6 @@ namespace angarawindows {
 		this->pressure_in_min->throwEvent();
 		this->pressure_out_min->throwEvent();
 		this->k->throwEvent();
-
-		Application::Run(this->form);
 	}
 
 	void RealWaterPump::save() {

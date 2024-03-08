@@ -22,6 +22,9 @@
     <Filter Include="Исходные файлы\resources">
       <UniqueIdentifier>{45b55096-54df-4dbb-91c4-5f0402928b11}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Исходные файлы\Region">
+      <UniqueIdentifier>{75b14271-974b-463f-b509-25c12fc16d0e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WaterPump.cpp">
@@ -36,12 +39,12 @@
     <ClCompile Include="inputs.cpp">
       <Filter>Исходные файлы\main</Filter>
     </ClCompile>
+    <ClCompile Include="RegionPipe.cpp">
+      <Filter>Исходные файлы\Region</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="WaterPumpForm.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="Pipe.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
     <ClInclude Include="WaterPump.h">
@@ -82,6 +85,15 @@
     </ClInclude>
     <ClInclude Include="resource.h">
       <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="RegionForm.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="RegionPipe.h">
+      <Filter>Исходные файлы\Region</Filter>
+    </ClInclude>
+    <ClInclude Include="RealRegionPipe.h">
+      <Filter>Исходные файлы\Region</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

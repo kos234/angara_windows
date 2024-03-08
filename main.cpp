@@ -3,6 +3,7 @@
 #include <msclr/gcroot.h>
 #include "utils.h"
 #include "WaterPump.h"
+#include "RegionPipe.h"
 #include "LocalizationManager.h"
 
 
@@ -39,7 +40,7 @@ int maind() {
 	angarawindows::setDBConnect("provider=Microsoft.ACE.OLEDB.12.0;Data Source=C:\\Users\\kosty\\Documents\\TP_EqNS_ML.MDB");
 	angarawindows::setLocale(angarawindows::locales::ZH_LOCALE);
 
-	angarawindows::WaterPump windPump;
+	angarawindows::RegionPipe windPump;
 	windPump.show(4028);
 	return 0;
 }
