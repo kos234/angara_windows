@@ -1,14 +1,13 @@
 #pragma once
-#include <map>
-#include <string>
 
 namespace angarawindows {
-	class AbstractDialog {
+	using namespace System;
+	using namespace System::Collections::Generic;
+	ref class AbstractDialog {
 	public:
-		std::map<std::string, int> errors;
+		Dictionary<String^, int>^ errors = gcnew Dictionary<String^, int>;
+		bool isSaveValidation = false;
 		virtual void save() = 0;
 		virtual void close() = 0;
-		virtual void show(int idLink) = 0;
-		virtual void show() = 0;
 	};
 }

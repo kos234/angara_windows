@@ -1,7 +1,6 @@
 #pragma once
 
-#include "main.h"
-#include "utils.h"
+#include "Properties.h"
 
 namespace angarawindows {
 	using namespace System;
@@ -17,20 +16,22 @@ namespace angarawindows {
 			array<System::String^>^ tmp = as->GetManifestResourceNames();
 			System::String^ asname = as->GetName()->Name;
 			asname = asname->Replace("_", "");
-			/*for each (System::String ^ sad in tmp) {
-				log(SysToStd(sad));
-			}
-			log(SysToStd(asname));*/
 			LocalizationManager::rm = gcnew ResourceManager(asname + ".strings", System::Reflection::Assembly::GetExecutingAssembly());
-			if (System::Threading::Thread::CurrentThread->CurrentCulture->Name->StartsWith(StdToSys(locales::RU_LOCALE))) {
-				locale = StdToSys(locales::RU_LOCALE);
+			
+			if (System::Threading::Thread::CurrentThread->CurrentCulture->Name->StartsWith(Properties::Locales::RU_LOCALE)) {
+				locale = Properties::Locales::RU_LOCALE;
+			}else if (System::Threading::Thread::CurrentThread->CurrentCulture->Name->StartsWith(Properties::Locales::EN_LOCALE)) {
+				locale = Properties::Locales::EN_LOCALE;
+			}else if (System::Threading::Thread::CurrentThread->CurrentCulture->Name->StartsWith(Properties::Locales::ZH_LOCALE)) {
+				locale = Properties::Locales::ZH_LOCALE;
 			}
-			else if (System::Threading::Thread::CurrentThread->CurrentCulture->Name->StartsWith(StdToSys(locales::EN_LOCALE))) {
-				locale = StdToSys(locales::EN_LOCALE);
-			}
-			else if (System::Threading::Thread::CurrentThread->CurrentCulture->Name->StartsWith(StdToSys(locales::ZH_LOCALE))) {
-				locale = StdToSys(locales::ZH_LOCALE);
-			}
+		}
+
+		static String^ getLocaleFromDB() {
+			if (LocalizationManager::locale == "zh")
+				return "CN";
+			
+			return LocalizationManager::locale->ToUpper();
 		}
 
 		static void setLocale(String^ locale) {

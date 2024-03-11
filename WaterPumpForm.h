@@ -1,10 +1,7 @@
 ﻿#pragma once
 
-#include "utils.h"
-#include "RealChartPoint.h"
+
 #include "LocalizationManager.h"
-#include <cliext/set>
-#include <cliext/set>
 
 namespace angarawindows {
 
@@ -36,17 +33,6 @@ namespace angarawindows {
 	private: System::Windows::Forms::TableLayoutPanel^ tableLayoutPanel14;
 	private: System::Windows::Forms::TableLayoutPanel^ tableLayoutPanel15;
 	private: System::Windows::Forms::TableLayoutPanel^ tableLayoutPanel16;
-
-
-	public:
-	private:
-
-
-	public:
-
-
-	public:
-		Hashtable^ errors = gcnew Hashtable();
 
 	public:
 		WaterPumpForm() {

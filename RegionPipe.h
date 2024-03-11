@@ -1,20 +1,16 @@
 #pragma once
-#include "main.h"
-#include "AbstractDialog.h"
+#include "RegionForm.h"
+#include "ObserverValue.h"
 
 namespace angarawindows {
-	class RegionPipe : public AbstractDialog {
+	ref class RegionPipe : public AbstractDialog {
 	public:
-
-		void save() override;
+		RegionPipe(int idLink);
+		void init() override;
 		void close() override;
+		void save() override;
 
-	public:
 		int idLink;
-
-		void show(int idLink) override;
-		void show() override {
-			show(-1);
-		};
+		RegionForm^ form;
 	};
 }

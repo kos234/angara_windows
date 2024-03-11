@@ -6,7 +6,7 @@
 namespace angarawindows {
 	std::string SysToStd(System::String^ original);
 
-	System::String^ StdToSys(std::string original);
+	//System::String^ StdToSys(std::string original);
 
 	template<typename OBS>
 	DBWrapper<OBS>^ _IntInputHandler(System::Windows::Forms::TextBox^ box) {
@@ -120,7 +120,7 @@ namespace angarawindows {
 
 		if constexpr (std::is_same<OBS, double>::value || std::is_same<OBS, float>::value || std::is_same<OBS, System::Double^>::value || std::is_same<OBS, System::Single^>::value) {
 			if (0.002 > value) {
-				SuperTextSetter(box, StdToSys(toSaintific(value)));
+				SuperTextSetter(box, toSaintific(value));
 				return;
 			}
 			else

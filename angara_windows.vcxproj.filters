@@ -13,22 +13,31 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="Исходные файлы\WaterPump">
-      <UniqueIdentifier>{7a0ef30e-d8f5-49c0-b34c-67481e92eaed}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Исходные файлы\main">
       <UniqueIdentifier>{feb4d29a-72ba-45d0-aa09-133c7af405db}</UniqueIdentifier>
     </Filter>
     <Filter Include="Исходные файлы\resources">
       <UniqueIdentifier>{45b55096-54df-4dbb-91c4-5f0402928b11}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Исходные файлы\Region">
+    <Filter Include="Исходные файлы\Messaging">
+      <UniqueIdentifier>{dd2d2ede-f471-4e12-8de4-35b598996298}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Исходные файлы\Dialogs">
+      <UniqueIdentifier>{2106b5f6-09c8-458e-bc85-6ef1a411e0d7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Исходные файлы\Properties">
+      <UniqueIdentifier>{1d67e028-bfe5-4313-a438-85858c649438}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Исходные файлы\Dialogs\Region">
       <UniqueIdentifier>{75b14271-974b-463f-b509-25c12fc16d0e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Исходные файлы\Dialogs\WaterPump">
+      <UniqueIdentifier>{7a0ef30e-d8f5-49c0-b34c-67481e92eaed}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WaterPump.cpp">
-      <Filter>Исходные файлы\WaterPump</Filter>
+      <Filter>Исходные файлы\Dialogs\WaterPump</Filter>
     </ClCompile>
     <ClCompile Include="main.cpp">
       <Filter>Исходные файлы\main</Filter>
@@ -40,18 +49,21 @@
       <Filter>Исходные файлы\main</Filter>
     </ClCompile>
     <ClCompile Include="RegionPipe.cpp">
-      <Filter>Исходные файлы\Region</Filter>
+      <Filter>Исходные файлы\Dialogs\Region</Filter>
+    </ClCompile>
+    <ClCompile Include="InputOutputListener.cpp">
+      <Filter>Исходные файлы\Messaging</Filter>
+    </ClCompile>
+    <ClCompile Include="OpenDialog.cpp">
+      <Filter>Исходные файлы\Dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="Properties.cpp">
+      <Filter>Исходные файлы\Properties</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="WaterPumpForm.h">
       <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="WaterPump.h">
-      <Filter>Исходные файлы\WaterPump</Filter>
-    </ClInclude>
-    <ClInclude Include="main.h">
-      <Filter>Исходные файлы\main</Filter>
     </ClInclude>
     <ClInclude Include="utils.h">
       <Filter>Исходные файлы\main</Filter>
@@ -68,17 +80,11 @@
     <ClInclude Include="inputs.h">
       <Filter>Исходные файлы\main</Filter>
     </ClInclude>
-    <ClInclude Include="RealChartPoint.h">
-      <Filter>Исходные файлы\WaterPump</Filter>
+    <ClInclude Include="ChartPoint.h">
+      <Filter>Исходные файлы\Dialogs\WaterPump</Filter>
     </ClInclude>
-    <ClInclude Include="RealWaterPump.h">
-      <Filter>Исходные файлы\WaterPump</Filter>
-    </ClInclude>
-    <ClInclude Include="CurrentForm.h">
-      <Filter>Исходные файлы\main</Filter>
-    </ClInclude>
-    <ClInclude Include="RealAbstractDialog.h">
-      <Filter>Исходные файлы\main</Filter>
+    <ClInclude Include="WaterPump.h">
+      <Filter>Исходные файлы\Dialogs\WaterPump</Filter>
     </ClInclude>
     <ClInclude Include="LocalizationManager.h">
       <Filter>Исходные файлы\main</Filter>
@@ -90,10 +96,16 @@
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
     <ClInclude Include="RegionPipe.h">
-      <Filter>Исходные файлы\Region</Filter>
+      <Filter>Исходные файлы\Dialogs\Region</Filter>
     </ClInclude>
-    <ClInclude Include="RealRegionPipe.h">
-      <Filter>Исходные файлы\Region</Filter>
+    <ClInclude Include="InputOutputListener.h">
+      <Filter>Исходные файлы\Messaging</Filter>
+    </ClInclude>
+    <ClInclude Include="OpenDialog.h">
+      <Filter>Исходные файлы\Dialogs</Filter>
+    </ClInclude>
+    <ClInclude Include="Properties.h">
+      <Filter>Исходные файлы\Properties</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

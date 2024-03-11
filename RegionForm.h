@@ -50,7 +50,7 @@ namespace angarawindows {
 	protected:
 	private: System::Windows::Forms::TabPage^ tabPage1;
 	private: System::Windows::Forms::TabPage^ tabPage3;
-	private: System::Windows::Forms::TabPage^ tabPage2;
+
 	private: System::Windows::Forms::TabControl^ tabControl2;
 	private: System::Windows::Forms::TabPage^ tabPage4;
 	private: System::Windows::Forms::TabPage^ tabPage5;
@@ -78,6 +78,8 @@ namespace angarawindows {
 	private: System::Windows::Forms::TabPage^ tabPage6;
 	private: System::Windows::Forms::FlowLayoutPanel^ flowLayoutPanel3;
 	private: System::Windows::Forms::Label^ label5;
+	private: System::Windows::Forms::Label^ label6;
+	private: System::Windows::Forms::ComboBox^ comboBox2;
 
 
 	private:
@@ -93,9 +95,9 @@ namespace angarawindows {
 		/// </summary>
 		void InitializeComponent(void)
 		{
-			System::Windows::Forms::DataVisualization::Charting::ChartArea^ chartArea2 = (gcnew System::Windows::Forms::DataVisualization::Charting::ChartArea());
-			System::Windows::Forms::DataVisualization::Charting::Legend^ legend2 = (gcnew System::Windows::Forms::DataVisualization::Charting::Legend());
-			System::Windows::Forms::DataVisualization::Charting::Series^ series2 = (gcnew System::Windows::Forms::DataVisualization::Charting::Series());
+			System::Windows::Forms::DataVisualization::Charting::ChartArea^ chartArea1 = (gcnew System::Windows::Forms::DataVisualization::Charting::ChartArea());
+			System::Windows::Forms::DataVisualization::Charting::Legend^ legend1 = (gcnew System::Windows::Forms::DataVisualization::Charting::Legend());
+			System::Windows::Forms::DataVisualization::Charting::Series^ series1 = (gcnew System::Windows::Forms::DataVisualization::Charting::Series());
 			this->tabControl1 = (gcnew System::Windows::Forms::TabControl());
 			this->tabPage1 = (gcnew System::Windows::Forms::TabPage());
 			this->tabControl2 = (gcnew System::Windows::Forms::TabControl());
@@ -114,15 +116,16 @@ namespace angarawindows {
 			this->textBox2 = (gcnew System::Windows::Forms::TextBox());
 			this->tabPage6 = (gcnew System::Windows::Forms::TabPage());
 			this->tabPage5 = (gcnew System::Windows::Forms::TabPage());
-			this->tabPage2 = (gcnew System::Windows::Forms::TabPage());
+			this->flowLayoutPanel3 = (gcnew System::Windows::Forms::FlowLayoutPanel());
+			this->label5 = (gcnew System::Windows::Forms::Label());
 			this->tabPage3 = (gcnew System::Windows::Forms::TabPage());
 			this->chart1 = (gcnew System::Windows::Forms::DataVisualization::Charting::Chart());
 			this->tableLayoutPanel1 = (gcnew System::Windows::Forms::TableLayoutPanel());
 			this->flowLayoutPanel2 = (gcnew System::Windows::Forms::FlowLayoutPanel());
 			this->button1 = (gcnew System::Windows::Forms::Button());
 			this->button2 = (gcnew System::Windows::Forms::Button());
-			this->flowLayoutPanel3 = (gcnew System::Windows::Forms::FlowLayoutPanel());
-			this->label5 = (gcnew System::Windows::Forms::Label());
+			this->label6 = (gcnew System::Windows::Forms::Label());
+			this->comboBox2 = (gcnew System::Windows::Forms::ComboBox());
 			this->tabControl1->SuspendLayout();
 			this->tabPage1->SuspendLayout();
 			this->tabControl2->SuspendLayout();
@@ -132,16 +135,15 @@ namespace angarawindows {
 			this->tableLayoutPanel3->SuspendLayout();
 			this->tableLayoutPanel2->SuspendLayout();
 			this->tabPage5->SuspendLayout();
+			this->flowLayoutPanel3->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->chart1))->BeginInit();
 			this->tableLayoutPanel1->SuspendLayout();
 			this->flowLayoutPanel2->SuspendLayout();
-			this->flowLayoutPanel3->SuspendLayout();
 			this->SuspendLayout();
 			// 
 			// tabControl1
 			// 
 			this->tabControl1->Controls->Add(this->tabPage1);
-			this->tabControl1->Controls->Add(this->tabPage2);
 			this->tabControl1->Controls->Add(this->tabPage3);
 			this->tabControl1->Dock = System::Windows::Forms::DockStyle::Fill;
 			this->tabControl1->Location = System::Drawing::Point(3, 3);
@@ -189,6 +191,8 @@ namespace angarawindows {
 			// 
 			this->flowLayoutPanel1->Controls->Add(this->label1);
 			this->flowLayoutPanel1->Controls->Add(this->comboBox1);
+			this->flowLayoutPanel1->Controls->Add(this->label6);
+			this->flowLayoutPanel1->Controls->Add(this->comboBox2);
 			this->flowLayoutPanel1->Controls->Add(this->tableLayoutPanel4);
 			this->flowLayoutPanel1->Controls->Add(this->tableLayoutPanel3);
 			this->flowLayoutPanel1->Controls->Add(this->tableLayoutPanel2);
@@ -230,7 +234,7 @@ namespace angarawindows {
 			this->tableLayoutPanel4->Controls->Add(this->comboBox4, 1, 0);
 			this->tableLayoutPanel4->Controls->Add(this->label4, 0, 0);
 			this->tableLayoutPanel4->Dock = System::Windows::Forms::DockStyle::Top;
-			this->tableLayoutPanel4->Location = System::Drawing::Point(3, 62);
+			this->tableLayoutPanel4->Location = System::Drawing::Point(3, 118);
 			this->tableLayoutPanel4->Margin = System::Windows::Forms::Padding(3, 6, 3, 6);
 			this->tableLayoutPanel4->Name = L"tableLayoutPanel4";
 			this->tableLayoutPanel4->RowCount = 1;
@@ -269,7 +273,7 @@ namespace angarawindows {
 			this->tableLayoutPanel3->Controls->Add(this->label3, 0, 0);
 			this->tableLayoutPanel3->Controls->Add(this->textBox1, 1, 0);
 			this->tableLayoutPanel3->Dock = System::Windows::Forms::DockStyle::Top;
-			this->tableLayoutPanel3->Location = System::Drawing::Point(3, 103);
+			this->tableLayoutPanel3->Location = System::Drawing::Point(3, 159);
 			this->tableLayoutPanel3->Margin = System::Windows::Forms::Padding(3, 6, 3, 6);
 			this->tableLayoutPanel3->Name = L"tableLayoutPanel3";
 			this->tableLayoutPanel3->RowCount = 1;
@@ -308,7 +312,7 @@ namespace angarawindows {
 			this->tableLayoutPanel2->Controls->Add(this->label2, 0, 0);
 			this->tableLayoutPanel2->Controls->Add(this->textBox2, 1, 0);
 			this->tableLayoutPanel2->Dock = System::Windows::Forms::DockStyle::Top;
-			this->tableLayoutPanel2->Location = System::Drawing::Point(3, 142);
+			this->tableLayoutPanel2->Location = System::Drawing::Point(3, 198);
 			this->tableLayoutPanel2->Margin = System::Windows::Forms::Padding(3, 6, 3, 6);
 			this->tableLayoutPanel2->Name = L"tableLayoutPanel2";
 			this->tableLayoutPanel2->RowCount = 1;
@@ -357,16 +361,26 @@ namespace angarawindows {
 			this->tabPage5->Text = L"Местные сопротивления";
 			this->tabPage5->UseVisualStyleBackColor = true;
 			// 
-			// tabPage2
+			// flowLayoutPanel3
 			// 
-			this->tabPage2->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 9));
-			this->tabPage2->Location = System::Drawing::Point(4, 22);
-			this->tabPage2->Name = L"tabPage2";
-			this->tabPage2->Padding = System::Windows::Forms::Padding(3);
-			this->tabPage2->Size = System::Drawing::Size(346, 365);
-			this->tabPage2->TabIndex = 1;
-			this->tabPage2->Text = L"<- синхронизировано ->";
-			this->tabPage2->UseVisualStyleBackColor = true;
+			this->flowLayoutPanel3->Controls->Add(this->label5);
+			this->flowLayoutPanel3->Dock = System::Windows::Forms::DockStyle::Fill;
+			this->flowLayoutPanel3->FlowDirection = System::Windows::Forms::FlowDirection::TopDown;
+			this->flowLayoutPanel3->Location = System::Drawing::Point(3, 3);
+			this->flowLayoutPanel3->Name = L"flowLayoutPanel3";
+			this->flowLayoutPanel3->Size = System::Drawing::Size(371, 325);
+			this->flowLayoutPanel3->TabIndex = 0;
+			this->flowLayoutPanel3->WrapContents = false;
+			// 
+			// label5
+			// 
+			this->label5->AutoSize = true;
+			this->label5->Location = System::Drawing::Point(3, 6);
+			this->label5->Margin = System::Windows::Forms::Padding(3, 6, 3, 6);
+			this->label5->Name = L"label5";
+			this->label5->Size = System::Drawing::Size(184, 15);
+			this->label5->TabIndex = 0;
+			this->label5->Text = L"Типы местных сопротивлений";
 			// 
 			// tabPage3
 			// 
@@ -374,23 +388,23 @@ namespace angarawindows {
 			this->tabPage3->Location = System::Drawing::Point(4, 22);
 			this->tabPage3->Name = L"tabPage3";
 			this->tabPage3->Padding = System::Windows::Forms::Padding(3);
-			this->tabPage3->Size = System::Drawing::Size(346, 365);
+			this->tabPage3->Size = System::Drawing::Size(391, 365);
 			this->tabPage3->TabIndex = 2;
 			this->tabPage3->Text = L"Вывод";
 			this->tabPage3->UseVisualStyleBackColor = true;
 			// 
 			// chart1
 			// 
-			chartArea2->Name = L"ChartArea1";
-			this->chart1->ChartAreas->Add(chartArea2);
-			legend2->Name = L"Legend1";
-			this->chart1->Legends->Add(legend2);
+			chartArea1->Name = L"ChartArea1";
+			this->chart1->ChartAreas->Add(chartArea1);
+			legend1->Name = L"Legend1";
+			this->chart1->Legends->Add(legend1);
 			this->chart1->Location = System::Drawing::Point(408, 3);
 			this->chart1->Name = L"chart1";
-			series2->ChartArea = L"ChartArea1";
-			series2->Legend = L"Legend1";
-			series2->Name = L"Series1";
-			this->chart1->Series->Add(series2);
+			series1->ChartArea = L"ChartArea1";
+			series1->Legend = L"Legend1";
+			series1->Name = L"Series1";
+			this->chart1->Series->Add(series1);
 			this->chart1->Size = System::Drawing::Size(300, 212);
 			this->chart1->TabIndex = 1;
 			this->chart1->Text = L"chart1";
@@ -445,26 +459,23 @@ namespace angarawindows {
 			this->button2->TabIndex = 1;
 			this->button2->UseVisualStyleBackColor = true;
 			// 
-			// flowLayoutPanel3
+			// label6
 			// 
-			this->flowLayoutPanel3->Controls->Add(this->label5);
-			this->flowLayoutPanel3->Dock = System::Windows::Forms::DockStyle::Fill;
-			this->flowLayoutPanel3->FlowDirection = System::Windows::Forms::FlowDirection::TopDown;
-			this->flowLayoutPanel3->Location = System::Drawing::Point(3, 3);
-			this->flowLayoutPanel3->Name = L"flowLayoutPanel3";
-			this->flowLayoutPanel3->Size = System::Drawing::Size(371, 325);
-			this->flowLayoutPanel3->TabIndex = 0;
-			this->flowLayoutPanel3->WrapContents = false;
+			this->label6->AutoSize = true;
+			this->label6->Location = System::Drawing::Point(3, 62);
+			this->label6->Margin = System::Windows::Forms::Padding(3, 6, 3, 6);
+			this->label6->Name = L"label6";
+			this->label6->Size = System::Drawing::Size(105, 15);
+			this->label6->TabIndex = 7;
+			this->label6->Text = L"Материал трубы";
 			// 
-			// label5
+			// comboBox2
 			// 
-			this->label5->AutoSize = true;
-			this->label5->Location = System::Drawing::Point(3, 6);
-			this->label5->Margin = System::Windows::Forms::Padding(3, 6, 3, 6);
-			this->label5->Name = L"label5";
-			this->label5->Size = System::Drawing::Size(184, 15);
-			this->label5->TabIndex = 0;
-			this->label5->Text = L"Типы местных сопротивлений";
+			this->comboBox2->FormattingEnabled = true;
+			this->comboBox2->Location = System::Drawing::Point(3, 86);
+			this->comboBox2->Name = L"comboBox2";
+			this->comboBox2->Size = System::Drawing::Size(191, 23);
+			this->comboBox2->TabIndex = 8;
 			// 
 			// RegionForm
 			// 
@@ -487,13 +498,13 @@ namespace angarawindows {
 			this->tableLayoutPanel2->ResumeLayout(false);
 			this->tableLayoutPanel2->PerformLayout();
 			this->tabPage5->ResumeLayout(false);
+			this->flowLayoutPanel3->ResumeLayout(false);
+			this->flowLayoutPanel3->PerformLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->chart1))->EndInit();
 			this->tableLayoutPanel1->ResumeLayout(false);
 			this->tableLayoutPanel1->PerformLayout();
 			this->flowLayoutPanel2->ResumeLayout(false);
 			this->flowLayoutPanel2->PerformLayout();
-			this->flowLayoutPanel3->ResumeLayout(false);
-			this->flowLayoutPanel3->PerformLayout();
 			this->ResumeLayout(false);
 
 		}

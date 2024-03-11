@@ -2,7 +2,6 @@
 #include "DBWrapper.h"
 #include "inputs.h"
 #include <stdexcept>
-#include <map>
 
 namespace angarawindows {
 	using namespace System;
@@ -83,7 +82,7 @@ namespace angarawindows {
 		delegate OBS PrepareToShow(OBS, bool);
 	private:
 		OBS value; //pointer to value
-		std::map<std::string, int>* errors; //pointer to errors;
+		Dictionary<String^, int>^ errors; //pointer to errors;
 		ToolTip^ errorTip;
 
 		bool isUser = false;
@@ -95,7 +94,7 @@ namespace angarawindows {
 		bool isUpdateProcess = false;
 		bool isValidProcess = false;
 
-		ObserverValue(OBS value, std::map<std::string, int>* errors, ToolTip^ errorTip) {
+		ObserverValue(OBS value, Dictionary<String^, int>^ errors, ToolTip^ errorTip) {
 			this->value = value;
 			this->errors = errors; //set pointer
 			this->errorTip = errorTip;
@@ -107,7 +106,7 @@ namespace angarawindows {
 		}
 
 		void setValue(DBWrapper<OBS>^ value) {
-			setValue(value, true);
+			setValue(value, !value->empty);
 		}
 
 		void setValue(DBWrapper<OBS>^ value, bool isUser) {
@@ -133,7 +132,6 @@ namespace angarawindows {
 			this->isUser |= isUser;
 
 			if (this->valid()) {
-
 				for (int i = 0; i < this->eventHandlers->Count; i++) {
 					this->eventHandlers[i](this);
 				}
@@ -207,8 +205,7 @@ namespace angarawindows {
 		System::Void showErrorsEvent(System::Object^ sender, System::EventArgs^ e) {
 			Control^ t = safe_cast<Control^>(sender);
 
-			auto it = this->errors->find(SysToStd(t->Name));
-			if (it == this->errors->end())
+			if (this->errors->ContainsKey(t->Name))
 				return;
 			this->errorTip->Active = false;
 			this->errorTip->Active = true;
@@ -331,11 +328,11 @@ namespace angarawindows {
 			validate = nullptr;
 		}
 
-		static void inline addToErrors(Control^ control, String^ error, std::map<std::string, int>* errors, ToolTip^ errorTip) {
-			std::string name = SysToStd(control->Name);
+		static void inline addToErrors(Control^ control, String^ error, Dictionary<String^, int>^ errors, ToolTip^ errorTip) {
+			String^ name = control->Name;
 
-			if (errors->find(name) == errors->end())
-				(*errors)[name] = control->BackColor.ToArgb();
+			if (!errors->ContainsKey(name))
+				errors[name] = control->BackColor.ToArgb();
 
 			errorTip->SetToolTip(control, error);
 			control->BackColor = System::Drawing::Color::FromArgb(255, 128, 128);
@@ -369,15 +366,14 @@ namespace angarawindows {
 			}
 		}
 
-		static inline void removeFromsErrors(Control^ control, std::map<std::string, int>* errors, ToolTip^ errorTip) {
-			std::string name = SysToStd(control->Name);
+		static inline void removeFromsErrors(Control^ control, Dictionary<String^, int>^ errors, ToolTip^ errorTip) {
+			String^ name = control->Name;
 
-			auto it = errors->find(name);
-			if (it == errors->end())
+			if (!errors->ContainsKey(name))
 				return;
 
-			control->BackColor = System::Drawing::Color::FromArgb(it->second);
-			errors->erase(name);
+			control->BackColor = System::Drawing::Color::FromArgb(errors[name]);
+			errors->Remove(name);
 			errorTip->SetToolTip(control, nullptr);
 		}
 

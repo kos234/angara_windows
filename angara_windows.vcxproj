@@ -125,7 +125,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="InputOutputListener.cpp" />
     <ClCompile Include="inputs.cpp" />
+    <ClCompile Include="OpenDialog.cpp" />
+    <ClCompile Include="Properties.cpp" />
     <ClCompile Include="RegionPipe.cpp" />
     <ClCompile Include="WaterPump.cpp" />
     <ClCompile Include="main.cpp" />
@@ -133,22 +136,20 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AbstractDialog.h" />
-    <ClInclude Include="CurrentForm.h" />
     <ClInclude Include="DBWrapper.h" />
+    <ClInclude Include="InputOutputListener.h" />
     <ClInclude Include="inputs.h" />
     <ClInclude Include="ObserverValue.h" />
-    <ClInclude Include="RealAbstractDialog.h" />
-    <ClInclude Include="RealChartPoint.h" />
-    <ClInclude Include="RealRegionPipe.h" />
-    <ClInclude Include="RealWaterPump.h" />
+    <ClInclude Include="OpenDialog.h" />
+    <ClInclude Include="Properties.h" />
+    <ClInclude Include="ChartPoint.h" />
+    <ClInclude Include="RegionPipe.h" />
+    <ClInclude Include="WaterPump.h" />
     <ClInclude Include="LocalizationManager.h" />
     <ClInclude Include="RegionForm.h">
       <FileType>CppForm</FileType>
     </ClInclude>
-    <ClInclude Include="RegionPipe.h" />
     <ClInclude Include="resource.h" />
-    <ClInclude Include="WaterPump.h" />
-    <ClInclude Include="main.h" />
     <ClInclude Include="utils.h" />
     <ClInclude Include="WaterPumpForm.h">
       <FileType>CppForm</FileType>

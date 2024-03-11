@@ -6,12 +6,8 @@
 
 
 namespace angarawindows {
-
 	std::string SysToStd(System::String^ original) {
 		return msclr::interop::marshal_as<std::string>(original);
-	}
-	System::String^ StdToSys(std::string original) {
-		return gcnew System::String(original.c_str());
 	}
 
 	void SuperTextSetter(System::Windows::Forms::TextBox^ box, System::String^ text) {

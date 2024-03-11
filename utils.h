@@ -1,12 +1,10 @@
 #pragma once
 
-#include <string>
 #include <functional>
-#include "RealChartPoint.h"
+#include "ChartPoint.h"
 #include "ObserverValue.h"
 #include "DBWrapper.h"
-#include "main.h"
-#include <msclr/gcroot.h>
+#include "Properties.h"
 #include <iostream>
 
 
@@ -48,51 +46,66 @@ namespace angarawindows {
 		DrawDelegat^ drawFunc,
 		bool isInterval,
 		double maxX,
-		System::Collections::Generic::List<RealChartPoint^>^ points);
+		System::Collections::Generic::List<ChartPoint^>^ points);
 
 	ChartIntevals drawPumpCharts(ChartData& data,
 		DrawDelegat^ drawFunc,
 		bool isInterval,
 		double maxX);
 
-	ChartData calculateChartData(double k, System::Collections::Generic::List<RealChartPoint^>^ points, CalculateDelegat^ pointItCallback);
+	ChartData calculateChartData(double k, System::Collections::Generic::List<ChartPoint^>^ points, CalculateDelegat^ pointItCallback);
 
-	void sortPoint(System::Collections::Generic::List<RealChartPoint^>^ points);
+	void sortPoint(System::Collections::Generic::List<ChartPoint^>^ points);
 
 	void checkPoint(System::Windows::Forms::DataVisualization::Charting::Chart^ chart,
 		System::Windows::Forms::DataVisualization::Charting::DataPoint^ point,
 		int i);
 
-	std::string toSaintific(double value);
+	String^ toSaintific(double value);
 
 	int GetIntLength(int q);
 
-	DBWrapper<int>^ getInt(msclr::gcroot <System::Data::OleDb::OleDbDataReader^> reader, System::String^ name, int def);
 
-	DBWrapper<int>^ getInt(msclr::gcroot <System::Data::OleDb::OleDbDataReader^> reader, System::String^ name);
+	template<typename T>
+	DBWrapper<T>^ getDBData(System::Data::OleDb::OleDbDataReader^ reader, System::String^ name, T def) {
+		DBWrapper<T>^ wrapper = gcnew DBWrapper<T>;
+		wrapper->value = def;
+		int id = reader->GetOrdinal(name);
 
-	DBWrapper<short>^ getShort(msclr::gcroot <System::Data::OleDb::OleDbDataReader^> reader, System::String^ name, short def);
+		if (reader->IsDBNull(id))
+			return wrapper;
 
-	DBWrapper<short>^ getShort(msclr::gcroot <System::Data::OleDb::OleDbDataReader^> reader, System::String^ name);
+		if constexpr (std::is_same<T, long long>::value) {
+			wrapper->value = reader->GetInt64(id);
+			wrapper->empty = wrapper->value == 0;
+		}else if constexpr (std::is_same<T, int>::value) {
+			wrapper->value = reader->GetInt32(id);
+			wrapper->empty = wrapper->value == 0;
+		}else if constexpr (std::is_same<T, short>::value) {
+			wrapper->value = reader->GetInt16(id);
+			wrapper->empty = wrapper->value == 0;
+		}else if constexpr (std::is_same<T, double>::value) {
+			wrapper->value = reader->GetDouble(id);
+			wrapper->empty = wrapper->value == 0;
+		}else if constexpr (std::is_same<T, float>::value) {
+			wrapper->value = reader->GetFloat(id);
+			wrapper->empty = wrapper->value == 0;
+		}else if constexpr (std::is_same<T, String^>::value) {
+			wrapper->value = reader->GetString(id);
+			wrapper->empty = wrapper->value->Length == 0;
+		}
 
+		return wrapper;
+	}
 
-	DBWrapper<long long>^ getLongLong(msclr::gcroot <System::Data::OleDb::OleDbDataReader^> reader, System::String^ name, long long def);
+	template<typename T>
+	DBWrapper<T>^ getDBData(System::Data::OleDb::OleDbDataReader^ reader, System::String^ name) {
+		if constexpr (std::is_same<T, String^>::value) {
+			return getDBData<T>(reader, name, gcnew String(L""));
+		}else 
+			return getDBData<T>(reader, name, 0);
+	}
 
-	DBWrapper<long long>^ getLongLong(msclr::gcroot <System::Data::OleDb::OleDbDataReader^> reader, System::String^ name);
-
-
-	DBWrapper<double>^ getDouble(msclr::gcroot <System::Data::OleDb::OleDbDataReader^> reader, System::String^ name, double def);
-
-	DBWrapper<double>^ getDouble(msclr::gcroot <System::Data::OleDb::OleDbDataReader^> reader, System::String^ name);
-
-
-	DBWrapper<float>^ getFloat(msclr::gcroot <System::Data::OleDb::OleDbDataReader^> reader, System::String^ name, float def);
-
-	DBWrapper<float>^ getFloat(msclr::gcroot <System::Data::OleDb::OleDbDataReader^> reader, System::String^ name);
-
-	DBWrapper<String^>^ getString(msclr::gcroot <System::Data::OleDb::OleDbDataReader^> reader, System::String^ name, std::string def);
-
-	DBWrapper<String^>^ getString(msclr::gcroot <System::Data::OleDb::OleDbDataReader^> reader, System::String^ name);
 
 	void setupChart(System::Windows::Forms::DataVisualization::Charting::Chart^ chart, System::String^ titleY, System::Drawing::Color mainGraf, System::Drawing::Color nominalGraf, System::Drawing::Color points);
 
@@ -102,14 +115,6 @@ namespace angarawindows {
 	void log(T value) {
 		std::cout << value << "\n";
 	}
-
-	ref class GetNextIdLink {
-	protected:
-		int idLink = -1;
-		void readNextIdLink(OleDbDataReader^ reader);
-	public:
-		int get();
-	};
 
 
 	public ref class QueryBuilder {
@@ -190,7 +195,7 @@ namespace angarawindows {
 		}
 
 		int executeUpdate() {
-			OleDbConnection^ connection = gcnew OleDbConnection(gcnew String(getUrlConnect()));
+			OleDbConnection^ connection = gcnew OleDbConnection(Properties::getUrlConnect());
 			connection->Open();
 			command->Connection = connection;
 
@@ -200,7 +205,7 @@ namespace angarawindows {
 		}
 
 		void executeQuery(Read^ func) {
-			OleDbConnection^ connection = gcnew OleDbConnection(gcnew String(getUrlConnect()));
+			OleDbConnection^ connection = gcnew OleDbConnection(Properties::getUrlConnect());
 			connection->Open();
 			command->Connection = connection;
 
