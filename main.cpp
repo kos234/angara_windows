@@ -36,8 +36,8 @@ namespace angarawindows {
 
 
 int maind() {
-	angarawindows::setDBConnect("provider=Microsoft.ACE.OLEDB.12.0;Data Source=C:\\Users\\kosty\\Documents\\TP_EqNS_ML.MDB");
-	angarawindows::setLocale(angarawindows::locales::ZH_LOCALE);
+	angarawindows::setDBConnect("provider=Microsoft.ACE.OLEDB.12.0;Data Source=C:\\Users\\kosty\\Documents\\tp_ML_ru_2023_11.mdb");
+	angarawindows::setLocale(angarawindows::locales::RU_LOCALE);
 
 	angarawindows::WaterPump windPump;
 	windPump.show(4028);

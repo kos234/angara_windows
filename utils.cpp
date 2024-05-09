@@ -16,7 +16,8 @@ namespace angarawindows {
 		return 0.272407 * H * Q / N;
 	}
 
-	double* getInterval(double x) {
+	LocalInterval getInterval(double x) {
+		//MessageBox::Show("getInterVal for = " + x);
 		double copyX = x;
 		int size = 0;
 
@@ -30,27 +31,39 @@ namespace angarawindows {
 		double offset = 1;
 		double max = x + 1;
 		double normalyze = System::Math::Pow(10, size);
-
+		//MessageBox::Show("copy x is " + copyX);
 		if (copyX > 14 && copyX < 35) {
 			offset = 5 * normalyze;
 			normalyze *= 15;
 
 			max = normalyze + offset * (System::Math::Floor((x - normalyze) / offset) + 1);
+			//MessageBox::Show("1");
+			//MessageBox::Show("normalyze is " + normalyze);
+			//MessageBox::Show("offset is " + offset);
+			//MessageBox::Show("max is " + max);
 		}
 		else if (copyX >= 6 && copyX <= 14) {
 			offset = 2 * System::Math::Pow(10, size);
 			normalyze *= 6;
 
 			max = normalyze + offset * (System::Math::Floor((x - normalyze) / offset) + 1);
+			//MessageBox::Show("normalyze is " + normalyze);
+			//MessageBox::Show("offset is " + offset);
+			//MessageBox::Show("max is " + max);
+			//MessageBox::Show("2");
 		}
 		else if (copyX >= 3.5 && copyX < 6) {
 			offset = System::Math::Pow(10, size);
 			max = normalyze * 3 + offset * (System::Math::Ceiling((x - normalyze * 3.5) / offset) + 1);
+			//MessageBox::Show("normalyze is " + normalyze);
+			//MessageBox::Show("offset is " + offset);
+			//MessageBox::Show("max is " + max);
+			//MessageBox::Show("3");
 		}
 
-		double ans[2];
-		ans[0] = offset;
-		ans[1] = System::Math::Ceiling(max);
+		LocalInterval ans;
+		ans.offset = offset;
+		ans.max = System::Math::Ceiling(max);
 		return ans;
 	}
 
@@ -125,20 +138,20 @@ namespace angarawindows {
 
 		if (isInterval) {
 			auto q1 = getInterval(endX);
-			intervals.QMax = q1[1];
-			intervals.QInterval = q1[0];
+			intervals.QMax = q1.max;
+			intervals.QInterval = q1.offset;
 
 			q1 = getInterval(maxH);
-			intervals.HMax = q1[1];
-			intervals.HInterval = q1[0];
+			intervals.HMax = q1.max;
+			intervals.HInterval = q1.offset;
 
 			q1 = getInterval(maxN);
-			intervals.NMax = q1[1];
-			intervals.NInterval = q1[0];
+			intervals.NMax = q1.max;
+			intervals.NInterval = q1.offset;
 
 			q1 = getInterval(maxM);
-			intervals.MMax = q1[1];
-			intervals.MInterval = q1[0];
+			intervals.MMax = q1.max;
+			intervals.MInterval = q1.offset;
 		}
 
 		return intervals;

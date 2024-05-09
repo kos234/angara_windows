@@ -20,7 +20,13 @@ namespace angarawindows {
 
 	double getCPD(double H, double Q, double N);
 
-	double* getInterval(double x);
+	struct LocalInterval
+	{
+		double offset = 0;
+		double max = 0;
+	};
+
+	LocalInterval getInterval(double x);
 
 	double round3(double x);
 
@@ -31,6 +37,7 @@ namespace angarawindows {
 		double N0 = 0;
 		double C = 0;
 	};
+	
 
 	struct ChartIntevals
 	{

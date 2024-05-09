@@ -874,6 +874,7 @@ namespace angarawindows {
 				this->form->chart2->ChartAreas[0]->AxisX->Interval = intervals.QInterval;
 				this->form->chart3->ChartAreas[0]->AxisX->Interval = intervals.QInterval;
 			}
+			//MessageBox::Show(intervals.QMax + " qax");
 			if (intervals.QMax != 0) {
 				this->form->chart1->ChartAreas[0]->AxisX->Maximum = intervals.QMax;
 				this->form->chart2->ChartAreas[0]->AxisX->Maximum = intervals.QMax;
