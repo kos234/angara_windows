@@ -1,8 +1,11 @@
 #pragma once
 #include <functional>
 #include <msclr/gcroot.h>
+#include "main.h"
 #include "utils.h"
-#include "WaterPump.h"
+#include "OpenDialog.h"
+#include "AbstractDialogData.h"
+#include "CurrentForm.h"
 #include "LocalizationManager.h"
 
 
@@ -32,9 +35,15 @@ namespace angarawindows {
 	const char* getUrlConnect() {
 		return urlConnect;
 	}
+
+	AbstractDialogData* openDialogById(int id) {
+		OpenDialog^ openDialog = gcnew OpenDialog(id);
+		
+		return getLastDialogData();
+	}
 }
 
-
+/*
 int maind() {
 	angarawindows::setDBConnect("provider=Microsoft.ACE.OLEDB.12.0;Data Source=C:\\Users\\kosty\\Documents\\tp_ML_ru_2023_11.mdb");
 	angarawindows::setLocale(angarawindows::locales::RU_LOCALE);
@@ -42,4 +51,4 @@ int maind() {
 	angarawindows::WaterPump windPump;
 	windPump.show(4028);
 	return 0;
-}
+}*/

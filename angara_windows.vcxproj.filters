@@ -22,6 +22,12 @@
     <Filter Include="Исходные файлы\resources">
       <UniqueIdentifier>{45b55096-54df-4dbb-91c4-5f0402928b11}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Исходные файлы\OpenDialog">
+      <UniqueIdentifier>{7685a97e-e85b-4c7b-870b-568188e31df2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Исходные файлы\CurrentForm">
+      <UniqueIdentifier>{839ddc3e-f17f-46c0-836b-68132c435afb}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WaterPump.cpp">
@@ -36,6 +42,12 @@
     <ClCompile Include="inputs.cpp">
       <Filter>Исходные файлы\main</Filter>
     </ClCompile>
+    <ClCompile Include="OpenDialog.cpp">
+      <Filter>Исходные файлы\OpenDialog</Filter>
+    </ClCompile>
+    <ClCompile Include="CurrentForm.cpp">
+      <Filter>Исходные файлы\CurrentForm</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="WaterPumpForm.h">
@@ -44,7 +56,7 @@
     <ClInclude Include="Pipe.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="WaterPump.h">
+    <ClInclude Include="WaterPumpData.h">
       <Filter>Исходные файлы\WaterPump</Filter>
     </ClInclude>
     <ClInclude Include="main.h">
@@ -56,7 +68,7 @@
     <ClInclude Include="ObserverValue.h">
       <Filter>Исходные файлы\main</Filter>
     </ClInclude>
-    <ClInclude Include="AbstractDialog.h">
+    <ClInclude Include="AbstractDialogData.h">
       <Filter>Исходные файлы\main</Filter>
     </ClInclude>
     <ClInclude Include="DBWrapper.h">
@@ -68,13 +80,10 @@
     <ClInclude Include="RealChartPoint.h">
       <Filter>Исходные файлы\WaterPump</Filter>
     </ClInclude>
-    <ClInclude Include="RealWaterPump.h">
+    <ClInclude Include="WaterPump.h">
       <Filter>Исходные файлы\WaterPump</Filter>
     </ClInclude>
-    <ClInclude Include="CurrentForm.h">
-      <Filter>Исходные файлы\main</Filter>
-    </ClInclude>
-    <ClInclude Include="RealAbstractDialog.h">
+    <ClInclude Include="AbstractDialog.h">
       <Filter>Исходные файлы\main</Filter>
     </ClInclude>
     <ClInclude Include="LocalizationManager.h">
@@ -82,6 +91,15 @@
     </ClInclude>
     <ClInclude Include="resource.h">
       <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="OpenDialog.h">
+      <Filter>Исходные файлы\OpenDialog</Filter>
+    </ClInclude>
+    <ClInclude Include="CurrentForm.h">
+      <Filter>Исходные файлы\CurrentForm</Filter>
+    </ClInclude>
+    <ClInclude Include="dllSupport.h">
+      <Filter>Исходные файлы</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

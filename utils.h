@@ -74,32 +74,52 @@ namespace angarawindows {
 
 	int GetIntLength(int q);
 
-	DBWrapper<int>^ getInt(msclr::gcroot <System::Data::OleDb::OleDbDataReader^> reader, System::String^ name, int def);
+	template<typename T>
+	DBWrapper<T>^ getDBData(System::Data::OleDb::OleDbDataReader^ reader, System::String^ name, T def) {
+		DBWrapper<T>^ wrapper = gcnew DBWrapper<T>;
+		wrapper->value = def;
+		int id = reader->GetOrdinal(name);
 
-	DBWrapper<int>^ getInt(msclr::gcroot <System::Data::OleDb::OleDbDataReader^> reader, System::String^ name);
+		if (reader->IsDBNull(id))
+			return wrapper;
 
-	DBWrapper<short>^ getShort(msclr::gcroot <System::Data::OleDb::OleDbDataReader^> reader, System::String^ name, short def);
+		if constexpr (std::is_same<T, long long>::value) {
+			wrapper->value = reader->GetInt64(id);
+			wrapper->empty = wrapper->value == 0;
+		}
+		else if constexpr (std::is_same<T, int>::value) {
+			wrapper->value = reader->GetInt32(id);
+			wrapper->empty = wrapper->value == 0;
+		}
+		else if constexpr (std::is_same<T, short>::value) {
+			wrapper->value = reader->GetInt16(id);
+			wrapper->empty = wrapper->value == 0;
+		}
+		else if constexpr (std::is_same<T, double>::value) {
+			wrapper->value = reader->GetDouble(id);
+			wrapper->empty = wrapper->value == 0;
+		}
+		else if constexpr (std::is_same<T, float>::value) {
+			wrapper->value = reader->GetFloat(id);
+			wrapper->empty = wrapper->value == 0;
+		}
+		else if constexpr (std::is_same<T, String^>::value) {
+			wrapper->value = reader->GetString(id);
+			wrapper->empty = wrapper->value->Length == 0;
+		}
 
-	DBWrapper<short>^ getShort(msclr::gcroot <System::Data::OleDb::OleDbDataReader^> reader, System::String^ name);
+		return wrapper;
+	}
 
+	template<typename T>
+	DBWrapper<T>^ getDBData(System::Data::OleDb::OleDbDataReader^ reader, System::String^ name) {
+		if constexpr (std::is_same<T, String^>::value) {
+			return getDBData<T>(reader, name, gcnew String(L""));
+		}
+		else
+			return getDBData<T>(reader, name, 0);
+	}
 
-	DBWrapper<long long>^ getLongLong(msclr::gcroot <System::Data::OleDb::OleDbDataReader^> reader, System::String^ name, long long def);
-
-	DBWrapper<long long>^ getLongLong(msclr::gcroot <System::Data::OleDb::OleDbDataReader^> reader, System::String^ name);
-
-
-	DBWrapper<double>^ getDouble(msclr::gcroot <System::Data::OleDb::OleDbDataReader^> reader, System::String^ name, double def);
-
-	DBWrapper<double>^ getDouble(msclr::gcroot <System::Data::OleDb::OleDbDataReader^> reader, System::String^ name);
-
-
-	DBWrapper<float>^ getFloat(msclr::gcroot <System::Data::OleDb::OleDbDataReader^> reader, System::String^ name, float def);
-
-	DBWrapper<float>^ getFloat(msclr::gcroot <System::Data::OleDb::OleDbDataReader^> reader, System::String^ name);
-
-	DBWrapper<String^>^ getString(msclr::gcroot <System::Data::OleDb::OleDbDataReader^> reader, System::String^ name, std::string def);
-
-	DBWrapper<String^>^ getString(msclr::gcroot <System::Data::OleDb::OleDbDataReader^> reader, System::String^ name);
 
 	void setupChart(System::Windows::Forms::DataVisualization::Charting::Chart^ chart, System::String^ titleY, System::Drawing::Color mainGraf, System::Drawing::Color nominalGraf, System::Drawing::Color points);
 
@@ -109,14 +129,6 @@ namespace angarawindows {
 	void log(T value) {
 		std::cout << value << "\n";
 	}
-
-	ref class GetNextIdLink {
-	protected:
-		int idLink = -1;
-		void readNextIdLink(OleDbDataReader^ reader);
-	public:
-		int get();
-	};
 
 
 	public ref class QueryBuilder {

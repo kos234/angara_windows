@@ -1,12 +1,17 @@
 #pragma once
 #include <msclr/gcroot.h>
-#include "RealAbstractDialog.h"
+#include "AbstractDialog.h"
 
 namespace angarawindows {
-	//msclr::gcroot <RealAbstractDialog^> currentDialog = nullptr;
+	AbstractDialogData* getLastDialogData();
 
-	void clearCurrentDialog() {
-		///delete currentDialog;
-		//currentDialog = nullptr;
-	}
+
+	ref class CurrentForm {
+	private:
+		static AbstractDialog^ currentDialog = nullptr;
+		public:
+			static bool isOpenDialog();
+			static void rememberLinkToForm(AbstractDialog^);
+			static void forgetLinkToForm(AbstractDialogData*);
+	};
 }

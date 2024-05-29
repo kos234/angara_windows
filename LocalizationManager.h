@@ -9,7 +9,7 @@ namespace angarawindows {
 
 	ref class LocalizationManager {
 			static ResourceManager^ rm = nullptr;
-			static String^ locale = "en";
+			static String^ locale = "ru";
 	public:
 		static void init() {
 			System::Reflection::Assembly^ as = System::Reflection::Assembly::GetExecutingAssembly();
@@ -17,10 +17,6 @@ namespace angarawindows {
 			array<System::String^>^ tmp = as->GetManifestResourceNames();
 			System::String^ asname = as->GetName()->Name;
 			asname = asname->Replace("_", "");
-			/*for each (System::String ^ sad in tmp) {
-				log(SysToStd(sad));
-			}
-			log(SysToStd(asname));*/
 			LocalizationManager::rm = gcnew ResourceManager(asname + ".strings", System::Reflection::Assembly::GetExecutingAssembly());
 			if (System::Threading::Thread::CurrentThread->CurrentCulture->Name->StartsWith(StdToSys(locales::RU_LOCALE))) {
 				locale = StdToSys(locales::RU_LOCALE);

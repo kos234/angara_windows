@@ -37,17 +37,6 @@ namespace angarawindows {
 	private: System::Windows::Forms::TableLayoutPanel^ tableLayoutPanel15;
 	private: System::Windows::Forms::TableLayoutPanel^ tableLayoutPanel16;
 
-
-	public:
-	private:
-
-
-	public:
-
-
-	public:
-		Hashtable^ errors = gcnew Hashtable();
-
 	public:
 		WaterPumpForm() {
 			InitializeComponent();

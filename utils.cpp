@@ -80,64 +80,56 @@ namespace angarawindows {
 	ChartIntevals drawPumpCharts(ChartData& data, DrawDelegat^ drawFunc, bool isInterval, double maxX, System::Collections::Generic::List<RealChartPoint^>^ points) {
 		ChartIntevals intervals;
 
-		//System::Windows::Forms::MessageBox::Show(data.S + " = s");
-		//System::Windows::Forms::MessageBox::Show(data.C + " = C");
+		double maxQ = 8;
+		double maxM = 8;
+		double maxN = 8;
+		double maxH = 8;
+		if (!(data.H0 == 0 || data.S < 0 || data.N0 == 0 || data.C < 0)) {
 
-		if (data.H0 == 0 || data.S < 0 || data.N0 == 0 || data.C < 0)
-			return intervals;
+			double lastX = 0;
+			double endX = maxX == -1 ? System::Math::Sqrt(data.H0 / data.S) : maxX;
 
+			if (Double::IsInfinity(endX) || Double::IsNaN(endX))
+				endX = 10;
+			double offset = endX / 8;
 
-		double lastX = 0;
-		double endX = maxX == -1 ? System::Math::Sqrt(data.H0 / data.S) : maxX;
-		if (Double::IsInfinity(endX) || Double::IsNaN(endX))
-			endX = 10;
-		double offset = endX / 8;
+			maxH = data.H0;
+			maxQ = endX;
+			while (true) {
+				bool isEnd = false;
+				if (lastX > endX) {
+					lastX = endX;
+					isEnd = true;
+				}
 
-		double maxM = 0;
-		double maxN = 0;
-		double maxH = data.H0;
-		while (true) {
-			bool isEnd = false;
-			if (lastX > endX) {
-				lastX = endX;
-				isEnd = true;
+				double yH = data.H0 - data.S * lastX * lastX;
+				double yN = data.N0 + data.C * lastX;
+				double yM = getCPD(yH, lastX, yN);
+				if (maxM < yM)
+					maxM = yM;
+				maxN = yN;
+
+				drawFunc(lastX, yH, yN, yM);
+
+				lastX += offset;
+
+				if (isEnd)
+					break;
 			}
 
-			double yH = data.H0 - data.S * lastX * lastX;
-			double yN = data.N0 + data.C * lastX;
-			double yM = getCPD(yH, lastX, yN);
-			if (maxM < yM)
-				maxM = yM;
-			maxN = yN;
-
-			drawFunc(lastX, yH, yN, yM);
-
-			lastX += offset;
-
-			//log("points ym = " + std::to_string(yM));
-			//log("points lastX = " + std::to_string(lastX));
-			//log("points endx = " + std::to_string(endX));
-
-			if (isEnd)
-				break;
 		}
-
 		if (points != nullptr)
 			for each (RealChartPoint ^ chartPoint in points) {
 				double yM = getCPD(chartPoint->H, chartPoint->Q, chartPoint->N);
 
-				if (maxM < yM)
-					maxM = yM;
-
-				if (maxN < chartPoint->N)
-					maxN = chartPoint->N;
-
-				if (maxH < chartPoint->H)
-					maxH = chartPoint->H;
+				maxQ = Math::Max(maxQ, chartPoint->Q);
+				maxH = Math::Max(maxH, chartPoint->H);
+				maxN = Math::Max(maxN, chartPoint->N);
+				maxM = Math::Max(maxM, yM);
 			}
 
 		if (isInterval) {
-			auto q1 = getInterval(endX);
+			auto q1 = getInterval(maxQ);
 			intervals.QMax = q1.max;
 			intervals.QInterval = q1.offset;
 
@@ -159,7 +151,6 @@ namespace angarawindows {
 
 	ChartData calculateChartData(double k, System::Collections::Generic::List<RealChartPoint^>^ points, CalculateDelegat^ pointItCallback) {
 		ChartData data;
-
 		int PointsQH = 0;
 		int PointsQN = 0;
 		double sumH = 0;
@@ -171,10 +162,6 @@ namespace angarawindows {
 		double sumNQ = 0;
 		for (int i = 0; i < points->Count; i++) {
 			auto q = points[i];
-
-			//System::Windows::Forms::MessageBox::Show(q.Q + "x");
-			//System::Windows::Forms::MessageBox::Show(q.H + "y");
-
 			double Q = k * q->Q;
 			double H = k * k * q->H;
 			double N = k * k * k * q->N;
@@ -227,9 +214,6 @@ namespace angarawindows {
 			}
 			break;
 		}
-
-		//	System::Windows::Forms::MessageBox::Show(data.S + " d");
-
 		return data;
 	}
 
@@ -278,7 +262,7 @@ namespace angarawindows {
 	}
 
 	int CompareChartPoints(RealChartPoint^ p1, RealChartPoint^ p2) {
-		return p1->Q > p2->Q;
+		return p1->Q < p2->Q;
 	}
 
 	void sortPoint(List<RealChartPoint^>^ q) {
@@ -303,116 +287,6 @@ namespace angarawindows {
 		}
 
 		return isMinus + i;
-	}
-
-	DBWrapper<int>^ getInt(msclr::gcroot <System::Data::OleDb::OleDbDataReader^> reader, System::String^ name, int def) {
-		DBWrapper<int>^ wrapper = gcnew DBWrapper<int>;
-		wrapper->value = def;
-		int id = reader->GetOrdinal(name);
-
-		if (reader->IsDBNull(id))
-			return wrapper;
-
-		wrapper->value = reader->GetInt32(id);
-		wrapper->empty = wrapper->value == 0;
-
-		return wrapper;
-	}
-	DBWrapper<int>^ getInt(msclr::gcroot <System::Data::OleDb::OleDbDataReader^> reader, System::String^ name) {
-		return getInt(reader, name, 0);
-	}
-
-	DBWrapper<short>^ getShort(msclr::gcroot <System::Data::OleDb::OleDbDataReader^> reader, System::String^ name, short def) {
-		DBWrapper<short>^ wrapper = gcnew DBWrapper<short>;
-		wrapper->value = def;
-		int id = reader->GetOrdinal(name);
-
-		if (reader->IsDBNull(id))
-			return wrapper;
-
-		wrapper->value = reader->GetInt16(id);
-		wrapper->empty = wrapper->value == 0;
-
-		return wrapper;
-	}
-
-	DBWrapper<short>^ getShort(msclr::gcroot <System::Data::OleDb::OleDbDataReader^> reader, System::String^ name) {
-		return getShort(reader, name, 0);
-	}
-
-
-	DBWrapper<long long>^ getLongLong(msclr::gcroot <System::Data::OleDb::OleDbDataReader^> reader, System::String^ name, long long def) {
-		DBWrapper<long long>^ wrapper = gcnew DBWrapper<long long>;
-		wrapper->value = def;
-		int id = reader->GetOrdinal(name);
-
-		if (reader->IsDBNull(id))
-			return wrapper;
-
-		wrapper->value = reader->GetInt64(id);
-		wrapper->empty = wrapper->value == 0;
-
-		return wrapper;
-	}
-
-	DBWrapper<long long>^ getLongLong(msclr::gcroot <System::Data::OleDb::OleDbDataReader^> reader, System::String^ name) {
-		return getLongLong(reader, name, 0);
-	}
-
-
-	DBWrapper<double>^ getDouble(msclr::gcroot <System::Data::OleDb::OleDbDataReader^> reader, System::String^ name, double def) {
-		DBWrapper<double>^ wrapper = gcnew DBWrapper<double>;
-		wrapper->value = def;
-		int id = reader->GetOrdinal(name);
-
-		if (reader->IsDBNull(id))
-			return wrapper;
-
-		wrapper->value = reader->GetDouble(id);
-		wrapper->empty = wrapper->value == 0;
-
-		return wrapper;
-	}
-
-	DBWrapper<double>^ getDouble(msclr::gcroot <System::Data::OleDb::OleDbDataReader^> reader, System::String^ name) {
-		return getDouble(reader, name, 0);
-	}
-
-
-	DBWrapper<float>^ getFloat(msclr::gcroot <System::Data::OleDb::OleDbDataReader^> reader, System::String^ name, float def) {
-		DBWrapper<float>^ wrapper = gcnew DBWrapper<float>;
-		wrapper->value = def;
-		int id = reader->GetOrdinal(name);
-
-		if (reader->IsDBNull(id))
-			return wrapper;
-
-		wrapper->value = reader->GetFloat(id);
-		wrapper->empty = wrapper->value == 0;
-
-		return wrapper;
-	}
-
-	DBWrapper<float>^ getFloat(msclr::gcroot <System::Data::OleDb::OleDbDataReader^> reader, System::String^ name) {
-		return getFloat(reader, name, 0);
-	}
-
-	DBWrapper<String^>^ getString(msclr::gcroot <System::Data::OleDb::OleDbDataReader^> reader, System::String^ name, String^ def) {
-		DBWrapper<String^>^ wrapper = gcnew DBWrapper<String^>;
-		wrapper->value = def;
-		int id = reader->GetOrdinal(name);
-
-		if (reader->IsDBNull(id))
-			return wrapper;
-
-		wrapper->value = (reader->GetString(id));
-		wrapper->empty = wrapper->value->Length == 0;
-
-		return wrapper;
-	}
-
-	DBWrapper<String^>^ getString(msclr::gcroot <System::Data::OleDb::OleDbDataReader^> reader, System::String^ name) {
-		return getString(reader, name, "");
 	}
 
 
@@ -528,15 +402,6 @@ namespace angarawindows {
 			offset = 0;
 		chart->ChartAreas[0]->Position->X = offset;
 		chart->ChartAreas[0]->Position->Width = 100 - chart->ChartAreas[0]->Position->X;
-	
-	}
 
-	void GetNextIdLink::readNextIdLink(OleDbDataReader^ reader) {
-		reader->Read();
-		this->idLink = getInt(reader, "idLink")->value + 1;
-	}
-	int GetNextIdLink::get() {
-		QueryBuilder("SELECT MAX(idLink) as idLink FROM Связи").executeQuery(gcnew QueryBuilder::Read(this, &GetNextIdLink::readNextIdLink));
-		return this->idLink;
 	}
 }
