@@ -21,16 +21,22 @@ namespace angarawindows {
 
 
 	WaterPump::WaterPump(int idLink) {
+		MessageBox::Show("6");
 		this->idLink = idLink;
-		WaterPumpForm form;
-		this->form = % form;
+		MessageBox::Show("6.1");
+		WaterPumpForm^ form = gcnew WaterPumpForm();
+		MessageBox::Show("6.2");
+		this->form = form;
+		MessageBox::Show("6.3");
 
 		CurrentForm::rememberLinkToForm(this);
 
+		MessageBox::Show("7");
 		init();
 	}
 	[STAThreadAttribute]
 		void WaterPump::init() {
+		MessageBox::Show("8");
 		List<RealChartPoint^>^ points_ = gcnew List<RealChartPoint^>();
 
 		this->name = (gcnew ObserverValue<String^>(L"", this->errors, form->toolTip1))
@@ -201,7 +207,9 @@ namespace angarawindows {
 		this->pressure_out_min->throwEvent();
 		this->k->throwEvent();
 
+		MessageBox::Show("9");
 		Application::Run(this->form);
+		MessageBox::Show("10");
 	}
 
 	void WaterPump::save() {

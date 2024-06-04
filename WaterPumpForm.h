@@ -39,11 +39,13 @@ namespace angarawindows {
 
 	public:
 		WaterPumpForm() {
+			MessageBox::Show("7.1");
 			InitializeComponent();
+			MessageBox::Show("7.2");
 			setupChart(this->chart1, L"H("+ LocalizationManager::getStr("charts.m") +")", Color::FromArgb(2, 8, 88), Color::FromArgb(4, 10, 144), Color::FromArgb(7, 15, 203));
 			setupChart(this->chart2, L"N("+ LocalizationManager::getStr("charts.kw") +")", Color::FromArgb(193, 143, 0), Color::FromArgb(218, 165, 32), Color::FromArgb(243, 187, 58));
 			setupChart(this->chart3, L"η(%)", Color::FromArgb(30, 166, 61), Color::FromArgb(62, 188, 81), Color::FromArgb(88, 210, 101));
-		
+			MessageBox::Show("7.3");
 			this->tabPage1->Text = LocalizationManager::getStr("tabs.charts.hydraulic");
 			this->tabPage2->Text = LocalizationManager::getStr("tabs.charts.power");
 			this->tabPage3->Text = LocalizationManager::getStr("tabs.charts.efficiency");
@@ -96,6 +98,7 @@ namespace angarawindows {
 			this->label18->Text = LocalizationManager::getStr("parameters.main.nominal_parameters.diameter");
 			this->label19->Text = LocalizationManager::getStr("parameters.main.nominal_parameters.turnovers");
 			this->label12->Text = LocalizationManager::getStr("parameters.control.throttling_resistance");
+			MessageBox::Show("7.5");
 		}
 
 	protected:
@@ -269,10 +272,15 @@ namespace angarawindows {
 		   /// </summary>
 		   void InitializeComponent(void)
 		   {
+			   MessageBox::Show("8.1");
 			   this->components = (gcnew System::ComponentModel::Container());
-			   System::Windows::Forms::DataVisualization::Charting::ChartArea^ chartArea1 = (gcnew System::Windows::Forms::DataVisualization::Charting::ChartArea());
+			   MessageBox::Show("8.1.1");
 			   System::Windows::Forms::DataVisualization::Charting::Legend^ legend1 = (gcnew System::Windows::Forms::DataVisualization::Charting::Legend());
+			   MessageBox::Show("8.1.2");
+			   System::Windows::Forms::DataVisualization::Charting::ChartArea^ chartArea1 = (gcnew System::Windows::Forms::DataVisualization::Charting::ChartArea());
+			   MessageBox::Show("8.1.3");
 			   System::Windows::Forms::DataVisualization::Charting::ChartArea^ chartArea2 = (gcnew System::Windows::Forms::DataVisualization::Charting::ChartArea());
+			   MessageBox::Show("8.1.4");
 			   System::Windows::Forms::DataVisualization::Charting::Legend^ legend2 = (gcnew System::Windows::Forms::DataVisualization::Charting::Legend());
 			   System::Windows::Forms::DataVisualization::Charting::ChartArea^ chartArea3 = (gcnew System::Windows::Forms::DataVisualization::Charting::ChartArea());
 			   System::Windows::Forms::DataVisualization::Charting::Legend^ legend3 = (gcnew System::Windows::Forms::DataVisualization::Charting::Legend());
@@ -291,6 +299,7 @@ namespace angarawindows {
 			   this->tabPage3 = (gcnew System::Windows::Forms::TabPage());
 			   this->flowLayoutPanel18 = (gcnew System::Windows::Forms::FlowLayoutPanel());
 			   this->groupBox7 = (gcnew System::Windows::Forms::GroupBox());
+			   MessageBox::Show("8.2");
 			   this->tableLayoutPanel2 = (gcnew System::Windows::Forms::TableLayoutPanel());
 			   this->label15 = (gcnew System::Windows::Forms::Label());
 			   this->box_point_q = (gcnew System::Windows::Forms::TextBox());
@@ -334,6 +343,7 @@ namespace angarawindows {
 			   this->tableLayoutPanel11 = (gcnew System::Windows::Forms::TableLayoutPanel());
 			   this->label1 = (gcnew System::Windows::Forms::Label());
 			   this->pump_name = (gcnew System::Windows::Forms::TextBox());
+			   MessageBox::Show("8.3");
 			   this->tableLayoutPanel10 = (gcnew System::Windows::Forms::TableLayoutPanel());
 			   this->label2 = (gcnew System::Windows::Forms::Label());
 			   this->pump_enable = (gcnew System::Windows::Forms::ComboBox());
@@ -366,6 +376,7 @@ namespace angarawindows {
 			   this->groupBox2 = (gcnew System::Windows::Forms::GroupBox());
 			   this->tableLayoutPanel14 = (gcnew System::Windows::Forms::TableLayoutPanel());
 			   this->label21 = (gcnew System::Windows::Forms::Label());
+			   MessageBox::Show("8.4");
 			   this->pump_eff_min = (gcnew System::Windows::Forms::TextBox());
 			   this->label22 = (gcnew System::Windows::Forms::Label());
 			   this->pump_eff_max = (gcnew System::Windows::Forms::TextBox());
@@ -393,6 +404,7 @@ namespace angarawindows {
 			   this->label10 = (gcnew System::Windows::Forms::Label());
 			   this->pump_dim_min = (gcnew System::Windows::Forms::TextBox());
 			   this->label11 = (gcnew System::Windows::Forms::Label());
+			   MessageBox::Show("8.5");
 			   this->pump_dim_max = (gcnew System::Windows::Forms::TextBox());
 			   this->groupBox4 = (gcnew System::Windows::Forms::GroupBox());
 			   this->tableLayoutPanel13 = (gcnew System::Windows::Forms::TableLayoutPanel());
@@ -421,6 +433,7 @@ namespace angarawindows {
 			   this->toolTip1 = (gcnew System::Windows::Forms::ToolTip(this->components));
 			   this->flowLayoutPanel16->SuspendLayout();
 			   this->panel4->SuspendLayout();
+			   MessageBox::Show("8.6");
 			   this->flowLayoutPanel2->SuspendLayout();
 			   this->tableLayoutPanel5->SuspendLayout();
 			   (cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->chart1))->BeginInit();
@@ -465,6 +478,7 @@ namespace angarawindows {
 			   this->tableLayoutPanel13->SuspendLayout();
 			   this->tabPage6->SuspendLayout();
 			   this->flowLayoutPanel19->SuspendLayout();
+			   MessageBox::Show("8.7");
 			   this->flowLayoutPanel20->SuspendLayout();
 			   this->flowLayoutPanel21->SuspendLayout();
 			   (cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pump_slide_dim))->BeginInit();

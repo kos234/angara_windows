@@ -4,18 +4,20 @@
 #include <functional>
 #include "AbstractDialogData.h"
 
-namespace angarawindows {
-	extern "C" struct EXPORT locales {
-		static const std::string RU_LOCALE;
-		static const std::string EN_LOCALE;
-		static const std::string ZH_LOCALE;
-	};
+extern "C" {
+	namespace angarawindows {
+		namespace locales {
+			const std::wstring RU_LOCALE = L"ru";
+			const std::wstring EN_LOCALE = L"en";
+			const std::wstring ZH_LOCALE = L"zh";
+		};
 
-	extern "C" EXPORT void setDBConnect(const char*);
-	extern "C" EXPORT const char* getUrlConnect();
+		EXPORT void setDBConnect(const wchar_t*);
+		EXPORT const wchar_t* getUrlConnect();
 
-	extern "C" EXPORT std::string getLocale();
-	extern "C" EXPORT void setLocale(std::string);
+		EXPORT const wchar_t* getLocale();
+		EXPORT void setLocale(const wchar_t*);
 
-	extern "C" EXPORT AbstractDialogData* openDialogById(int);
+		EXPORT AbstractDialogData * openDialogById(int);
+	}
 }

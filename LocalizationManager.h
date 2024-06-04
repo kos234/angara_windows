@@ -30,6 +30,7 @@ namespace angarawindows {
 		}
 
 		static void setLocale(String^ locale) {
+			MessageBox::Show("xui = " + locale);
 			LocalizationManager::locale = locale;
 		}
 

@@ -70,7 +70,7 @@ namespace angarawindows {
 		System::Windows::Forms::DataVisualization::Charting::DataPoint^ point,
 		int i);
 
-	std::string toSaintific(double value);
+	std::wstring toSaintific(double value);
 
 	int GetIntLength(int q);
 
@@ -129,6 +129,10 @@ namespace angarawindows {
 	void log(T value) {
 		std::cout << value << "\n";
 	}
+
+	template<>
+	void log<std::wstring>(std::wstring value);
+
 
 
 	public ref class QueryBuilder {

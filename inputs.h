@@ -4,9 +4,10 @@
 
 
 namespace angarawindows {
-	std::string SysToStd(System::String^ original);
+	std::wstring SysToStd(System::String^ original);
+	std::string SysToStdString(System::String^ original);
 
-	System::String^ StdToSys(std::string original);
+	System::String^ StdToSys(std::wstring original);
 
 	template<typename OBS>
 	DBWrapper<OBS>^ _IntInputHandler(System::Windows::Forms::TextBox^ box) {
@@ -137,7 +138,7 @@ namespace angarawindows {
 			return;
 		}
 
-		throw std::runtime_error("SuperTextSetter function not defined for" + SysToStd(OBS::typeid->Name));
+		throw std::runtime_error("SuperTextSetter function not defined for" + SysToStdString(OBS::typeid->Name));
 	}
 
 	template<typename OBS> void SuperTextSetter(System::Windows::Forms::ComboBox^ box, OBS value, bool isEmpty) {
@@ -145,7 +146,7 @@ namespace angarawindows {
 			box->SelectedIndex = (int) value;
 			return;
 		}
-		throw std::runtime_error("SuperTextSetter function not defined for" + SysToStd(OBS::typeid->Name));
+		throw std::runtime_error("SuperTextSetter function not defined for" + SysToStdString(OBS::typeid->Name));
 	}
 
 	template<typename OBS> void SuperTextSetter(System::Windows::Forms::NumericUpDown^ box, OBS value, bool isEmpty) {
@@ -154,6 +155,6 @@ namespace angarawindows {
 			return;
 		}
 
-		throw std::runtime_error("SuperTextSetter function not defined for" + SysToStd(OBS::typeid->Name));
+		throw std::runtime_error("SuperTextSetter function not defined for" + SysToStdString(OBS::typeid->Name));
 	}
 }

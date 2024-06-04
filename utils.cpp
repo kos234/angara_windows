@@ -218,8 +218,8 @@ namespace angarawindows {
 	}
 
 
-	std::string toSaintific(double value) {
-		std::string mantis = "";
+	std::wstring toSaintific(double value) {
+		std::wstring mantis = L"";
 		int e = 0;
 		int first = 0;
 		bool isAllZero = true;
@@ -248,7 +248,7 @@ namespace angarawindows {
 				first = num;
 			else {
 				isAllZero &= num == 0;
-				mantis += std::to_string(num);
+				mantis += std::to_wstring(num);
 			}
 
 			if (mantis.size() >= 3)
@@ -256,9 +256,9 @@ namespace angarawindows {
 		}
 
 		if (!first)
-			return std::to_string(0);
+			return std::to_wstring(0);
 
-		return std::to_string(first) + (isAllZero ? "" : ("," + mantis)) + (e != 0 ? "e-" + std::to_string(e) : "");
+		return std::to_wstring(first) + (isAllZero ? L"" : (L"," + mantis)) + (e != 0 ? L"e-" + std::to_wstring(e) : L"");
 	}
 
 	int CompareChartPoints(RealChartPoint^ p1, RealChartPoint^ p2) {
@@ -289,6 +289,10 @@ namespace angarawindows {
 		return isMinus + i;
 	}
 
+	template<>
+	void log<std::wstring>(std::wstring value) {
+		std::wcout << value << "\n";
+	}
 
 	//-------------------------------------------------------------------------------------------------------------------------
 

@@ -1,8 +1,10 @@
 #pragma once
 #include "dllSupport.h"
 
-namespace angarawindows {
-	extern "C" struct EXPORT AbstractDialogData {
-		int idLink;
-	};
+extern "C" {
+	namespace angarawindows {
+		struct EXPORT AbstractDialogData {
+			int idLink;
+		};
+	}
 }

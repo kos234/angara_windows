@@ -10,13 +10,15 @@
 
 
 namespace angarawindows {
-	const char* urlConnect;
+	//const wchar_t* locales::RU_LOCALE = L"ru";
+	//const wchar_t* locales::EN_LOCALE = L"en";
+	//const wchar_t* locales::ZH_LOCALE = L"zh";
 
-	const std::string locales::RU_LOCALE = "ru";
-	const std::string locales::EN_LOCALE = "en";
-	const std::string locales::ZH_LOCALE = "zh";
 
-	void setDBConnect(const char* connect) {
+	const wchar_t* urlConnect;
+
+	void setDBConnect(const wchar_t* connect) {
+		std::wcout << L"url to = " << connect << L"\n";
 		urlConnect = connect;
 		Application::SetCompatibleTextRenderingDefault(false);
 		Application::EnableVisualStyles();
@@ -24,19 +26,24 @@ namespace angarawindows {
 		LocalizationManager::init();
 	}
 
-	std::string getLocale() {
-		return SysToStd(LocalizationManager::getLocale());
+	const wchar_t* getLocale() {
+		return SysToStd(LocalizationManager::getLocale()).c_str();
 	}
 
-	void setLocale(std::string locale) {
-		LocalizationManager::setLocale(StdToSys(locale));
+	void setLocale(const wchar_t* locale) {
+		std::wcout << L"locale is = " << locale << L"\n";
+
+		String^ vsd = StdToSys(locale);
+		log<std::string>("pizec");
+		LocalizationManager::setLocale(vsd);
 	}
 
-	const char* getUrlConnect() {
+	const wchar_t* getUrlConnect() {
 		return urlConnect;
 	}
 
 	AbstractDialogData* openDialogById(int id) {
+		MessageBox::Show("1");
 		OpenDialog^ openDialog = gcnew OpenDialog(id);
 		
 		return getLastDialogData();
